@@ -40,12 +40,12 @@ Pokemon.belongsToMany(Type, { through: "PokemonType" });
 Type.belongsToMany(Pokemon, { through: "PokemonType" });
 
 
-const PokemonsTypes = sequelize.define('PokemonType', {
+/* const PokemonsTypes = sequelize.define('PokemonType', {
   expirationDate:{
     type: DataTypes.DATE,
     defaultValue: new Date()
   }
-}) 
+}) */ 
 
 
 /* 
