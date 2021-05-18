@@ -1,12 +1,13 @@
-const {Types } = require("../db");
+const { Types } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
 
-const { BASE_URL, POKEMONS_URL, POKEMONS_TYPE } = require("../../constants");
+const { BASE_URL, POKEMONS_TYPE } = require("../../constants");
 
 function getAllTypes(req, res, next) {
-    console.log('me traigo todos los types')
-  
+  return axios.get(`${BASE_URL}${POKEMONS_TYPE}`).then((response) => {
+    res.send(response.data);
+  });
 }
 
 function createType(req, res, next) {
@@ -22,5 +23,4 @@ function createType(req, res, next) {
   });
 }
 
-
-module.exports = { getAllTypes, createType};
+module.exports = { getAllTypes, createType };
