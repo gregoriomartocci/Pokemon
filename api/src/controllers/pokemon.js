@@ -5,6 +5,15 @@ const axios = require("axios");
 const { BASE_URL, POKEMONS_URL, POKEMONS_TYPE } = require("../../constants");
 
 function getAllPokemons(req, res, next) {
+  const { name } = req.query;
+  if (name) {
+    return axios
+      .get(`${BASE_URL}${POKEMONS_URL}${name}`)
+      .then((response) => {
+        res.send(response.data);
+      })
+      .catch((error) => console.log(error));
+  }
   const pokemons_Api = axios.get(`${BASE_URL}${POKEMONS_URL}`);
   const pokemons_Db = Pokemons.findAll({ include: Types });
 
@@ -37,10 +46,10 @@ function createPokemon(req, res, next) {
 function searchPokemon(req, res, next) {
   const { id } = req.params;
   if (id) {
-    const searchPokemonApi = axios.get(`${BASE_URL}${POKEMONS_URL}${id}`);
-    searchPokemonApi
+    return axios
+      .get(`${BASE_URL}${POKEMONS_URL}${id}`)
       .then((response) => {
-        return res.send(response.data);
+        res.send(response.data);
       })
       .catch((error) => console.log(error));
   }

@@ -10,6 +10,8 @@ const server = express();
 
 server.name = 'API';
 
+
+/* Vamos a setear los Headers */
 server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
@@ -34,5 +36,3 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 module.exports = server;
 
-
-/* Vamos a setear los Headers */
