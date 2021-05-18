@@ -1,4 +1,4 @@
-const { Pokemons, Types } = require("../db");
+const { Pokemons} = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
 
