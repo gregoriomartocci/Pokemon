@@ -1,6 +1,6 @@
-const BASE_URL = 'https://pokeapi.co/api'
-const POKEMONS_URL = "/v2/pokemon"
-const POKEMONS_TYPE = "/v2/type"
+const BASE_URL = 'https://pokeapi.co/api/v2/'
+const POKEMONS_URL = "pokemon/"
+const POKEMONS_TYPE = "type/"
 
 
 module.exports = {

@@ -17,9 +17,10 @@ function getAllPokemons(req, res, next) {
 
 function createPokemon(req, res, next) {
   const { name, health, strenght, defense, speed, height, weight } = req.body;
+
   const pokemonData = {
     id: uuidv4(),
-    name ,
+    name,
     health,
     strenght,
     defense,
@@ -33,4 +34,16 @@ function createPokemon(req, res, next) {
   });
 }
 
-module.exports = { getAllPokemons, createPokemon };
+function searchPokemon(req, res, next) {
+  const { id } = req.params;
+  if (id) {
+    const searchPokemonApi = axios.get(`${BASE_URL}${POKEMONS_URL}${id}`);
+    searchPokemonApi
+      .then((response) => {
+        return res.send(response.data);
+      })
+      .catch((error) => console.log(error));
+  }
+}
+
+module.exports = { getAllPokemons, createPokemon, searchPokemon };
