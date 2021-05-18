@@ -10,5 +10,5 @@ module.exports = {
 }
 
 const config = {
-    HOST : process.env.HOST
+    HOST : process.env.HOST || 'localhost'
 }
