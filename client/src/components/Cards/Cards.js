@@ -16,14 +16,15 @@ function Cards() {
       setPokemons(response.data);
     });
   }, []);
-  console.log(pokemons);
-  return (
+   return (
     <div className="cards">
       <h3 className="titulo">Estas son las tarjetas</h3>
       <div className="cardsContainter">
-        {pokemons.map((pokemon, index) => (
-          <Card key={index} pokemon={pokemon}/>
-        ))}
+        {pokemons.map(
+          (pokemon, index) => ( //Por cada pokemon de los 12 que me llegan, imprimo una tarjeta a la cual le paso casa pokemon
+            <Card key={index} id={index} pokemon={pokemon} /> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
+          )
+        )}
       </div>
     </div>
   );
