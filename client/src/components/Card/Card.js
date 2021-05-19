@@ -1,10 +1,11 @@
 import React from 'react'
 import "./Card.css"
 
-function Card() {
+function Card({pokemon}) {
     return (
         <div className="card">
-            Soy una Tarjeta
+            Nombre: {pokemon.name}
+    
         </div>
     )
 }
