@@ -7,15 +7,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
-
+console.log(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=4`)
+console.log("http://localhost:3001/pokemons?page=4")
 function Cards() {
   const [pokemons, setPokemons] = useState([]); //Voy a guardar en un estado los pokemons que me llega. Al principio es un arreglo vacio
 
   useEffect(() => {
-    axios.get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`).then((response) => {
+    axios.get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=4`).then((response) => {
       setPokemons(response.data);
     });
   }, []);
+  console.log(pokemons)
    return (
     <div className="cards">
       <h3 className="titulo">Estas son las tarjetas</h3>
