@@ -1,11 +1,17 @@
-const { Pokemons} = require("../db");
+const { Pokemons, Types } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
 
-const { BASE_URL, POKEMONS_URL, POKEMONS_TYPE } = require("../../constants");
+const {
+  BASE_URL,
+  POKEMONS_URL,
+  POKEMONS_TYPE,
+  ALL_POKEMONS,
+} = require("../../constants");
+const { paginate } = require("../utils");
 
 function getAllPokemons(req, res, next) {
-  const { name } = req.query;
+  const { name, page } = req.query;
   if (name) {
     return axios
       .get(`${BASE_URL}${POKEMONS_URL}${name}`)
@@ -14,20 +20,21 @@ function getAllPokemons(req, res, next) {
       })
       .catch((error) => console.log(error));
   }
-  const pokemons_Api = axios.get(`${BASE_URL}${POKEMONS_URL}`);
+  const pokemons_Api = axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`);
   const pokemons_Db = Pokemons.findAll({ include: Types });
 
   Promise.all([pokemons_Api, pokemons_Db]).then((response) => {
     let [pokemons_Api_response, pokemons_db_response] = response;
-    const array = pokemons_db_response.concat(pokemons_Api_response.data);
-    return res.json(array);
+    const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
+    return res.send(paginate(array[0].results, page));
   });
 }
 
 function createPokemon(req, res, next) {
-  const { name, health, strenght, defense, speed, height, weight } = req.body;
+  const { name, health, strenght, defense, speed, height, weight } = req.body; // Los valores los va a traer del body
 
   const pokemonData = {
+    //Como estoy usando los mismos valores que arriba no necesito poner "name: name".
     id: uuidv4(),
     name,
     health,
@@ -39,15 +46,17 @@ function createPokemon(req, res, next) {
   };
 
   Pokemons.create(pokemonData).then((response) => {
-    return res.json(response);
+    //Crea una instancia de pokemon con los valores de pokemonData
+    return res.json(response); //Como la promesa se cumple devuelvo un json
   });
 }
 
-function searchPokemon(req, res, next) {
-  const { id } = req.params;
+function searchPokemonById(req, res, next) {
+  //Funcion buscar pokemon
+  const { id } = req.params; // Uso el id que me llega por params (preguntar)
   if (id) {
     return axios
-      .get(`${BASE_URL}${POKEMONS_URL}${id}`)
+      .get(`${BASE_URL}${POKEMONS_URL}${id}`) //Concatenacion de URL: URL BASE + URL POKEMON + ID
       .then((response) => {
         res.send(response.data);
       })
@@ -55,4 +64,4 @@ function searchPokemon(req, res, next) {
   }
 }
 
-module.exports = { getAllPokemons, createPokemon, searchPokemon };
+module.exports = { getAllPokemons, createPokemon, searchPokemonById };

@@ -42,8 +42,8 @@ const { Pokemons, Types } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Pokemons.belongsToMany(Types, { through: "PokemonTypes" });
-Types.belongsToMany(Pokemons, { through: "PokemonTypes" });
+Pokemons.belongsToMany(Types, { through: "PokemonTypes" }); //Relacion 1 pokemon puede tener muchos tipos
+Types.belongsToMany(Pokemons, { through: "PokemonTypes" }); // 1 tipo puede pertenecer a muchos pokemons
 
 
 /*
