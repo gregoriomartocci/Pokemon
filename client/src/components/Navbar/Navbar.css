@@ -1,0 +1,36 @@
+.Navbar {
+  width: 100%;
+  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBar{
+    display: flex;
+    justify-content: center;
+        
+}
+
+.inputBottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgb(31, 199, 212);
+  border: 0px;
+  border-radius: 16px;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 600;  
+  transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+  height: 32px;
+  padding: 16px;
+  color: #ffffff;
+}
+
+.inputBusqueda {
+    width: 300px;
+
+  }

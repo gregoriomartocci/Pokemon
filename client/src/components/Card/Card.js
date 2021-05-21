@@ -7,7 +7,7 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
 
-function Card({ id, pokemon }) {
+function Card({pokemon }) {
   const [pokemonData, setPokemonData] = useState([]);
 
   const prueba = pokemon.url.split("/");
@@ -43,6 +43,7 @@ function Card({ id, pokemon }) {
           pokemonData.types[1] &&
           pokemonData.types[1].type.name
         : "null"}
+        
     </div>
   );
 }

@@ -7,8 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
-console.log(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=4`)
-console.log("http://localhost:3001/pokemons?page=4")
+
 function Cards() {
   const [pokemons, setPokemons] = useState([]); //Voy a guardar en un estado los pokemons que me llega. Al principio es un arreglo vacio
 
@@ -24,7 +23,7 @@ function Cards() {
       <div className="cardsContainter">
         {pokemons.map(
           (pokemon, index) => ( //Por cada pokemon de los 12 que me llegan, imprimo una tarjeta a la cual le paso casa pokemon
-            <Card key={index} id={index} pokemon={pokemon} /> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
+            <Card key={index} pokemon={pokemon} /> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
           )
         )}
       </div>
