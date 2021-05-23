@@ -8,7 +8,7 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-function Cards() {
+function Cards({input}) {
   const [pokemons, setPokemons] = useState([]); //Voy a guardar en un estado los pokemons que me llega. Al principio es un arreglo vacio
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Cards() {
       <div className="cardsContainter">
         {pokemons.map(
           (pokemon, index) => ( //Por cada pokemon de los 12 que me llegan, imprimo una tarjeta a la cual le paso casa pokemon
-            <Card key={index} pokemon={pokemon} /> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
+            <Card key={index} pokemon={pokemon} input = {input}/> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
           )
         )}
       </div>
