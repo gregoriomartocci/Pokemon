@@ -1,9 +1,8 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { BASE_URL } from "../../../../api/constants";
 import {
   POKEMONS_LIST_REQUEST,
-  POKEMONS_LIST_REQUEST,
+  POKEMONS_LIST_SUCCESS,
   POKEMONS_LIST_FAIL,
 } from "../constants/pokemonConstants";
 
@@ -25,10 +24,10 @@ export const getPokemons = () => async (dispatch) => {
   }
 };
 
-export const detailsPokemon = (pokemonId) => async (dispatch) => {
+/* export const detailsPokemon = (pokemonId) => async (dispatch) => {
   dispatch({ type: POKEMON_DETAILS_REQUEST });
   try {
-    const { data } = Axios.get(`${BASE_URL}+${pokemonId}`);
+    const { data } = axios.get(`${BASE_URL}+${pokemonId}`);
     dispatch({ type: POKEMON_DETAILS_SUCCESS, paylod: data });
   } catch (error) {
     dispatch({
@@ -39,10 +38,11 @@ export const detailsPokemon = (pokemonId) => async (dispatch) => {
           : error.message,
     });
   }
-};
+}; */
 
-function createPokemon(payload) {
+/* function createPokemon(payload) {
   return { type: "CREATE_POKEMON", payload };
 }
 
 function deleteCreatedPokemon(payload) {}
+ */
