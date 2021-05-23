@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "../Card/Card.js";
 import "./Cards.css";
-
 import { getPokemons } from "../../redux/actions/index.js";
 
 function Cards({ input }) {
@@ -14,8 +13,6 @@ function Cards({ input }) {
   useEffect(() => {
     dispatch(getPokemons());
   }, []);
-
-  console.log(pokemonData);
   return (
     <div className="cards">
       <h3 className="titulo">Estas son las tarjetas</h3>

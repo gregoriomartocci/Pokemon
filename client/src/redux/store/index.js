@@ -1,10 +1,12 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { pokemonsReducers } from "../reducer/pokemonsReducers";
+import { pokemonCreatedReducer, pokemonDetailsReducer, pokemonsReducer } from "../reducer/pokemonsReducers";
 
 const initialState = {};
 const reducer = combineReducers({
-  pokemons: pokemonsReducers,
+  pokemons: pokemonsReducer,
+  pokemonCreated: pokemonCreatedReducer,
+  pokemonDetails: pokemonDetailsReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
