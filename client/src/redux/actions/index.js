@@ -45,12 +45,13 @@ export const createPokemon = () => async (dispatch) => {
 };
 
 export const pokemonDetails = (pokemonId) => async (dispatch) => {
-  dispatch({ type: POKEMON_DETAILS_REQUEST });
+   dispatch({ type: POKEMON_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${pokemonId}`
     );
-    dispatch({ type: POKEMON_DETAILS_SUCCESS, paylod: data });
+    console.log(data)
+    dispatch({ type: POKEMON_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: POKEMON_DETAILS_FAIL, payload: error.message });
   }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Card.css";
 import dotenv from "dotenv";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ function Card({ pokemon }) {
   console.log(pokemonData);
 
   return (
-
+    <Link to={`/${num}`}>
       <div className="card">
         <img
           src={
@@ -46,7 +46,7 @@ function Card({ pokemon }) {
             pokemonData.types[1].type.name
           : "null"}
       </div>
-    
+    </Link>
   );
 }
 
