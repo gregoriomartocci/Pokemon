@@ -8,42 +8,45 @@ import {
   POKEMON_DETAILS_REQUEST,
   POKEMON_DETAILS_SUCCESS,
   POKEMON_DETAILS_FAIL,
+  POKEMON_SEARCH_REQUEST,
+  POKEMON_SEARCH_SUCCESS,
+  POKEMON_SEARCH_FAIL,
 } from "../constants/pokemonConstants";
 
-export const pokemonsReducer = (state = { pokemons: [] }, action) => {
+const initialState = {};
+
+
+export const pokemonsReducer = (state =  initialState , action) => {
   switch (action.type) {
     case POKEMONS_LIST_REQUEST:
-      return { loading: true };
+      return {
+        ...state,
+        pokemons: { loading: true },
+      };
     case POKEMONS_LIST_SUCCESS:
-      return { loading: false, pokemons: action.payload };
+      console.log(action.payload)
+      return {...state, pokemons: {loading: false, pokemons: action.payload} };
     case POKEMONS_LIST_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const pokemonCreatedReducer = (state = { pokemonCreated: {} }, action) => {
-  switch (action.type) {
+      return {...state, pokemons: {loading: false, error: action.payload} };
     case POKEMON_CREATED_REQUEST:
-      return { loading: true };
+      return {...state, pokemons: {loading: true} };
     case POKEMON_CREATED_SUCCESS:
-      return { loading: false, pokemonCreated: action.payload };
+      return {...state, pokemonCreated: {loading: false, data: action.payload} };
     case POKEMON_CREATED_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const pokemonDetailsReducer = (state = { pokemonDetails: {} }, action) => {
-  switch (action.type) {
+      return {...state, pokemonCreated: {loading: false, error: action.payload} };
     case POKEMON_DETAILS_REQUEST:
-      return { loading: true };
+      return {...state, pokemonDetails: {loading: true }};
     case POKEMON_DETAILS_SUCCESS:
-      return { loading: false, pokemonDetails: action.payload };
+      return {...state, pokemonDetails: {loading: false, data:action.payload }};
     case POKEMON_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return {...state, pokemonDetails: {loading: false, error:action.payload }};
+    case POKEMON_SEARCH_REQUEST:
+      return {...state, pokemonSearch: {loading: true,}};
+    case POKEMON_SEARCH_SUCCESS:
+      return {...state, pokemonSearch: {loading: false, data:action.payload }};
+    case POKEMON_SEARCH_FAIL:
+      return {...state, pokemonSearch: {loading: false, error:action.payload }};
+
     default:
       return state;
   }

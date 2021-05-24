@@ -2,25 +2,28 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import axios from "axios";
 import dotenv from "dotenv";
+import { useDispatch } from "react-redux";
+import { pokemonSearch } from "../../redux/actions";
+
 
 dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
 
 function Navbar() {
+  const dispatch = useDispatch ()
+
   const [input, setInput] = useState(""); //useState es una funcion que tiene el estado del input y el setInput es una funcion que sabe como modificar a la variable (Variable ---> input)
 
   const onChangeHandler = (e) => {
     setInput(e);
   };
-  const onClickHandler = () => {
-    axios
-      .get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?name=${input}`)
-      .then((response) => {
-        console.log(response.data);
-      });
-    console.log(input);
-    console.log(useState);
+
+
+  const onClickHandler = () => { //
+
+    dispatch(pokemonSearch(input))
+        
   };
 
   return (

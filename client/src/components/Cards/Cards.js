@@ -7,12 +7,18 @@ import { getPokemons } from "../../redux/actions/index.js";
 function Cards({ input }) {
   const dispatch = useDispatch();
   /*  const [pokemons, setPokemons] = useState([]); */ //Voy a guardar en un estado los pokemons que me llega. Al principio es un arreglo vacio
-  const pokemonData = useSelector((state) => state.pokemons);
-  const { loading, error, pokemons } = pokemonData;
+  const pokemonData = useSelector((state) => state.pokemons.pokemons);
 
+  var pokemons = [];
+
+  if (pokemonData) {
+    pokemons = pokemonData.pokemons;
+  }
+  
   useEffect(() => {
     dispatch(getPokemons());
   }, []);
+
   return (
     <div className="cards">
       <h3 className="titulo">Estas son las tarjetas</h3>

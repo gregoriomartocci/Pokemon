@@ -9,6 +9,7 @@ dotenv.config();
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
 
 function Card({ pokemon }) {
+  
   const [pokemonData, setPokemonData] = useState([]);
 
   const pokemonId = pokemon.url.split("/");
