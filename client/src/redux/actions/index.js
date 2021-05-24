@@ -56,3 +56,5 @@ export const pokemonDetails = (pokemonId) => async (dispatch) => {
     dispatch({ type: POKEMON_DETAILS_FAIL, payload: error.message });
   }
 };
+
+
