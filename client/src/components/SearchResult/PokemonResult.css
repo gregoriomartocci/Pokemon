@@ -1,0 +1,16 @@
+.cards {
+
+  display: flex;
+  flex-direction: column;
+  border-style: outset; 
+}
+
+.cardsContainter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+.titulo {
+  width: 100%;
+}

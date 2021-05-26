@@ -63,13 +63,15 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
 
  export const pokemonSearch = (pokemonName) => async (dispatch) => {
   dispatch({ type: POKEMON_SEARCH_REQUEST });
+  console.log(pokemonName)
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/?name=${pokemonName}`
     );
-    console.log(data);
+    console.log(data, "ok");
     dispatch({ type: POKEMON_SEARCH_SUCCESS, payload: data });
   } catch (error) {
+      console.log("no se encontro")
     dispatch({ type: POKEMON_SEARCH_FAIL, payload: error.message });
   }
 }; 
