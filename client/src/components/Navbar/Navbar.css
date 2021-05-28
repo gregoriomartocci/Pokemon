@@ -1,36 +1,26 @@
 .Navbar {
   width: 100%;
-  background-color: yellow;
+  background-color: #fafafa;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 0.5rem 5rem;
 }
 
-.searchBar{
-    display: flex;
-    justify-content: center;
-        
-}
-
-.inputBottom {
+.logo {
   display: flex;
   justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background-color: rgb(31, 199, 212);
-  border: 0px;
-  border-radius: 16px;
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 600;  
-  transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
-  height: 32px;
-  padding: 16px;
+  width: auto;
+  font-size: 5rem;
+  align-self: center;
+}
+
+.create {
+  padding: 1rem 2rem;
+  background-color: #58abf6;
+  font-size: 1rem;
+  border-radius: 0.5rem;
   color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
 }
-
-.inputBusqueda {
-    width: 300px;
-
-  }

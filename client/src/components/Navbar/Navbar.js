@@ -5,14 +5,13 @@ import dotenv from "dotenv";
 import { useDispatch } from "react-redux";
 import { pokemonSearch } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
-
+import { SiPokemon } from "react-icons/si";
 
 dotenv.config();
 
-
 function Navbar() {
   const history = useHistory();
-  const dispatch = useDispatch ()
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState(""); //useState es una funcion que tiene el estado del input y el setInput es una funcion que sabe como modificar a la variable (Variable ---> input)
 
@@ -20,40 +19,19 @@ function Navbar() {
     setInput(e);
   };
 
+  const onClickHandler = () => {
+    //
 
-  const onClickHandler = () => { //
-
-    dispatch(pokemonSearch(input))
-    history.push("/pokemon-results")
-        
+    dispatch(pokemonSearch(input));
+    history.push("/pokemon-results");
   };
 
   return (
-    <div>
-      <div className="Navbar">
-        <h1>Soy un div </h1>
-        <div className="searchBar">
-          <div className="inputBusqueda">
-            <input
-              value={input} //Hay que conectar el input con el estado, para que tengan el mismo valor. Quiero que el valor sea el mismo del componente.
-              placeholder="Ingrese el nombre de su pokemon"
-              onChange={(e) => {
-                //El onChange
-                onChangeHandler(e.target.value);
-              }}
-            ></input>
-          </div>
-          <button
-            type="submit"
-            className="inputBottom"
-            onClick={() => {
-              onClickHandler();
-            }}
-          >
-            Buscar
-          </button>
-        </div>
+    <div className="Navbar">
+      <div className="logo">
+        <SiPokemon />
       </div>
+      <div className="create">Create</div>
     </div>
   );
 }

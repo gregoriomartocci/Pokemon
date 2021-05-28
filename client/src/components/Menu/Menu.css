@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 2rem 5rem;
+}
+
+.filter-sort {
+  display: flex;
+}
+
+.view,
+.sort,
+.filter {
+  margin: 1rem;
+  font-size: 1.75rem;
+}
