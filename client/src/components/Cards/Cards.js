@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "../Card/Card.js";
 import "./Cards.css";
 import { getPokemons } from "../../redux/actions/index.js";
+import Pagination from "../Pagination/Pagination.js";
 
 function Cards({ input }) {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function Cards({ input }) {
             )
           )}
       </div>
+      <Pagination />
     </div>
   );
 }

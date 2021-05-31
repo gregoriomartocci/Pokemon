@@ -24,6 +24,8 @@ function Card({ pokemon }) {
       });
   }, []);
 
+  console.log(pokemonData);
+
   return (
     <Link to={`/pokemon/${num} `}>
       <div
@@ -51,13 +53,17 @@ function Card({ pokemon }) {
           <img
             className="pokemon-img"
             src={
+              // pokemonData
+              //   ? pokemonData.sprites && pokemonData.sprites.front_default
+              //   : null
               pokemonData
-                ? pokemonData.sprites && pokemonData.sprites.front_default
+                ? pokemonData.sprites &&
+                  pokemonData.sprites.other["official-artwork"].front_default
                 : null
             }
             alt=""
           />
-          <img className="pokeball" src="/img/pokebal.svg" alt="" />
+          <img className="pokeball" src="/img/pokeball.svg" alt="" />
         </div>
       </div>
     </Link>

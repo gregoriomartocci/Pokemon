@@ -1,7 +1,7 @@
 .card {
   position: relative;
   padding: 2rem;
-  width: 20rem;
+  width: 25rem;
   height: 10rem;
   margin: 1rem;
   padding: 1rem;
@@ -10,6 +10,17 @@
   border-radius: 0.8rem;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
+}
+
+.pokeball {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 10rem;
+  height: 10rem;
+  color: #ffffff;
+  opacity: 7%;
+  z-index: 5;
 }
 
 .card-info {
@@ -25,8 +36,11 @@
 
 .pokemon-img {
   position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
+  width: 6rem;
+  height: 6rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
 }
 
 .pokemon-name {
