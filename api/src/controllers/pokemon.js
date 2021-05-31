@@ -26,6 +26,7 @@ function getAllPokemons(req, res, next) {
   Promise.all([pokemons_Api, pokemons_Db]).then((response) => {
     let [pokemons_Api_response, pokemons_db_response] = response;
     const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
+    // return res.send(array[0].results);
     return res.send(paginate(array[0].results, page));
   });
 }
