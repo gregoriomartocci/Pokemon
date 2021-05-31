@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import { IoCloseSharp } from "react-icons/io5";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { AiFillCheckCircle } from "react-icons/ai";
-import { BsFillExclamationTriangleFill } from "react-icons/bs";
+
+import { FaCheck } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
+
 import Input from "../Input/Input";
 
 function Modal({ showModal, setShowModal }) {
@@ -15,13 +16,13 @@ function Modal({ showModal, setShowModal }) {
   });
 
   const expressions = {
-    name: /^[a-zA-ZÀ-ÿ\s]{6,30}$/, // Letras y espacios, pueden llevar acentos.
-    types: /^[a-zA-ZÀ-ÿ\s]{6,30}$/, // Letras y espacios, pueden llevar acentos.
-    attack: /^.{1,12}$/, // 4 a 12 digitos.
-    speed: /^.{1,12}$/, // 4 a 12 digitos.
-    email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    number: /^\d{1,14}$/, // 1 a 14 numeros.
-    user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+    name: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
+    types: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
+    attack: /^.{1,5}$/, // 4 a 12 digitos.
+    speed: /^.{1,5}$/, // 4 a 12 digitos.
+    // email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    // number: /^\d{1,14}$/, // 1 a 14 numeros.
+    // user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
   };
 
   const onChangeHandler = (e) => {
@@ -74,7 +75,7 @@ function Modal({ showModal, setShowModal }) {
               <button className="modal-button"></button>
 
               <form className="modal-form">
-                <row className="row">
+                <row className="row row-top">
                   <Input
                     name="name"
                     title="Name"
@@ -82,7 +83,7 @@ function Modal({ showModal, setShowModal }) {
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
-                    error="No conviene tomar falopa"
+                    error="Must be between 6 to 15 characters"
                   ></Input>
                   <Input
                     name="types"
@@ -91,7 +92,7 @@ function Modal({ showModal, setShowModal }) {
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
-                    error="No conviene tomar falopa"
+                    error="Must be between 6 to 15 characters"
                   ></Input>
                 </row>
                 <row className="row">
@@ -102,7 +103,7 @@ function Modal({ showModal, setShowModal }) {
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
-                    error="No conviene tomar falopa"
+                    error="Must be between 1 to 5 digits"
                   ></Input>
                   <Input
                     name="speed"
@@ -111,24 +112,32 @@ function Modal({ showModal, setShowModal }) {
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
-                    error="No conviene tomar falopa"
+                    error="Must be between 1 to 5 digits"
                   ></Input>
                 </row>
 
-                <div className="success-notification">
-                  <p>Pokemon created succesfully!</p>
+                <div className="success-toast">
+                  <div className="toast-col">
+                    <i className="icon-checked">
+                      <FaCheck />
+                    </i>
+                  </div>
+                  <div className="toast-col">
+                    <p className="toast-text">Pokemon succesfully created</p>
+                    <span className="toast-span">thank you</span>
+                  </div>
                 </div>
 
-                {false && (
-                  <div className="error-message">
-                    <p>
-                      <i className="exclamation-icon">
-                        <BsFillExclamationTriangleFill />
-                      </i>
-                      <b>Error:</b>Please complete the form correctly
-                    </p>
+                <div className="error-toast">
+                  <div className="toast-col">
+                    <i className="icon-error">
+                      <ImCross />
+                    </i>
                   </div>
-                )}
+                  <div className="toast-col">
+                    <p className="toast-text">Complete the form correctly</p>
+                  </div>
+                </div>
               </form>
               <row className="bottom-row">
                 <div

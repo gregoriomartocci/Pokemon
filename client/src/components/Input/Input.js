@@ -1,5 +1,5 @@
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { FaCheck } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 import React from "react";
 
 function Input({ name, title, type, onChangeHandler, validate, input, error }) {
@@ -26,11 +26,11 @@ function Input({ name, title, type, onChangeHandler, validate, input, error }) {
       ></input>
       {input[name].validated === "true" ? (
         <i className="validate-icon success">
-          <AiFillCheckCircle />
+          <FaCheck />
         </i>
       ) : input[name].validated === "false" ? (
         <i className="validate-icon error ">
-          <AiOutlineCloseCircle />
+          <ImCross />
         </i>
       ) : null}
       {input[name].validated === "false" ? (

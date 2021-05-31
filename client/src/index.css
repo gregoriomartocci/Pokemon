@@ -2,7 +2,7 @@
   --primary-color: #58abf6;
   --border: #007aff;
   --error: #e94040;
-  --success: #3ac946;
+  --success: #00c469;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
