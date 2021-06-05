@@ -18,7 +18,7 @@
   margin: 0 2rem;
 }
 
-.prev {
+.active {
   display: flex;
   justify-content: center;
   width: 2rem;

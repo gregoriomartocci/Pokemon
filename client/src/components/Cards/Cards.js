@@ -7,15 +7,15 @@ import Pagination from "../Pagination/Pagination.js";
 
 function Cards({ input }) {
   const dispatch = useDispatch();
-  /*  const [pokemons, setPokemons] = useState([]); */ //Voy a guardar en un estado los pokemons que me llega. Al principio es un arreglo vacio
-  const { pokemons } = useSelector((state) => state.pokemons.pokemons);
+  const pokemons = useSelector((state) => state.pokemons.pokemons.pokemons);
 
-  /*   var pokemons = []; */
-  /* 
-  if (pokemonData) {
-    pokemons = pokemonData.pokemons;
+  var paginatedPokemons;
+  var pagination;
+
+  if (pokemons) {
+    paginatedPokemons = pokemons.result;
+    pagination = pokemons.pagination;
   }
- */
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -24,8 +24,8 @@ function Cards({ input }) {
   return (
     <div className="cards">
       <div className="cardsContainter">
-        {pokemons &&
-          pokemons.map(
+        {paginatedPokemons &&
+          paginatedPokemons.map(
             (
               pokemon,
               index //Por cada pokemon de los 12 que me llegan, imprimo una tarjeta a la cual le paso casa pokemon
@@ -34,7 +34,7 @@ function Cards({ input }) {
             )
           )}
       </div>
-      <Pagination />
+      <Pagination pagination={pagination} />
     </div>
   );
 }

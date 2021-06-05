@@ -19,15 +19,14 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-export const getPokemons = () => async (dispatch) => {
+export const getPokemons = (page) => async (dispatch) => {
   dispatch({
     type: POKEMONS_LIST_REQUEST,
   });
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/?page=${page}`
     );
-    console.log(data, "holaaaa");
     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: POKEMONS_LIST_FAIL, payload: error.message });
@@ -61,9 +60,9 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   }
 };
 
- export const pokemonSearch = (pokemonName) => async (dispatch) => {
+export const pokemonSearch = (pokemonName) => async (dispatch) => {
   dispatch({ type: POKEMON_SEARCH_REQUEST });
-  console.log(pokemonName)
+  console.log(pokemonName);
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/?name=${pokemonName}`
@@ -71,7 +70,7 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
     console.log(data, "ok");
     dispatch({ type: POKEMON_SEARCH_SUCCESS, payload: data });
   } catch (error) {
-      console.log("no se encontro")
+    console.log("no se encontro");
     dispatch({ type: POKEMON_SEARCH_FAIL, payload: error.message });
   }
-}; 
+};
