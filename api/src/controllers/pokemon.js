@@ -11,22 +11,27 @@ const {
 const { paginate } = require("../utils");
 
 function getAllPokemons(req, res, next) {
-  const { name, page } = req.query;
-  if (name) {
+  var { name, page } = req.query;
+
+  page = parseInt(page);
+
+  if (name && name !== undefined && name !== "undefined") {
+    // console.log("este es el name", name);
     return axios
-      .get(`${BASE_URL}${POKEMONS_URL}${name}`)
+      .get(`${BASE_URL}${POKEMONS_URL}/${name}`)
       .then((response) => {
-        res.send(response.data);
+        res.send(paginate([response.data], 1));
       })
       .catch((error) => console.log(error));
   }
+
   const pokemons_Api = axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`);
   const pokemons_Db = Pokemons.findAll({ include: Types });
 
   Promise.all([pokemons_Api, pokemons_Db]).then((response) => {
     let [pokemons_Api_response, pokemons_db_response] = response;
     const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
-    // return res.send(array[0].results);
+    // console.log(array[0].results);
     return res.send(paginate(array[0].results, page));
   });
 }
