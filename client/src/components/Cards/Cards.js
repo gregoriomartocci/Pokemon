@@ -10,16 +10,16 @@ function Cards({ input }) {
   const pokemons = useSelector((state) => state.pokemons.pokemons.pokemons);
 
   var paginatedPokemons;
-  var pagination;
-
   if (pokemons) {
     paginatedPokemons = pokemons.result;
-    pagination = pokemons.pagination;
   }
 
   useEffect(() => {
-    dispatch(getPokemons());
+    dispatch(getPokemons(1));
+    // return () => console.log("cleanup");
   }, []);
+
+  console.log("este es el pokemon buscado --> ", paginatedPokemons);
 
   return (
     <div className="cards">
@@ -34,7 +34,7 @@ function Cards({ input }) {
             )
           )}
       </div>
-      <Pagination pagination={pagination} />
+      <Pagination pagination={pokemons && pokemons.pagination} />
     </div>
   );
 }

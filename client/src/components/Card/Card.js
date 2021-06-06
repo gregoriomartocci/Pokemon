@@ -4,17 +4,28 @@ import "./Card.css";
 import dotenv from "dotenv";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { CgPokemon } from "react-icons/cg";
+import PokemonDetails from "../PokemonDetails/PokemonDetails";
 
 dotenv.config();
 
-const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
+const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
 function Card({ pokemon }) {
+  const [showModal, setShowModal] = useState(false);
   const [pokemonData, setPokemonData] = useState([]);
 
-  const pokemonId = pokemon.url.split("/");
-  const num = pokemonId[6];
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
+  var num;
+
+  if (pokemon.url) {
+    const pokemonId = pokemon.url.split("/");
+    num = pokemonId[6];
+  } else {
+    num = pokemon.id;
+  }
 
   useEffect(() => {
     axios
@@ -27,13 +38,14 @@ function Card({ pokemon }) {
   console.log(pokemonData);
 
   return (
-    <Link to={`/pokemon/${num} `}>
+    <>
       <div
         className={`card ${
           pokemonData
             ? pokemonData.types && pokemonData.types[0].type.name
             : null
         }`}
+        onClick={() => openModal()}
       >
         <div className="card-info">
           <span className="pokemon-name">{pokemonData.name}</span>
@@ -65,8 +77,15 @@ function Card({ pokemon }) {
           />
           <img className="pokeball" src="/img/pokeball.svg" alt="" />
         </div>
+        {/* 
+        <PokemonDetails></PokemonDetails> */}
       </div>
-    </Link>
+      <PokemonDetails
+        showModal={showModal}
+        setShowModal={setShowModal}
+        pokemon={pokemonData}
+      ></PokemonDetails>
+    </>
   );
 }
 

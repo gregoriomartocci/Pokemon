@@ -19,13 +19,13 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-export const getPokemons = (page) => async (dispatch) => {
+export const getPokemons = (page, name) => async (dispatch) => {
   dispatch({
     type: POKEMONS_LIST_REQUEST,
   });
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/?page=${page}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=${page}&name=${name}`
     );
     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
   } catch (error) {
