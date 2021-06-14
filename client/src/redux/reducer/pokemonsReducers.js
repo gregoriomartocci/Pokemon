@@ -18,7 +18,6 @@ const initialState = {
 };
 
 export const pokemonsReducer = (state = initialState, action) => {
-  
   switch (action.type) {
     case POKEMONS_LIST_REQUEST:
       return {
@@ -27,7 +26,6 @@ export const pokemonsReducer = (state = initialState, action) => {
       };
 
     case POKEMONS_LIST_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         pokemons: { loading: false, pokemons: action.payload },

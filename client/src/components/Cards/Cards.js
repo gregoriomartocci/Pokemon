@@ -16,10 +16,8 @@ function Cards({ input }) {
 
   useEffect(() => {
     dispatch(getPokemons(1));
-    // return () => console.log("cleanup");
+    return () => console.log("cleanup");
   }, []);
-
-  console.log("este es el pokemon buscado --> ", paginatedPokemons);
 
   return (
     <div className="cards">

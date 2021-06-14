@@ -11,8 +11,6 @@ function paginate(array, page) {
     const result = {};
     pagination.actual = page; //3 // 5
 
-    console.log("esta es la page", page);
-
     if (startIndex > 0) {
       pagination.previous = page - 1; //2 //4
     }

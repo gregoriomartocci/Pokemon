@@ -34,13 +34,11 @@ function Modal({ showModal, setShowModal }) {
 
   const validate = (e) => {
     if (expressions[e.target.name].test(input[e.target.name].value)) {
-      console.log("input correcto");
       setInput({
         ...input,
         [e.target.name]: { ...input[e.target.name], validated: "true" },
       });
     } else {
-      console.log("input incorrecto");
       setInput({
         ...input,
         [e.target.name]: { ...input[e.target.name], validated: "false" },

@@ -13,10 +13,11 @@ const { paginate } = require("../utils");
 function getAllPokemons(req, res, next) {
   var { name, page } = req.query;
 
+  console.log(req.query);
+
   page = parseInt(page);
 
   if (name && name !== undefined && name !== "undefined") {
-    // console.log("este es el name", name);
     return axios
       .get(`${BASE_URL}${POKEMONS_URL}/${name}`)
       .then((response) => {

@@ -18,7 +18,7 @@ function Pagination({ pagination }) {
   }
 
   const handleClick = (page) => {
-    dispatch(getPokemons(page));
+    dispatch(getPokemons(page, "", ""));
   };
 
   return (

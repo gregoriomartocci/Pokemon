@@ -35,8 +35,6 @@ function Card({ pokemon }) {
       });
   }, []);
 
-  console.log(pokemonData);
-
   return (
     <>
       <div

@@ -19,13 +19,15 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-export const getPokemons = (page, name) => async (dispatch) => {
+export const getPokemons = (page, name, filtering) => async (dispatch) => {
+  console.log(filtering);
+
   dispatch({
     type: POKEMONS_LIST_REQUEST,
   });
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=${page}&name=${name}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=${page}&name=${name}${filtering}`
     );
     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -62,15 +64,12 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
 
 export const pokemonSearch = (pokemonName) => async (dispatch) => {
   dispatch({ type: POKEMON_SEARCH_REQUEST });
-  console.log(pokemonName);
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/?name=${pokemonName}`
     );
-    console.log(data, "ok");
     dispatch({ type: POKEMON_SEARCH_SUCCESS, payload: data });
   } catch (error) {
-    console.log("no se encontro");
     dispatch({ type: POKEMON_SEARCH_FAIL, payload: error.message });
   }
 };
