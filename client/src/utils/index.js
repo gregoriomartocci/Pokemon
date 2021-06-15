@@ -1,4 +1,4 @@
-function paginate(array, page) {
+export const paginate = (array, page)=> {
   // page = 3 // page = 5
   if (array) {
     const limit = 12;
@@ -28,26 +28,5 @@ function paginate(array, page) {
   }
 }
 
-function generation(array, gen) {
-  // page = 3 // page = 5
 
-  let startIndex;
-  let endIndex;
 
-  if (array) {
-    if (!gen) {
-      gen = 1;
-    }
-
-    if (gen === 1) {
-      startIndex = 0;
-      endIndex = 151;
-    }
-
-    return array.slice(startIndex, endIndex);
-  } else {
-    console.log("No cargo el array");
-  }
-}
-
-module.exports = { paginate, generation };

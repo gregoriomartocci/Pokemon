@@ -4,34 +4,32 @@ import Card from "../Card/Card.js";
 import "./Cards.css";
 import { getPokemons, setPokemons } from "../../redux/actions/index.js";
 import Pagination from "../Pagination/Pagination.js";
+import { paginate } from "../../utils/index.js";
 
 function Cards({ input }) {
   const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemonsReducer.pokemons.data);
+  const pokemons = useSelector((state) => state.pokemonsReducer.allPokemons.data);
 
   var paginatedPokemons;
-  if (pokemons) {
-    paginatedPokemons = pokemons;
+  if (pokemons && pokemons.length) {
+    paginatedPokemons = paginate(pokemons);
+    dispatch(setPokemons(pokemons));
   }
+
+  console.log(paginatedPokemons);
 
   useEffect(() => {
     dispatch(getPokemons(1, "", ""));
-    dispatch(setPokemons());
-    return () => console.log("cleanup");
+    // return () => console.log("cleanup");
   }, []);
 
   return (
     <div className="cards">
       <div className="cardsContainter">
         {paginatedPokemons &&
-          paginatedPokemons.map(
-            (
-              pokemon,
-              index //Por cada pokemon de los 12 que me llegan, imprimo una tarjeta a la cual le paso casa pokemon
-            ) => (
-              <Card key={index} pokemon={pokemon} input={input} /> //al componente CARD le paso los valores de pokemon y el index para iterar el mapeo
-            )
-          )}
+          paginatedPokemons.result.map((pokemon, index) => (
+            <Card key={index} pokemon={pokemon} input={input} />
+          ))}
       </div>
       <Pagination pagination={pokemons && pokemons.pagination} />
     </div>

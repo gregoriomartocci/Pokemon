@@ -22,26 +22,27 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-export const setPokemons = () => async (dispatch) => {
-  var promises = [];
-
-  const getPokemonData = async (index) => {
+export const setPokemons = (pokemons) => async (dispatch) => {
+  const getPokemonData = async (name) => {
     try {
-      let url = `https://pokeapi.co/api/v2/pokemon/${index}`;
+      let url = `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${name}`;
       const response = await axios.get(url);
-      return response.data;
+      return {
+        name: response.data.name,
+        type1: response.data.types[0].type.name,
+        type2: response.data.types[1]?.type.name,
+      };
     } catch (err) {
       console.log(err);
     }
   };
 
-  for (let index = 1; index < 152; index++) {
-    promises = [...promises, getPokemonData(index)];
-  }
+  const promises = pokemons.map(async (pokemon) => {
+    return await getPokemonData(pokemon.name);
+  });
 
   const results = await Promise.all(promises);
 
-  
   dispatch({
     type: SET_POKEMONS_REQUEST,
   });
@@ -52,16 +53,13 @@ export const setPokemons = () => async (dispatch) => {
   }
 };
 
-
-
-
-
 export const getPokemons = (page, name, filtering) => async (dispatch) => {
   console.log(filtering);
 
   dispatch({
     type: POKEMONS_LIST_REQUEST,
   });
+  
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=${page}&name=${name}${filtering}`
@@ -71,10 +69,6 @@ export const getPokemons = (page, name, filtering) => async (dispatch) => {
     dispatch({ type: POKEMONS_LIST_FAIL, payload: error.message });
   }
 };
-
-
-
-
 
 export const createPokemon = () => async (dispatch) => {
   dispatch({
@@ -90,9 +84,6 @@ export const createPokemon = () => async (dispatch) => {
   }
 };
 
-
-
-
 export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   dispatch({ type: POKEMON_DETAILS_REQUEST });
   try {
@@ -105,9 +96,6 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
     dispatch({ type: POKEMON_DETAILS_FAIL, payload: error.message });
   }
 };
-
-
-
 
 export const pokemonSearch = (pokemonName) => async (dispatch) => {
   dispatch({ type: POKEMON_SEARCH_REQUEST });

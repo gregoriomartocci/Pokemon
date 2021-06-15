@@ -17,7 +17,7 @@ import {
 } from "../constants/pokemonConstants";
 
 const initialState = {
-  allPokemons: [],
+  allPokemons: { data: [] },
   pokemons: [],
   pokemonSearch: [],
   pokemonDetails: {},
@@ -31,10 +31,14 @@ export const pokemonsReducer = (state = initialState, action) => {
         ...state,
         allPokemons: { loading: true },
       };
+
     case SET_POKEMONS_SUCCESS:
       return {
         ...state,
-        allPokemons: { loading: false, data: action.payload },
+        allPokemons: {
+          loading: false,
+          data:  action.payload,
+        },
       };
 
     case SET_POKEMONS_FAIL:

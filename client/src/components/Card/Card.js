@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import "./Card.css";
 import dotenv from "dotenv";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import PokemonDetails from "../PokemonDetails/PokemonDetails";
 
 dotenv.config();
@@ -18,18 +17,9 @@ function Card({ pokemon }) {
     setShowModal((prev) => !prev);
   };
 
-  var num;
-
-  if (pokemon.url) {
-    const pokemonId = pokemon.url.split("/");
-    num = pokemonId[6];
-  } else {
-    num = pokemon.id;
-  }
-
   useEffect(() => {
     axios
-      .get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${num}`)
+      .get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${pokemon.name}`)
       .then((response) => {
         setPokemonData(response.data);
       });
