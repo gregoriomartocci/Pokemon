@@ -1,6 +1,9 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import {
+  SET_POKEMONS_REQUEST,
+  SET_POKEMONS_SUCCESS,
+  SET_POKEMONS_FAIL,
   POKEMONS_LIST_REQUEST,
   POKEMONS_LIST_SUCCESS,
   POKEMONS_LIST_FAIL,
@@ -19,6 +22,40 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
+export const setPokemons = () => async (dispatch) => {
+  var promises = [];
+
+  const getPokemonData = async (index) => {
+    try {
+      let url = `https://pokeapi.co/api/v2/pokemon/${index}`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  for (let index = 1; index < 152; index++) {
+    promises = [...promises, getPokemonData(index)];
+  }
+
+  const results = await Promise.all(promises);
+
+  
+  dispatch({
+    type: SET_POKEMONS_REQUEST,
+  });
+  try {
+    dispatch({ type: SET_POKEMONS_SUCCESS, payload: results });
+  } catch (error) {
+    dispatch({ type: SET_POKEMONS_FAIL, payload: error.message });
+  }
+};
+
+
+
+
+
 export const getPokemons = (page, name, filtering) => async (dispatch) => {
   console.log(filtering);
 
@@ -35,6 +72,10 @@ export const getPokemons = (page, name, filtering) => async (dispatch) => {
   }
 };
 
+
+
+
+
 export const createPokemon = () => async (dispatch) => {
   dispatch({
     type: POKEMON_CREATED_REQUEST,
@@ -49,6 +90,9 @@ export const createPokemon = () => async (dispatch) => {
   }
 };
 
+
+
+
 export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   dispatch({ type: POKEMON_DETAILS_REQUEST });
   try {
@@ -61,6 +105,9 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
     dispatch({ type: POKEMON_DETAILS_FAIL, payload: error.message });
   }
 };
+
+
+
 
 export const pokemonSearch = (pokemonName) => async (dispatch) => {
   dispatch({ type: POKEMON_SEARCH_REQUEST });

@@ -2,20 +2,21 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "../Card/Card.js";
 import "./Cards.css";
-import { getPokemons } from "../../redux/actions/index.js";
+import { getPokemons, setPokemons } from "../../redux/actions/index.js";
 import Pagination from "../Pagination/Pagination.js";
 
 function Cards({ input }) {
   const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemons.pokemons.pokemons);
+  const pokemons = useSelector((state) => state.pokemonsReducer.pokemons.data);
 
   var paginatedPokemons;
   if (pokemons) {
-    paginatedPokemons = pokemons.result;
+    paginatedPokemons = pokemons;
   }
 
   useEffect(() => {
-    dispatch(getPokemons(1));
+    dispatch(getPokemons(1, "", ""));
+    dispatch(setPokemons());
     return () => console.log("cleanup");
   }, []);
 
