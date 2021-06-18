@@ -1,3 +1,4 @@
+import { filterType } from "../../utils";
 import {
   POKEMON_CREATED_REQUEST,
   POKEMON_CREATED_SUCCESS,
@@ -11,6 +12,8 @@ import {
   SET_POKEMONS_REQUEST,
   SET_POKEMONS_SUCCESS,
   SET_POKEMONS_FAIL,
+  FILTER_TYPE,
+  CLEAR_FILTERS,
 } from "../constants/pokemonConstants";
 
 const initialState = {
@@ -96,6 +99,32 @@ export const rootReducer = (state = initialState, action) => {
 
     case POKEMON_SEARCH_FAIL:
       return { ...state, pokemons: { loading: false, error: action.payload } };
+
+    // POKEMON SEARCH
+
+    case FILTER_TYPE:
+      console.log("Payload", action.payload);
+
+      return {
+        ...state,
+        pokemons: {
+          loading: false,
+          data: state.allPokemons.data.filter((e) =>
+            filterType(e, action.payload)
+          ),
+        },
+      };
+
+    case CLEAR_FILTERS:
+      console.log("Payload", action.payload);
+
+      return {
+        ...state,
+        pokemons: {
+          loading: false,
+          data: state.allPokemons.data,
+        },
+      };
 
     default:
       return state;

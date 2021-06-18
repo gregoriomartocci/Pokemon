@@ -10,12 +10,6 @@ function Section() {
   const [page, setPage] = useState(1);
   const data = useSelector((state) => state.rootReducer.pokemons.data);
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
-  console.log("actual page", page);
-
   var pokemons;
 
   if (data) {
@@ -24,7 +18,7 @@ function Section() {
 
   useEffect(() => {
     dispatch(setPokemons());
-    // return () => console.log("cleanup");
+    return () => {};
   }, []);
 
   return (

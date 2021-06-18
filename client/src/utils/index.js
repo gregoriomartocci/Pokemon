@@ -22,3 +22,7 @@ export const paginate = (array, page) => {
     console.log("No cargo el array");
   }
 };
+
+export const filterType = (item, types) => {
+  return types.includes(item.types[0].type.name || item.types[1]?.type.name);
+};

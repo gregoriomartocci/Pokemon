@@ -3,10 +3,6 @@ import Card from "../Card/Card.js";
 import "./Cards.css";
 
 function Cards({ data }) {
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   return (
     <div className="cards">
       <div className="cardsContainter">

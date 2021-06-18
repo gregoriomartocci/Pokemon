@@ -16,6 +16,8 @@ import {
   POKEMON_SEARCH_REQUEST,
   POKEMON_SEARCH_SUCCESS,
   POKEMON_SEARCH_FAIL,
+  FILTER_TYPE,
+  CLEAR_FILTERS,
 } from "../constants/pokemonConstants";
 
 dotenv.config();
@@ -63,22 +65,10 @@ export const setPokemons = () => async (dispatch) => {
   }
 };
 
-// export const getPokemons = (page, name, filtering) => async (dispatch) => {
-//   console.log(filtering);
+export const clearFilters = () => (dispatch) => {
+  dispatch({ type: CLEAR_FILTERS });
+};
 
-//   dispatch({
-//     type: POKEMONS_LIST_REQUEST,
-//   });
-
-//   try {
-//     const { data } = await axios.get(
-//       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
-//     );
-//     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
-//   } catch (error) {
-//     dispatch({ type: POKEMONS_LIST_FAIL, payload: error.message });
-//   }
-// };
 
 export const createPokemon = () => async (dispatch) => {
   dispatch({
@@ -117,4 +107,8 @@ export const pokemonSearch = (pokemonName) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: POKEMON_SEARCH_FAIL, payload: error.message });
   }
+};
+
+export const filterByType = (filter) => (dispatch) => {
+  dispatch({ type: FILTER_TYPE, payload: filter });
 };

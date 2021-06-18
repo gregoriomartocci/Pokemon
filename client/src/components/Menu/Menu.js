@@ -3,40 +3,47 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./Menu.css";
 
 import { BiSortUp } from "react-icons/bi";
-import { HiOutlineAdjustments } from "react-icons/hi";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import Dropdown from "../Dropdown/Dropdown";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { filterByType } from "../../redux/actions";
 
 const types = [
   { id: 1, name: "water" },
-  { id: 2, name: "leaf" },
+  { id: 2, name: "grass" },
   { id: 3, name: "poison" },
   { id: 4, name: "fire" },
   { id: 5, name: "ghost" },
   { id: 6, name: "dark" },
 ];
 
+const sortItems = [
+  { id: 1, name: "a-z" },
+  { id: 2, name: "z-a" },
+  { id: 3, name: "attack" },
+  { id: 4, name: "defense" },
+  { id: 5, name: "hp" },
+  { id: 6, name: "weight" },
+];
+
 function Menu() {
-  const [selection, setSelection] = useState([]);
-  const [filtering, setFiltering] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [sort, setSort] = useState([]);
   const dispatch = useDispatch();
+  const pokemons = useSelector((state) => state.rootReducer.pokemons.data);
 
   useEffect(() => {
-    // console.log(selection);
+    // console.log(filter);
 
     var array = [];
-    selection.map((e) => (array = [...array, `&filter=${e.name}`])); // aca reemplazo el arreglo
-    setFiltering(array.join(""));
+    filter.map((e) => (array = [...array, e.name.toLowerCase()])); // aca reemplazo el arreglo
 
-    console.log("esto es selection", selection);
+    if (pokemons) {
+      dispatch(filterByType(array));
+    }
 
-    return () => console.log("cleanup");
-    // cada vez que se actualice selection
-    // por cada item que hay en selection yo quiero mandar &filter=tipo
-
-    // selection.forEach((e) => array.push(`&filter=${e.name}`));   // le agrego
-  }, [selection, filtering]);
+    return () => {};
+  }, [filter]);
 
   return (
     <div className="menu">
@@ -48,8 +55,17 @@ function Menu() {
             title="Type"
             items={types}
             multiselect
-            selection={selection}
-            setSelection={setSelection}
+            selection={filter}
+            setSelection={setFilter}
+          ></Dropdown>
+        </div>
+        <div className="sort">
+          <Dropdown
+            title="Sort"
+            items={sortItems}
+            multiselect
+            selection={sort}
+            setSelection={setSort}
           ></Dropdown>
         </div>
         <div className="view">
