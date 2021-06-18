@@ -1,7 +1,4 @@
 import {
-  POKEMONS_LIST_FAIL,
-  POKEMONS_LIST_REQUEST,
-  POKEMONS_LIST_SUCCESS,
   POKEMON_CREATED_REQUEST,
   POKEMON_CREATED_SUCCESS,
   POKEMON_CREATED_FAIL,
@@ -17,13 +14,13 @@ import {
 } from "../constants/pokemonConstants";
 
 const initialState = {
-  allPokemons: { data: [] },
-  pokemons: [],
-  pokemonSearch: [],
-  pokemonDetails: {},
+  allPokemons: { loading: true, data: [] },
+  pokemons: { loading: true, data: [] },
+  pokemonSearch: { loading: true, data: [] },
+  pokemonDetails: { loading: true, data: {} },
 };
 
-export const pokemonsReducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     // SET POKEMONS
     case SET_POKEMONS_REQUEST:
@@ -37,7 +34,11 @@ export const pokemonsReducer = (state = initialState, action) => {
         ...state,
         allPokemons: {
           loading: false,
-          data:  action.payload,
+          data: action.payload,
+        },
+        pokemons: {
+          loading: false,
+          data: action.payload,
         },
       };
 
@@ -45,24 +46,8 @@ export const pokemonsReducer = (state = initialState, action) => {
       return {
         ...state,
         allPokemons: { loading: false, error: action.payload },
+        pokemons: { loading: false, error: action.payload },
       };
-
-    // LIST POKEMONS
-
-    case POKEMONS_LIST_REQUEST:
-      return {
-        ...state,
-        pokemons: { loading: true },
-      };
-
-    case POKEMONS_LIST_SUCCESS:
-      return {
-        ...state,
-        pokemons: { loading: false, data: action.payload },
-      };
-
-    case POKEMONS_LIST_FAIL:
-      return { ...state, pokemons: { loading: false, error: action.payload } };
 
     // CREATE POKEMON
 

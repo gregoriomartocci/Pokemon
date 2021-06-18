@@ -21,7 +21,7 @@ function getAllPokemons(req, res, next) {
     return axios
       .get(`${BASE_URL}${POKEMONS_URL}/${name}`)
       .then((response) => {
-        res.send(paginate([response.data], 1));
+        res.send(response.data);
       })
       .catch((error) => console.log(error));
   }

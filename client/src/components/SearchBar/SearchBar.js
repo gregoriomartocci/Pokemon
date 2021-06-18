@@ -21,7 +21,7 @@ function searchBar() {
   };
 
   const onClicKHandler = () => {
-    dispatch(getPokemons(1, input));
+    dispatch(pokemonSearch(input));
   };
 
   return (

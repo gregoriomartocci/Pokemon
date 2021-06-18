@@ -7,7 +7,6 @@ import { HiOutlineAdjustments } from "react-icons/hi";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch } from "react-redux";
-import { getPokemons } from "../../redux/actions";
 
 const types = [
   { id: 1, name: "water" },
@@ -31,8 +30,6 @@ function Menu() {
     setFiltering(array.join(""));
 
     console.log("esto es selection", selection);
-
-    dispatch(getPokemons(1, "", filtering));
 
     return () => console.log("cleanup");
     // cada vez que se actualice selection

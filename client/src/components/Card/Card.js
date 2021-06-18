@@ -1,53 +1,36 @@
 /* eslint-disable no-unused-expressions */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Card.css";
-import dotenv from "dotenv";
-import axios from "axios";
 import PokemonDetails from "../PokemonDetails/PokemonDetails";
-
-dotenv.config();
-
-const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
+import { useEffect } from "react";
 
 function Card({ pokemon }) {
   const [showModal, setShowModal] = useState(false);
-  const [pokemonData, setPokemonData] = useState([]);
-
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
 
   useEffect(() => {
-    axios
-      .get(`${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${pokemon.name}`)
-      .then((response) => {
-        setPokemonData(response.data);
-      });
+    return () => {};
   }, []);
 
   return (
     <>
       <div
         className={`card ${
-          pokemonData
-            ? pokemonData.types && pokemonData.types[0].type.name
-            : null
+          pokemon ? pokemon.types && pokemon.types[0].type.name : null
         }`}
         onClick={() => openModal()}
       >
         <div className="card-info">
-          <span className="pokemon-name">{pokemonData.name}</span>
+          <span className="pokemon-name">{pokemon.name}</span>
 
           <span>
-            {pokemonData
-              ? pokemonData.types && pokemonData.types[0].type.name
-              : null}
+            {pokemon ? pokemon.types && pokemon.types[0].type.name : null}
           </span>
           <span>
-            {pokemonData
-              ? pokemonData.types &&
-                pokemonData.types[1] &&
-                pokemonData.types[1].type.name
+            {pokemon
+              ? pokemon.types && pokemon.types[1] && pokemon.types[1].type.name
               : null}
           </span>
           <img
@@ -56,9 +39,9 @@ function Card({ pokemon }) {
               // pokemonData
               //   ? pokemonData.sprites && pokemonData.sprites.front_default
               //   : null
-              pokemonData
-                ? pokemonData.sprites &&
-                  pokemonData.sprites.other["official-artwork"].front_default
+              pokemon
+                ? pokemon.sprites &&
+                  pokemon.sprites.other["official-artwork"].front_default
                 : null
             }
             alt=""
@@ -71,7 +54,7 @@ function Card({ pokemon }) {
       <PokemonDetails
         showModal={showModal}
         setShowModal={setShowModal}
-        pokemon={pokemonData}
+        pokemon={pokemon}
       ></PokemonDetails>
     </>
   );

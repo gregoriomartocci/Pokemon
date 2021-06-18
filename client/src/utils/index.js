@@ -1,32 +1,24 @@
-export const paginate = (array, page)=> {
-  // page = 3 // page = 5
+export const paginate = (array, page) => {
   if (array) {
     const limit = 12;
-    if (!page) {
-      page = 1;
-    }
-    const startIndex = (page - 1) * limit; //16 // 32
-    const endIndex = page * limit; //24 // 40
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
     const pagination = {};
     const result = {};
-    pagination.actual = page; //3 // 5
+    pagination.actual = page;
 
     if (startIndex > 0) {
-      pagination.previous = page - 1; //2 //4
+      pagination.previous = page - 1;
     }
 
-    if (endIndex < 1118) {
-      //Si el indice de pokemons es mayor al arreglo ya no hay mas pokemons para mostrar
-      pagination.next = page + 1; //4 // 6
+    if (endIndex < array.length) {
+      pagination.next = page + 1;
     }
-    pagination.pageCount = Math.ceil(1118 / limit);
+    pagination.pageCount = Math.ceil(array.length / limit);
     result.pagination = pagination;
-    result.result = array.slice(startIndex, endIndex); //Voy a mostrar los pokemons desde el 16 hasta el 24 // 32 al 40
+    result.result = array.slice(startIndex, endIndex);
     return result;
   } else {
     console.log("No cargo el array");
   }
-}
-
-
-
+};

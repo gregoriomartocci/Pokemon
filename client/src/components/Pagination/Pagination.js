@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Pagination.css";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { getPokemons } from "../../redux/actions/index.js";
-import { useDispatch } from "react-redux";
 
-function Pagination({ pagination }) {
-  const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
+function Pagination({ pagination, setPage }) {
   var pageCount, previous, actual, next;
 
   if (pagination) {
@@ -18,7 +14,8 @@ function Pagination({ pagination }) {
   }
 
   const handleClick = (page) => {
-    dispatch(getPokemons(page, "", ""));
+    console.log(page);
+    setPage(page);
   };
 
   return (
@@ -38,17 +35,17 @@ function Pagination({ pagination }) {
             >
               {previous}
             </li>
-            <li className="pagination-item active">{actual}</li>
+            <li
+              className="pagination-item active"
+              onClick={() => handleClick(actual)}
+            >
+              {actual}
+            </li>
             <li className="pagination-item" onClick={() => handleClick(next)}>
               {next}
             </li>
             ...
-            <li
-              className="pagination-item"
-              onClick={() => handleClick(pageCount)}
-            >
-              {pageCount}
-            </li>
+            <li className="pagination-item">{pageCount}</li>
           </ul>
           <button className="next">
             <MdKeyboardArrowRight />

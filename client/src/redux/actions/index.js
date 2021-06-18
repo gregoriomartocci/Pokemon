@@ -22,53 +22,63 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS } = process.env;
 
-export const setPokemons = (pokemons) => async (dispatch) => {
-  const getPokemonData = async (name) => {
-    try {
-      let url = `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${name}`;
-      const response = await axios.get(url);
-      return {
-        name: response.data.name,
-        type1: response.data.types[0].type.name,
-        type2: response.data.types[1]?.type.name,
-      };
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const promises = pokemons.map(async (pokemon) => {
-    return await getPokemonData(pokemon.name);
-  });
-
-  const results = await Promise.all(promises);
-
-  dispatch({
-    type: SET_POKEMONS_REQUEST,
-  });
-  try {
-    dispatch({ type: SET_POKEMONS_SUCCESS, payload: results });
-  } catch (error) {
-    dispatch({ type: SET_POKEMONS_FAIL, payload: error.message });
-  }
-};
-
-export const getPokemons = (page, name, filtering) => async (dispatch) => {
-  console.log(filtering);
-
+export const setPokemons = () => async (dispatch) => {
   dispatch({
     type: POKEMONS_LIST_REQUEST,
   });
-  
+
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?page=${page}&name=${name}${filtering}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
     );
+
     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
+
+    const getPokemonData = async (name) => {
+      try {
+        let url = `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${name}`;
+        const response = await axios.get(url);
+        return response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const promises = data.map(async (pokemon) => {
+      return await getPokemonData(pokemon.name);
+    });
+
+    const results = await Promise.all(promises);
+
+    dispatch({
+      type: SET_POKEMONS_REQUEST,
+    });
+    try {
+      dispatch({ type: SET_POKEMONS_SUCCESS, payload: results });
+    } catch (error) {
+      dispatch({ type: SET_POKEMONS_FAIL, payload: error.message });
+    }
   } catch (error) {
     dispatch({ type: POKEMONS_LIST_FAIL, payload: error.message });
   }
 };
+
+// export const getPokemons = (page, name, filtering) => async (dispatch) => {
+//   console.log(filtering);
+
+//   dispatch({
+//     type: POKEMONS_LIST_REQUEST,
+//   });
+
+//   try {
+//     const { data } = await axios.get(
+//       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
+//     );
+//     dispatch({ type: POKEMONS_LIST_SUCCESS, payload: data });
+//   } catch (error) {
+//     dispatch({ type: POKEMONS_LIST_FAIL, payload: error.message });
+//   }
+// };
 
 export const createPokemon = () => async (dispatch) => {
   dispatch({
