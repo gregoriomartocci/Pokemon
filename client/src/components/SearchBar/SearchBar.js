@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import "./SearchBar.css";
-import axios from "axios";
 import dotenv from "dotenv";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { getPokemons, pokemonSearch } from "../../redux/actions";
-import { useHistory } from "react-router";
+import { pokemonSearch } from "../../redux/actions";
 
 dotenv.config();
-
-const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
 
 function searchBar() {
   const dispatch = useDispatch();
@@ -18,17 +14,14 @@ function searchBar() {
 
   const onChangeHandler = (e) => {
     setInput(e);
-  };
-
-  const onClicKHandler = () => {
-    dispatch(pokemonSearch(input));
+    dispatch(pokemonSearch(e));
   };
 
   return (
     <div className="search-bar">
       <div>
         <button type="submit" className="search-btn">
-          <FaSearch onClick={(e) => onClicKHandler(e)} />
+          <FaSearch />
         </button>
       </div>
 

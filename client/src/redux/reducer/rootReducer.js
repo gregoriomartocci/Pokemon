@@ -1,4 +1,4 @@
-import { filterType } from "../../utils";
+import { filterType, searchFilter, sort } from "../../utils";
 import {
   POKEMON_CREATED_REQUEST,
   POKEMON_CREATED_SUCCESS,
@@ -6,14 +6,13 @@ import {
   POKEMON_DETAILS_REQUEST,
   POKEMON_DETAILS_SUCCESS,
   POKEMON_DETAILS_FAIL,
-  POKEMON_SEARCH_REQUEST,
-  POKEMON_SEARCH_SUCCESS,
-  POKEMON_SEARCH_FAIL,
   SET_POKEMONS_REQUEST,
   SET_POKEMONS_SUCCESS,
   SET_POKEMONS_FAIL,
   FILTER_TYPE,
   CLEAR_FILTERS,
+  SORT,
+  POKEMONS_SEARCH,
 } from "../constants/pokemonConstants";
 
 const initialState = {
@@ -88,23 +87,18 @@ export const rootReducer = (state = initialState, action) => {
 
     // POKEMON SEARCH
 
-    case POKEMON_SEARCH_REQUEST:
-      return { ...state, pokemons: { loading: true } };
-
-    case POKEMON_SEARCH_SUCCESS:
+    case POKEMONS_SEARCH:
       return {
         ...state,
-        pokemonSearch: { loading: false, data: [action.payload] },
+        pokemons: {
+          loading: false,
+          data: searchFilter(state.allPokemons.data, action.payload),
+        },
       };
 
-    case POKEMON_SEARCH_FAIL:
-      return { ...state, pokemons: { loading: false, error: action.payload } };
-
-    // POKEMON SEARCH
+    // POKEMON FILTER
 
     case FILTER_TYPE:
-      console.log("Payload", action.payload);
-
       return {
         ...state,
         pokemons: {
@@ -116,13 +110,20 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case CLEAR_FILTERS:
-      console.log("Payload", action.payload);
-
       return {
         ...state,
         pokemons: {
           loading: false,
           data: state.allPokemons.data,
+        },
+      };
+
+    case SORT:
+      return {
+        ...state,
+        pokemons: {
+          loading: false,
+          data: sort(state.pokemons.data, action.payload),
         },
       };
 

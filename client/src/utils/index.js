@@ -26,3 +26,47 @@ export const paginate = (array, page) => {
 export const filterType = (item, types) => {
   return types.includes(item.types[0].type.name || item.types[1]?.type.name);
 };
+
+export const searchFilter = (array, searchTearm) => {
+  if (searchTearm === "") return array;
+  return array.filter((e) =>
+    e.name.toLowerCase().includes(searchTearm.toLowerCase())
+  );
+};
+
+export const sort = (array, item) => {
+  array = [...array];
+
+  if (item === "name" || item === "weight" || item === "height") {
+    return array.sort((a, b) => (a[item] < b[item] ? 1 : -1));
+  } else {
+    return array.sort((a, b) =>
+      a.stats.some((stat) => stat.name === item).base_stat <
+      b.stats.some((stat) => stat.name === item).base_stat
+        ? 1
+        : -1
+    );
+  }
+};
+
+export const capitalize = (s) => {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+// {pokemon ? pokemon.stats && pokemon.stats[0].base_stat : ""}
+// <br></br>
+// <span>Fuerza:</span>
+// {pokemon ? pokemon.stats && pokemon.stats[1].base_stat : ""}
+// <br></br>
+// <span>Defensa:</span>
+// {pokemon ? pokemon.stats && pokemon.stats[2].base_stat : ""}
+// <br></br>
+// <span>Velocidad:</span>
+// {pokemon ? pokemon.stats && pokemon.stats[5].base_stat : ""}
+// <br></br>
+// <span>Altura:</span>
+// {pokemon ? pokemon && pokemon.height : ""}
+// <br></br>
+// <span>Peso:</span>
+// {pokemon ? pokemon.weight : ""}

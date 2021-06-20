@@ -6,7 +6,7 @@ import { BiSortUp } from "react-icons/bi";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByType } from "../../redux/actions";
+import { filterByType, sortBy } from "../../redux/actions";
 
 const types = [
   { id: 1, name: "water" },
@@ -18,12 +18,14 @@ const types = [
 ];
 
 const sortItems = [
-  { id: 1, name: "a-z" },
+  { id: 1, name: "name" },
   { id: 2, name: "z-a" },
   { id: 3, name: "attack" },
   { id: 4, name: "defense" },
   { id: 5, name: "hp" },
-  { id: 6, name: "weight" },
+  { id: 6, name: "speed" },
+  { id: 7, name: "weight" },
+  { id: 8, name: "height" },
 ];
 
 function Menu() {
@@ -33,17 +35,16 @@ function Menu() {
   const pokemons = useSelector((state) => state.rootReducer.pokemons.data);
 
   useEffect(() => {
-    // console.log(filter);
-
     var array = [];
     filter.map((e) => (array = [...array, e.name.toLowerCase()])); // aca reemplazo el arreglo
-
-    if (pokemons) {
-      dispatch(filterByType(array));
-    }
-
+    pokemons && dispatch(filterByType(array));
     return () => {};
   }, [filter]);
+
+  useEffect(() => {
+    sort[0] && dispatch(sortBy(sort[0].name));
+    return () => {};
+  }, [sort]);
 
   return (
     <div className="menu">
@@ -63,7 +64,6 @@ function Menu() {
           <Dropdown
             title="Sort"
             items={sortItems}
-            multiselect
             selection={sort}
             setSelection={setSort}
           ></Dropdown>

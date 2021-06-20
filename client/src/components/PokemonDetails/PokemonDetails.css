@@ -13,56 +13,100 @@
 }
 
 .pokemon-details {
+  display: flex;
   position: relative;
   background-color: #fffffe;
   height: 30rem;
-  width: 75%;
+  max-width: 75%;
   margin: 1rem;
   color: black;
   border-radius: 1rem;
 }
 
-.top-content {
-  border-radius: 1rem 1rem 0 0;
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+  background-color: #fffffe;
+  padding: 1.5rem;
+}
+
+.pokemon-stats {
+  width: 50%;
+  margin: 2rem 0;
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.pokemon-stats-labels {
+  display: flex;
+  flex-direction: column;
+  margin: 0.25rem 0;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #bdbdbd;
+}
+
+.pokemon-stats-values {
+  display: flex;
+  flex-direction: column;
+  margin: 0.25rem 0;
+}
+
+.left-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 1rem 0 0 1rem;
   padding: 1rem;
+  background-color: #fafafa;
+}
+
+.right-content {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 0 1rem 1rem 0;
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+}
+
+.name {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 600;
+  color: #424242;
 }
 
 .top-info {
   display: flex;
+  padding: 0 0.5rem;
+  width: 100%;
   justify-content: space-between;
-  color: #ffffff;
 }
 
-.bottom-content {
+.pokemon-types {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  border-radius: 1rem;
-  padding: 1rem;
-  height: 100%;
-}
-
-.pokemon-name {
-  font-size: 1.5rem;
 }
 
 .pokemon-type {
   text-align: left;
-  margin: 0 1rem;
+  margin-right: 0.25rem;
   border-radius: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  color: #ffffff;
+  font-size: 0.75rem;
 }
 
 .modal-img {
-  position: absolute;
-  width: 4rem;
-  height: 4rem;
-  right: 4rem;
-  top: 2rem;
+  padding: 3rem;
 }
 
-/* .pokemon-img {
-  width: 10rem;
-  height: 10rem;
-} */
+.img {
+  width: 17.5rem;
+}

@@ -1,100 +1,105 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPokemonDetails } from "../../redux/actions";
+import React, { useCallback, useEffect, useRef } from "react";
+import { capitalize } from "../../utils";
 import "./PokemonDetails.css";
-import { Link, useParams } from "react-router-dom";
 
 function PokemonDetails({ showModal, setShowModal, pokemon }) {
+  const modalRef = useRef();
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      setShowModal(false);
+    }
+  };
+
+  const keyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        setShowModal(false);
+      }
+    },
+    [setShowModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyPress);
+    return () => document.removeEventListener("keydown", keyPress);
+  }, [keyPress]);
+
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <>
       {showModal ? (
-        <div className="modal-container">
-          <div
-            className={`pokemon-details ${
-              pokemon ? pokemon.types && pokemon.types[0].type.name : null
-            }`}
-          >
-            <div className={`top-content`}>
-              <div className="top-butttons">
-                <div></div>
-                <div></div>
-              </div>
-              <div className="top-info">
-                <div>
-                  <div className="pokemon-name">{pokemon && pokemon.name}</div>
-                  <div className="pokemon-types">
-                    {pokemon
-                      ? pokemon.types && (
-                          <span
-                            className={`pokemon-type  ${
-                              pokemon.types && pokemon.types[0].type.name
-                            }`}
-                          >
-                            {pokemon.types[0].type.name}
-                          </span>
-                        )
-                      : null}
-                    {pokemon
-                      ? pokemon.types &&
-                        pokemon.types[1] && (
-                          <span
-                            className={`pokemon-type ${
-                              pokemon.types && pokemon.types[1].type.name
-                            }`}
-                          >
-                            {pokemon.types[1].type.name}
-                          </span>
-                        )
-                      : null}
-                  </div>
-                </div>
-                <div>{pokemon.id}</div>
-              </div>
-            </div>
-
-            <div className="bottom-content">
+        <div className="modal-container" ref={modalRef} onClick={closeModal}>
+          <div className="pokemon-details">
+            <div className="left-content">
               <div className="modal-img">
                 <img
-                  src={
-                    pokemon
-                      ? pokemon.sprites && pokemon.sprites.front_default
-                      : "null"
-                  }
                   className="img"
+                  src={
+                    pokemon &&
+                    pokemon.sprites.other["official-artwork"].front_default
+                  }
                   alt="pokemon-img"
                 ></img>
               </div>
-              Nombre:{pokemon && pokemon.name}
-              <br></br>
-              {pokemon
-                ? pokemon.types && (
-                    <span>Tipo:{pokemon.types[0].type.name}</span>
-                  )
-                : ""}
-              {pokemon
-                ? pokemon.types &&
-                  pokemon.types[1] &&
-                  pokemon.types[1].type.name
-                : "null"}
-              <br></br>
-              <span>Vida:</span>
-              {pokemon ? pokemon.stats && pokemon.stats[0].base_stat : ""}
-              <br></br>
-              <span>Fuerza:</span>
-              {pokemon ? pokemon.stats && pokemon.stats[1].base_stat : ""}
-              <br></br>
-              <span>Defensa:</span>
-              {pokemon ? pokemon.stats && pokemon.stats[2].base_stat : ""}
-              <br></br>
-              <span>Velocidad:</span>
-              {pokemon ? pokemon.stats && pokemon.stats[5].base_stat : ""}
-              <br></br>
-              <span>Altura:</span>
-              {pokemon ? pokemon && pokemon.height : ""}
-              <br></br>
-              <span>Peso:</span>
-              {pokemon ? pokemon.weight : ""}
-              <br></br>
+            </div>
+
+            <div className="right-content">
+              <div className="pokemon-info">
+                <div className="top-info">
+                  <div className="pokemon-types">
+                    {pokemon && (
+                      <span
+                        className={`pokemon-type  ${pokemon.types[0]?.type.name}`}
+                      >
+                        {pokemon.types[0]?.type.name}
+                      </span>
+                    )}
+                    {pokemon && (
+                      <span
+                        className={`pokemon-type ${pokemon.types[1]?.type.name}`}
+                      >
+                        {pokemon.types[1]?.type.name}
+                      </span>
+                    )}
+                  </div>
+                  <div>{pokemon && pokemon.id}</div>
+                </div>
+
+                <div className="name">
+                  {pokemon && capitalize(pokemon.name)}
+                </div>
+
+                <div className="pokemon-stats">
+                  <div className="pokemon-stats-labels">
+                    <span className="label">HP</span>
+                    <span className="label">STRENGH</span>
+                    <span className="label">DEFENSE</span>
+                    <span className="label">SPEED</span>
+                    <span className="label">HEIGHT</span>
+                    <span className="label">WEIGHT</span>
+                  </div>
+                  <div className="pokemon-stats-values">
+                    <span className="value">
+                      {pokemon && pokemon.stats[0]?.base_stat}
+                    </span>
+                    <span className="value">
+                      {pokemon && pokemon.stats[1]?.base_stat}
+                    </span>
+                    <span className="value">
+                      {pokemon && pokemon.stats[2]?.base_stat}
+                    </span>
+                    <span className="value">
+                      {pokemon.stats && pokemon.stats[5]?.base_stat}
+                    </span>
+                    <span className="value">{pokemon && pokemon.height}</span>
+                    <span className="value">{pokemon && pokemon.weight}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
