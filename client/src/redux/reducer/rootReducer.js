@@ -5,7 +5,7 @@ const initialState = {
   allPokemons: { loading: true, data: [] },
   pokemons: { loading: true, data: [] },
   types: { loading: true, data: [] },
-  applicationLoading: false,
+  loading: true,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -52,7 +52,7 @@ export const rootReducer = (state = initialState, action) => {
           loading: false,
           data: action.payload,
         },
-        applicationLoading: false,
+        loading: false,
       };
 
     case ActionTypes.SET_TYPES_FAIL:
