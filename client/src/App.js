@@ -4,7 +4,6 @@ import "./App.css";
 
 import Main from "./components/Main/Main";
 import Navbar from "./components/Navbar/Navbar.js";
-import PokemonDetails from "./components/PokemonDetails/PokemonDetails";
 
 function App() {
   return (

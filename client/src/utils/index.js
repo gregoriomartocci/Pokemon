@@ -54,19 +54,3 @@ export const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-// {pokemon ? pokemon.stats && pokemon.stats[0].base_stat : ""}
-// <br></br>
-// <span>Fuerza:</span>
-// {pokemon ? pokemon.stats && pokemon.stats[1].base_stat : ""}
-// <br></br>
-// <span>Defensa:</span>
-// {pokemon ? pokemon.stats && pokemon.stats[2].base_stat : ""}
-// <br></br>
-// <span>Velocidad:</span>
-// {pokemon ? pokemon.stats && pokemon.stats[5].base_stat : ""}
-// <br></br>
-// <span>Altura:</span>
-// {pokemon ? pokemon && pokemon.height : ""}
-// <br></br>
-// <span>Peso:</span>
-// {pokemon ? pokemon.weight : ""}

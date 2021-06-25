@@ -73,6 +73,10 @@ function PokemonDetails({ showModal, setShowModal, pokemon }) {
                   {pokemon && capitalize(pokemon.name)}
                 </div>
 
+                <div>
+                  <title>Base Stats</title>
+                </div>
+
                 <div className="pokemon-stats">
                   <div className="pokemon-stats-labels">
                     <span className="label">HP</span>
