@@ -27,9 +27,14 @@ function Section() {
 
   return (
     <div>
-      {loading ? <Loading></Loading> : <Cards data={pokemons.result} />}
-
-      <Pagination pagination={pokemons.pagination} setPage={setPage} />
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <div>
+          <Cards data={pokemons.result} />
+          <Pagination pagination={pokemons.pagination} setPage={setPage} />
+        </div>
+      )}
     </div>
   );
 }

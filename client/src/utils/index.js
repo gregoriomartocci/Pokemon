@@ -24,6 +24,7 @@ export const paginate = (array, page) => {
 };
 
 export const filterType = (item, types) => {
+  if (!types.length) return true;
   return types.includes(item.types[0].type.name || item.types[1]?.type.name);
 };
 
@@ -53,4 +54,3 @@ export const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
-
