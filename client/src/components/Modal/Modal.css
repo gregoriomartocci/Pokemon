@@ -13,7 +13,6 @@
 }
 
 .modal-form {
-  margin: 2rem 0;
   width: 100%;
 }
 
@@ -51,19 +50,19 @@
 .row {
   display: flex;
   justify-content: flex-start;
-}
-
-.row-top {
-  margin-bottom: 3rem;
+  margin: 2rem 0;
 }
 
 .input-element {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 13rem;
   align-items: flex-start;
   margin: 0 1rem;
+}
+
+.select-types {
 }
 
 .input {
@@ -134,9 +133,9 @@
   padding: 2rem 0.5rem;
   color: var(--success);
   border-left: 6px solid var(--success);
-  border-bottom: 2px solid #e0e0e0;
-  border-right: 2px solid #e0e0e0;
-  border-top: 2px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
   border-radius: 0.5rem;
   box-shadow: 0 0.1px 0px rgb(0 0 0 / 3%), 0 2px 2px rgb(0 0 0 / 5%),
     0 5px 5px rgb(0 0 0 / 6%);
@@ -152,9 +151,9 @@
   padding: 2rem 0.5rem;
   color: var(--error);
   border-left: 6px solid var(--error);
-  border-bottom: 2px solid #e0e0e0;
-  border-right: 2px solid #e0e0e0;
-  border-top: 2px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
   border-radius: 0.5rem;
   box-shadow: 0 0.1px 0px rgb(0 0 0 / 3%), 0 2px 2px rgb(0 0 0 / 5%),
     0 5px 5px rgb(0 0 0 / 6%);

@@ -52,7 +52,7 @@ export const rootReducer = (state = initialState, action) => {
           loading: false,
           data: action.payload,
         },
-        applicationLoaded: false,
+        applicationLoading: false,
       };
 
     case ActionTypes.SET_TYPES_FAIL:

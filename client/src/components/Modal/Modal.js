@@ -1,29 +1,61 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./Modal.css";
 import { IoCloseSharp } from "react-icons/io5";
-
 import { FaCheck } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import Dropdown from "../Dropdown/Dropdown";
 
 import Input from "../Input/Input";
+import { useSelector } from "react-redux";
 
 function Modal({ showModal, setShowModal }) {
+  const modalRef = useRef();
+  const [typesSelected, setTypesSelected] = useState([]);
+  const types = useSelector((state) => state.rootReducer.types.data);
+
   const [input, setInput] = useState({
     name: { value: "", validated: "" },
-    types: { value: "", validated: "" },
-    attack: { value: Number(), validated: "" },
-    speed: { value: Number(), validated: "" },
+    attack: { value: "", validated: "" },
+    defense: { value: "", validated: "" },
+    health: { value: "", validated: "" },
+    speed: { value: "", validated: "" },
+    strenght: { value: "", validated: "" },
+    height: { value: "", validated: "" },
+    weight: { value: "", validated: "" },
+    // types: { value: "", validated: "" },
   });
 
   const expressions = {
     name: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
-    types: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
     attack: /^.{1,5}$/, // 4 a 12 digitos.
+    defense: /^.{1,5}$/, // 4 a 12 digitos.
+    health: /^.{1,5}$/, // 4 a 12 digitos.
     speed: /^.{1,5}$/, // 4 a 12 digitos.
-    // email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    // number: /^\d{1,14}$/, // 1 a 14 numeros.
-    // user: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+    strenght: /^.{1,5}$/, // 4 a 12 digitos.
+    height: /^.{1,5}$/, // 4 a 12 digitos.
+    weight: /^.{1,5}$/, // 4 a 12 digitos.
+    // types: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
   };
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      setShowModal(false);
+    }
+  };
+
+  const keyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        setShowModal(false);
+      }
+    },
+    [setShowModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyPress);
+    return () => document.removeEventListener("keydown", keyPress);
+  }, [keyPress]);
 
   const onChangeHandler = (e) => {
     setInput({
@@ -53,8 +85,8 @@ function Modal({ showModal, setShowModal }) {
   return (
     <>
       {showModal ? (
-        <div className="modal">
-          <div className="modal-wrapper">
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-wrapper" ref={modalRef}>
             <div className="modal-content">
               <div className="top-row">
                 <div className="title">
@@ -69,11 +101,10 @@ function Modal({ showModal, setShowModal }) {
                   </i>
                 </div>
               </div>
-
               <button className="modal-button"></button>
 
               <form className="modal-form">
-                <row className="row row-top">
+                <div className="row">
                   <Input
                     name="name"
                     title="Name"
@@ -84,35 +115,88 @@ function Modal({ showModal, setShowModal }) {
                     error="Must be between 6 to 15 characters"
                   ></Input>
                   <Input
-                    name="types"
-                    type="text"
-                    title="Types"
+                    name="attack"
+                    title="Attack"
+                    type="number"
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
                     error="Must be between 6 to 15 characters"
                   ></Input>
-                </row>
-                <row className="row">
+                </div>
+                <div className="row">
                   <Input
-                    name="attack"
+                    name="defense"
+                    title="Defense"
                     type="number"
-                    title="Attack"
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
+                  <Input
+                    name="health"
+                    title="Health"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                </div>
+                <div className="row">
                   <Input
                     name="speed"
-                    type="number"
                     title="Speed"
+                    type="number"
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
-                </row>
+                  <Input
+                    name="strenght"
+                    title="Strenght"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                </div>
+
+                <div className="row">
+                  <Input
+                    name="height"
+                    title="Height"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                  <Input
+                    name="weight"
+                    title="Weight"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                </div>
+
+                <div className="row">
+                  <div className="input-element">
+                    <Dropdown
+                      title="Type"
+                      items={types && types}
+                      multiselect
+                      selection={typesSelected}
+                      setSelection={setTypesSelected}
+                    ></Dropdown>
+                  </div>
+                </div>
 
                 <div className="success-toast">
                   <div className="toast-col">
@@ -122,7 +206,6 @@ function Modal({ showModal, setShowModal }) {
                   </div>
                   <div className="toast-col">
                     <p className="toast-text">Pokemon succesfully created</p>
-                    <span className="toast-span">thank you</span>
                   </div>
                 </div>
 
@@ -137,7 +220,7 @@ function Modal({ showModal, setShowModal }) {
                   </div>
                 </div>
               </form>
-              <row className="bottom-row">
+              <div className="bottom-row">
                 <div
                   className="cancel-btn"
                   onClick={() => setShowModal((prev) => !prev)}
@@ -147,7 +230,7 @@ function Modal({ showModal, setShowModal }) {
                 <div className="submit-btn" onClick={(e) => onClickHandler(e)}>
                   Create
                 </div>
-              </row>
+              </div>
             </div>
           </div>
         </div>

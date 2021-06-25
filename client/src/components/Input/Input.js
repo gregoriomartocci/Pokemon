@@ -2,7 +2,11 @@ import { FaCheck } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import React from "react";
 
-function Input({ name, title, type, onChangeHandler, validate, input, error }) {
+function Input({ name, title, type, input, onChangeHandler, validate, error }) {
+
+  
+  console.log("anda bien el input ==> ", input);
+
   return (
     <div className="input-element">
       <span className="label">{title}</span>
