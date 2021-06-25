@@ -40,7 +40,7 @@ function getAllPokemons(req, res, next) {
 function createPokemon(req, res, next) {
   const { name, health, strenght, defense, speed, height, weight } = req.body; // Los valores los va a traer del body
 
-  const pokemonData = {
+  const newPokemon = {
     //Como estoy usando los mismos valores que arriba no necesito poner "name: name".
     id: uuidv4(),
     name,
@@ -52,7 +52,7 @@ function createPokemon(req, res, next) {
     weight,
   };
 
-  Pokemons.create(pokemonData).then((response) => {
+  Pokemons.create(newPokemon).then((response) => {
     //Crea una instancia de pokemon con los valores de pokemonData
     return res.json(response); //Como la promesa se cumple devuelvo un json
   });
