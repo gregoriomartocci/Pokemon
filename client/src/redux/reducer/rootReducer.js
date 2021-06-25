@@ -1,37 +1,23 @@
 import { filterType, searchFilter, sort } from "../../utils";
-import {
-  POKEMON_CREATED_REQUEST,
-  POKEMON_CREATED_SUCCESS,
-  POKEMON_CREATED_FAIL,
-  POKEMON_DETAILS_REQUEST,
-  POKEMON_DETAILS_SUCCESS,
-  POKEMON_DETAILS_FAIL,
-  SET_POKEMONS_REQUEST,
-  SET_POKEMONS_SUCCESS,
-  SET_POKEMONS_FAIL,
-  FILTER_TYPE,
-  CLEAR_FILTERS,
-  SORT,
-  POKEMONS_SEARCH,
-} from "../constants/pokemonConstants";
+import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
   allPokemons: { loading: true, data: [] },
   pokemons: { loading: true, data: [] },
-  pokemonSearch: { loading: true, data: [] },
-  pokemonDetails: { loading: true, data: {} },
+  types: { loading: true, data: [] },
+  applicationLoading: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     // SET POKEMONS
-    case SET_POKEMONS_REQUEST:
+    case ActionTypes.SET_POKEMONS_REQUEST:
       return {
         ...state,
         allPokemons: { loading: true },
       };
 
-    case SET_POKEMONS_SUCCESS:
+    case ActionTypes.SET_POKEMONS_SUCCESS:
       return {
         ...state,
         allPokemons: {
@@ -44,25 +30,51 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
 
-    case SET_POKEMONS_FAIL:
+    case ActionTypes.SET_POKEMONS_FAIL:
       return {
         ...state,
         allPokemons: { loading: false, error: action.payload },
         pokemons: { loading: false, error: action.payload },
       };
 
+    // SET TYPES
+
+    case ActionTypes.SET_TYPES_REQUEST:
+      return {
+        ...state,
+        types: { loading: true },
+      };
+
+    case ActionTypes.SET_TYPES_SUCCESS:
+      return {
+        ...state,
+        types: {
+          loading: false,
+          data: action.payload,
+        },
+        applicationLoaded: false,
+      };
+
+    case ActionTypes.SET_TYPES_FAIL:
+      return {
+        ...state,
+        types: {
+          error: action.payload,
+        },
+      };
+
     // CREATE POKEMON
 
-    case POKEMON_CREATED_REQUEST:
+    case ActionTypes.POKEMON_CREATED_REQUEST:
       return { ...state, pokemons: { loading: true } };
 
-    case POKEMON_CREATED_SUCCESS:
+    case ActionTypes.POKEMON_CREATED_SUCCESS:
       return {
         ...state,
         pokemonCreated: { loading: false, data: action.payload },
       };
 
-    case POKEMON_CREATED_FAIL:
+    case ActionTypes.POKEMON_CREATED_FAIL:
       return {
         ...state,
         pokemonCreated: { loading: false, error: action.payload },
@@ -70,16 +82,16 @@ export const rootReducer = (state = initialState, action) => {
 
     // POKEMON DETAILS
 
-    case POKEMON_DETAILS_REQUEST:
+    case ActionTypes.POKEMON_DETAILS_REQUEST:
       return { ...state, pokemonDetails: { loading: true } };
 
-    case POKEMON_DETAILS_SUCCESS:
+    case ActionTypes.POKEMON_DETAILS_SUCCESS:
       return {
         ...state,
         pokemonDetails: { loading: false, data: action.payload },
       };
 
-    case POKEMON_DETAILS_FAIL:
+    case ActionTypes.POKEMON_DETAILS_FAIL:
       return {
         ...state,
         pokemonDetails: { loading: false, error: action.payload },
@@ -87,7 +99,7 @@ export const rootReducer = (state = initialState, action) => {
 
     // POKEMON SEARCH
 
-    case POKEMONS_SEARCH:
+    case ActionTypes.POKEMONS_SEARCH:
       return {
         ...state,
         pokemons: {
@@ -98,7 +110,7 @@ export const rootReducer = (state = initialState, action) => {
 
     // POKEMON FILTER
 
-    case FILTER_TYPE:
+    case ActionTypes.FILTER_TYPE:
       return {
         ...state,
         pokemons: {
@@ -109,7 +121,7 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
 
-    case CLEAR_FILTERS:
+    case ActionTypes.CLEAR_FILTERS:
       return {
         ...state,
         pokemons: {
@@ -118,7 +130,7 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
 
-    case SORT:
+    case ActionTypes.SORT:
       return {
         ...state,
         pokemons: {

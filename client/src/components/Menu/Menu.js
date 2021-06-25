@@ -8,15 +8,6 @@ import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByType, sortBy } from "../../redux/actions";
 
-const types = [
-  { id: 1, name: "water" },
-  { id: 2, name: "grass" },
-  { id: 3, name: "poison" },
-  { id: 4, name: "fire" },
-  { id: 5, name: "ghost" },
-  { id: 6, name: "dark" },
-];
-
 const sortItems = [
   { id: 1, name: "name" },
   { id: 2, name: "z-a" },
@@ -33,6 +24,7 @@ function Menu() {
   const [sort, setSort] = useState([]);
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.rootReducer.pokemons.data);
+  const types = useSelector((state) => state.rootReducer.types.data);
 
   useEffect(() => {
     var array = [];
@@ -54,7 +46,7 @@ function Menu() {
           {/* <HiOutlineAdjustments /> */}
           <Dropdown
             title="Type"
-            items={types}
+            items={types && types}
             multiselect
             selection={filter}
             setSelection={setFilter}
