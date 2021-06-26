@@ -5,6 +5,7 @@ const initialState = {
   allPokemons: { loading: true, data: [] },
   pokemons: { loading: true, data: [] },
   types: { loading: true, data: [] },
+  pokemonCreated: { loading: true, data: {} },
   loading: true,
 };
 

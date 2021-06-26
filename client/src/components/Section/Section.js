@@ -12,8 +12,6 @@ function Section() {
   const data = useSelector((state) => state.rootReducer.pokemons.data);
   const loading = useSelector((state) => state.rootReducer.loading);
 
-  console.log("este es el loading", loading);
-
   var pokemons;
 
   if (data) {

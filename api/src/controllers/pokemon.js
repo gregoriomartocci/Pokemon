@@ -55,6 +55,7 @@ function createPokemon(req, res, next) {
   Pokemons.create(newPokemon).then((response) => {
     //Crea una instancia de pokemon con los valores de pokemonData
     return res.json(response); //Como la promesa se cumple devuelvo un json
+    
   });
 }
 
