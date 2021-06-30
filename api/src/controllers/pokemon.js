@@ -8,6 +8,7 @@ const {
   POKEMONS_TYPE,
   ALL_POKEMONS,
 } = require("../../constants");
+
 const { paginate, getPokemon, generation } = require("../utils");
 
 function getAllPokemons(req, res, next) {
@@ -38,25 +39,66 @@ function getAllPokemons(req, res, next) {
 }
 
 function createPokemon(req, res, next) {
-  const { name, health, strenght, defense, speed, height, weight } = req.body; // Los valores los va a traer del body
+  const { name, health, strenght, defense, speed, height, weight, types } =
+    req.body; // Los valores los va a traer del body
 
   const newPokemon = {
-    //Como estoy usando los mismos valores que arriba no necesito poner "name: name".
     id: uuidv4(),
-    name,
-    health,
-    strenght,
-    defense,
-    speed,
-    height,
-    weight,
+    name: name.value,
+    health: health.value,
+    strenght: strenght.value,
+    defense: defense.value,
+    speed: speed.value,
+    height: height.value,
+    weight: weight.value,
   };
 
-  Pokemons.create(newPokemon).then((response) => {
+  console.log(newPokemon);
+
+  Pokemons.create(newPokemon).then((pokemon) => {
     //Crea una instancia de pokemon con los valores de pokemonData
-    return res.json(response); //Como la promesa se cumple devuelvo un json
-    
+
+    console.log(types);
+
+    types.forEach((e) => {
+      Types.findByPk(e.id)
+        .then((t) => {
+          pokemon.addTypes(t);
+        })
+        .catch((err) => console.log(err));
+    });
+
+    return res.send(pokemon); //Como la promesa se cumple devuelvo un json
   });
+
+  // function createGame(req, res, next) {
+  //   const { name, description, date, rating, genres, platforms } = req.body;
+
+  //   const newGame = {
+  //     id: uuidv4(),
+  //     name,
+  //     description,
+  //     date,
+  //     rating,
+  //     genres,
+  //     platforms,
+  //   };
+
+  //   Videogame.create(newGame)
+  //     .then((videogame) => {
+  //       genres.forEach((g) =>
+  //         Genre.findByPk(g.id)
+  //           .then((resp) => {
+  //             console.log(resp);
+
+  //             videogame.addGenre(resp);
+  //           })
+  //           .catch((err) => console.log(err))
+  //       );
+  //     })
+  //     .catch((error) => console.log(error));
+
+  // }
 }
 
 function searchPokemonById(req, res, next) {

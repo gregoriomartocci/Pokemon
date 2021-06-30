@@ -4,9 +4,6 @@ import React from "react";
 
 function Input({ name, title, type, input, onChangeHandler, validate, error }) {
 
-  
-  console.log("anda bien el input ==> ", input);
-
   return (
     <div className="input-element">
       <span className="label">{title}</span>

@@ -6,11 +6,14 @@ import { ImCross } from "react-icons/im";
 import Dropdown from "../Dropdown/Dropdown";
 
 import Input from "../Input/Input";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createPokemon } from "../../redux/actions";
 
 function Modal({ showModal, setShowModal }) {
   const modalRef = useRef();
   const [typesSelected, setTypesSelected] = useState([]);
+  const [formValidation, setFormValidation] = useState(null);
+  const dispatch = useDispatch();
   const types = useSelector((state) => state.rootReducer.types.data);
 
   const [input, setInput] = useState({
@@ -22,7 +25,7 @@ function Modal({ showModal, setShowModal }) {
     strenght: { value: "", validated: "" },
     height: { value: "", validated: "" },
     weight: { value: "", validated: "" },
-    // types: { value: "", validated: "" },
+    types: [],
   });
 
   const expressions = {
@@ -53,6 +56,17 @@ function Modal({ showModal, setShowModal }) {
   );
 
   useEffect(() => {
+    var array = [];
+
+    array = typesSelected.map((g) => g);
+
+    setInput({
+      ...input,
+      types: array,
+    });
+  }, [typesSelected]);
+
+  useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
@@ -80,6 +94,21 @@ function Modal({ showModal, setShowModal }) {
 
   const onClickHandler = () => {
     console.log(input);
+    if (
+      input.name.validated === "true" &&
+      input.attack.validated === "true" &&
+      input.defense.validated === "true" &&
+      input.health.validated === "true" &&
+      input.speed.validated === "true" &&
+      input.strenght.validated === "true" &&
+      input.height.validated === "true" &&
+      input.weight.validated === "true"
+    ) {
+      setFormValidation(true);
+      dispatch(createPokemon(input));
+    } else {
+      setFormValidation(false);
+    }
   };
 
   return (
@@ -102,7 +131,6 @@ function Modal({ showModal, setShowModal }) {
                 </div>
               </div>
               <button className="modal-button"></button>
-
               <form className="modal-form">
                 <div className="row">
                   <Input
@@ -164,7 +192,6 @@ function Modal({ showModal, setShowModal }) {
                     error="Must be between 1 to 5 digits"
                   ></Input>
                 </div>
-
                 <div className="row">
                   <Input
                     name="height"
@@ -185,7 +212,6 @@ function Modal({ showModal, setShowModal }) {
                     error="Must be between 1 to 5 digits"
                   ></Input>
                 </div>
-
                 <div className="row">
                   <div className="input-element">
                     <Dropdown
@@ -197,7 +223,6 @@ function Modal({ showModal, setShowModal }) {
                     ></Dropdown>
                   </div>
                 </div>
-
                 <div className="success-toast">
                   <div className="toast-col">
                     <i className="icon-checked">
@@ -208,17 +233,18 @@ function Modal({ showModal, setShowModal }) {
                     <p className="toast-text">Pokemon succesfully created</p>
                   </div>
                 </div>
-
-                <div className="error-toast">
-                  <div className="toast-col">
-                    <i className="icon-error">
-                      <ImCross />
-                    </i>
+                {formValidation === false && (
+                  <div className="error-toast">
+                    <div className="toast-col">
+                      <i className="icon-error">
+                        <ImCross />
+                      </i>
+                    </div>
+                    <div className="toast-col">
+                      <p className="toast-text">Complete the form correctly</p>
+                    </div>
                   </div>
-                  <div className="toast-col">
-                    <p className="toast-text">Complete the form correctly</p>
-                  </div>
-                </div>
+                )}
               </form>
               <div className="bottom-row">
                 <div

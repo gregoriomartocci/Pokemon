@@ -66,13 +66,14 @@ export const clearFilters = () => (dispatch) => {
   dispatch({ type: ActionTypes.CLEAR_FILTERS });
 };
 
-export const createPokemon = () => async (dispatch) => {
+export const createPokemon = (pokemon) => async (dispatch) => {
   dispatch({
     type: ActionTypes.POKEMON_CREATED_REQUEST,
   });
   try {
     const { data } = await axios.post(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`,
+      pokemon
     );
     dispatch({ type: ActionTypes.POKEMON_CREATED_SUCCESS, payload: data });
   } catch (error) {

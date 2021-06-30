@@ -5,7 +5,7 @@ const initialState = {
   allPokemons: { loading: true, data: [] },
   pokemons: { loading: true, data: [] },
   types: { loading: true, data: [] },
-  pokemonCreated: { loading: true, data: {} },
+  pokemonCreated: { data: {} },
   loading: true,
 };
 
@@ -67,7 +67,7 @@ export const rootReducer = (state = initialState, action) => {
     // CREATE POKEMON
 
     case ActionTypes.POKEMON_CREATED_REQUEST:
-      return { ...state, pokemons: { loading: true } };
+      return { ...state, pokemonCreated: { loading: true } };
 
     case ActionTypes.POKEMON_CREATED_SUCCESS:
       return {
