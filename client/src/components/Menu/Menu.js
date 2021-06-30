@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Menu.css";
-
-import { BiSortUp } from "react-icons/bi";
-import { HiOutlineViewGrid } from "react-icons/hi";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByType, sortBy } from "../../redux/actions";
@@ -59,12 +56,6 @@ function Menu() {
             selection={sort}
             setSelection={setSort}
           ></Dropdown>
-        </div>
-        <div className="view">
-          <HiOutlineViewGrid />
-        </div>
-        <div className="sort">
-          <BiSortUp />
         </div>
       </div>
     </div>

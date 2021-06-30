@@ -27,14 +27,12 @@ function getAllPokemons(req, res, next) {
       .catch((error) => console.log(error));
   }
 
-  const pokemons_Api = axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`);
-  const pokemons_Db = Pokemons.findAll({ include: Types });
+  // const pokemons_Db = Pokemons.findAll({ include: Types });
+  // const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
 
-  Promise.all([pokemons_Api, pokemons_Db]).then((response) => {
-    let [pokemons_Api_response, pokemons_db_response] = response;
-    const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
-
-    return res.send(generation(array[0].results));
+  axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((response) => {
+    console.log(response);
+    return res.send(generation(response.data.results));
   });
 }
 
@@ -68,7 +66,7 @@ function createPokemon(req, res, next) {
         .catch((err) => console.log(err));
     });
 
-    return res.send(pokemon); //Como la promesa se cumple devuelvo un json
+    return res.send(pokemon);
   });
 
   // function createGame(req, res, next) {
@@ -97,7 +95,6 @@ function createPokemon(req, res, next) {
   //       );
   //     })
   //     .catch((error) => console.log(error));
-
   // }
 }
 

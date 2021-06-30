@@ -223,16 +223,18 @@ function Modal({ showModal, setShowModal }) {
                     ></Dropdown>
                   </div>
                 </div>
-                <div className="success-toast">
-                  <div className="toast-col">
-                    <i className="icon-checked">
-                      <FaCheck />
-                    </i>
+                {formValidation === true && (
+                  <div className="success-toast">
+                    <div className="toast-col">
+                      <i className="icon-checked">
+                        <FaCheck />
+                      </i>
+                    </div>
+                    <div className="toast-col">
+                      <p className="toast-text">Pokemon succesfully created</p>
+                    </div>
                   </div>
-                  <div className="toast-col">
-                    <p className="toast-text">Pokemon succesfully created</p>
-                  </div>
-                </div>
+                )}
                 {formValidation === false && (
                   <div className="error-toast">
                     <div className="toast-col">
