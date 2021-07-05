@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { capitalize } from "../../utils";
+import Tabs from "../Card/Tabs/Tabs";
 import "./PokemonDetails.css";
 
 function PokemonDetails({ showModal, setShowModal, pokemon }) {
@@ -73,36 +74,7 @@ function PokemonDetails({ showModal, setShowModal, pokemon }) {
                   {pokemon && capitalize(pokemon.name)}
                 </div>
 
-                <div>
-                  <title>Base Stats</title>
-                </div>
-
-                <div className="pokemon-stats">
-                  <div className="pokemon-stats-labels">
-                    <span className="label">HP</span>
-                    <span className="label">STRENGH</span>
-                    <span className="label">DEFENSE</span>
-                    <span className="label">SPEED</span>
-                    <span className="label">HEIGHT</span>
-                    <span className="label">WEIGHT</span>
-                  </div>
-                  <div className="pokemon-stats-values">
-                    <span className="value">
-                      {pokemon && pokemon.stats[0]?.base_stat}
-                    </span>
-                    <span className="value">
-                      {pokemon && pokemon.stats[1]?.base_stat}
-                    </span>
-                    <span className="value">
-                      {pokemon && pokemon.stats[2]?.base_stat}
-                    </span>
-                    <span className="value">
-                      {pokemon.stats && pokemon.stats[5]?.base_stat}
-                    </span>
-                    <span className="value">{pokemon && pokemon.height}</span>
-                    <span className="value">{pokemon && pokemon.weight}</span>
-                  </div>
-                </div>
+                <Tabs pokemon={pokemon} />
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@
   display: flex;
   position: relative;
   background-color: #fffffe;
-  height: 30rem;
+  height: 35rem;
   max-width: 75%;
   margin: 1rem;
   color: black;
@@ -65,7 +65,7 @@
   display: flex;
   text-align: left;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #ffffff;
   border-radius: 0 1rem 1rem 0;
   padding: 1rem;
