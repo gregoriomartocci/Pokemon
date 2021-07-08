@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokemonAditional } from "../../../redux/actions";
 import "./Tabs.css";
 
 function Tabs({ pokemon }) {
+  const dispatch = useDispatch();
+  const aditional = useSelector(
+    (state) => state.rootReducer.pokemonAditional.data
+  );
+
+  if (aditional) {
+    console.log("esto es aditional", aditional);
+  }
+
   const [toggleState, setToggleState] = useState(1);
+
+  useEffect(() => {
+    dispatch(getPokemonAditional(pokemon.id));
+
+    return () => {};
+  }, []);
 
   const toggleTab = (index) => {
     setToggleState(index);

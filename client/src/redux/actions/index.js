@@ -4,8 +4,12 @@ import ActionTypes from "../constants/pokemonConstants";
 
 dotenv.config();
 
-const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
-
+const {
+  REACT_APP_BASE_URL,
+  REACT_APP_POKEMONS,
+  REACT_APP_TYPES,
+  REACT_APP_DETAILS,
+} = process.env;
 
 // SET POKEMONS
 
@@ -65,15 +69,13 @@ export const setPokemons = () => async (dispatch) => {
   }
 };
 
-
 // CLEAR FILTERS
 
 export const clearFilters = () => (dispatch) => {
   dispatch({ type: ActionTypes.CLEAR_FILTERS });
 };
 
-
-// CREATE POKEMON 
+// CREATE POKEMON
 
 export const createPokemon = (pokemon) => async (dispatch) => {
   dispatch({
@@ -111,13 +113,30 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   }
 };
 
+// GET POKEMON ADITIONAL
+
+export const getPokemonAditional = (id) => async (dispatch) => {
+  dispatch({ type: ActionTypes.POKEMON_ADITIONAL_REQUEST });
+  try {
+    const { data } = await axios.get(
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${REACT_APP_DETAILS}/${id}`
+    );
+    dispatch({ type: ActionTypes.POKEMON_ADITIONAL_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.POKEMON_ADITIONAL_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
 // POKEMON SEARCH
 
 export const pokemonSearch = (payload) => async (dispatch) => {
   dispatch({ type: ActionTypes.POKEMONS_SEARCH, payload });
 };
 
-// FITER BY TYPE 
+// FITER BY TYPE
 
 export const filterByType = (payload) => (dispatch) => {
   dispatch({ type: ActionTypes.FILTER_TYPE, payload });

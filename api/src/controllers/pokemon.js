@@ -48,30 +48,31 @@ function getPokemonDetails(req, res, next) {
   if (id) {
     const species = axios.get(`${BASE_URL}${SPECIES}/${id}`);
     const characteristic = axios.get(`${BASE_URL}${CHARACTERISTIC}/${id}`);
-    const evolution_chain = axios.get(`${BASE_URL}${EVOLUTION_CHAIN}/${id}`);
 
-    Promise.all([species, characteristic, evolution_chain])
-      .then((response) => {
-        let [
-          species_response,
-          characteristic_response,
-          evolution_chain_response,
-        ] = response;
+    Promise.all([species, characteristic]).then((response) => {
+      let [species_response, characteristic_response] = response;
 
-        const obj = {};
-        obj.species_text =
-          species_response.data.flavor_text_entries[0].flavor_text;
-        obj.description =
-          characteristic_response.data.descriptions[0].description;
-        obj.evolution_chain = getEvolutions(
-          evolution_chain_response.data.chain
-        );
+      const evolution_chain_number =
+        species_response.data.evolution_chain.url.split("/")[6];
 
-        return res.send(obj);
-      })
-      .catch((err) => {
-        res.status(500).send(err);
-      });
+      const evolution_chain = axios.get(
+        `${BASE_URL}${EVOLUTION_CHAIN}/${evolution_chain_number}`
+      );
+
+      evolution_chain
+        .then((response) => {
+          const obj = {};
+
+          obj.species_text =
+            species_response.data.flavor_text_entries[0].flavor_text;
+          obj.description =
+            characteristic_response.data.descriptions[0].description;
+          obj.evolution_chain = getEvolutions(response.data.chain);
+
+          return res.send(obj);
+        })
+        .catch((err) => res.send(err));
+    });
   } else {
     res.status(500).send("You need to provide an id");
   }

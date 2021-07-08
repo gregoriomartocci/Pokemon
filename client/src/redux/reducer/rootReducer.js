@@ -2,10 +2,11 @@ import { filterType, searchFilter, sort } from "../../utils";
 import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
-  allPokemons: { loading: true, data: [] },
-  pokemons: { loading: true, data: [] },
-  types: { loading: true, data: [] },
+  allPokemons: { data: [] },
+  pokemons: { data: [] },
+  types: { data: [] },
   pokemonCreated: { data: {} },
+  pokemonAditional: { data: [] },
   loading: true,
 };
 
@@ -93,6 +94,23 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case ActionTypes.POKEMON_DETAILS_FAIL:
+      return {
+        ...state,
+        pokemonDetails: { loading: false, error: action.payload },
+      };
+
+    // POKEMON ADITIONAL
+
+    case ActionTypes.POKEMON_ADITIONAL_REQUEST:
+      return { ...state, pokemonAditional: { loading: true } };
+
+    case ActionTypes.POKEMON_ADITIONAL_SUCCESS:
+      return {
+        ...state,
+        pokemonAditional: { loading: false, data: action.payload },
+      };
+
+    case ActionTypes.POKEMON_ADITIONAL_FAIL:
       return {
         ...state,
         pokemonDetails: { loading: false, error: action.payload },
