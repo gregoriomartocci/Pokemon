@@ -6,6 +6,9 @@ dotenv.config();
 
 const { REACT_APP_BASE_URL, REACT_APP_POKEMONS, REACT_APP_TYPES } = process.env;
 
+
+// SET POKEMONS
+
 export const setPokemons = () => async (dispatch) => {
   dispatch({
     type: ActionTypes.POKEMONS_LIST_REQUEST,
@@ -62,9 +65,15 @@ export const setPokemons = () => async (dispatch) => {
   }
 };
 
+
+// CLEAR FILTERS
+
 export const clearFilters = () => (dispatch) => {
   dispatch({ type: ActionTypes.CLEAR_FILTERS });
 };
+
+
+// CREATE POKEMON 
 
 export const createPokemon = (pokemon) => async (dispatch) => {
   dispatch({
@@ -84,6 +93,8 @@ export const createPokemon = (pokemon) => async (dispatch) => {
   }
 };
 
+// GET POKEMON DETAILS
+
 export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   dispatch({ type: ActionTypes.POKEMON_DETAILS_REQUEST });
   try {
@@ -100,13 +111,19 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   }
 };
 
+// POKEMON SEARCH
+
 export const pokemonSearch = (payload) => async (dispatch) => {
   dispatch({ type: ActionTypes.POKEMONS_SEARCH, payload });
 };
 
+// FITER BY TYPE 
+
 export const filterByType = (payload) => (dispatch) => {
   dispatch({ type: ActionTypes.FILTER_TYPE, payload });
 };
+
+// SORT BY
 
 export const sortBy = (payload) => (dispatch) => {
   dispatch({ type: ActionTypes.SORT, payload });

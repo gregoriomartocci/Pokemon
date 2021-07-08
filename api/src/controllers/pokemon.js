@@ -5,11 +5,13 @@ const axios = require("axios");
 const {
   BASE_URL,
   POKEMONS_URL,
-  POKEMONS_TYPE,
   ALL_POKEMONS,
+  SPECIES,
+  CHARACTERISTIC,
+  EVOLUTION_CHAIN,
 } = require("../../constants");
 
-const { paginate, getPokemon, generation } = require("../utils");
+const { paginate, getPokemon, generation, getEvolutions } = require("../utils");
 
 function getAllPokemons(req, res, next) {
   var { name, page } = req.query;
@@ -34,6 +36,45 @@ function getAllPokemons(req, res, next) {
     console.log(response);
     return res.send(generation(response.data.results));
   });
+}
+
+function getPokemonDetails(req, res, next) {
+  const { id } = req.params;
+
+  console.log(id, "entre aca");
+
+  console.log(SPECIES, CHARACTERISTIC, EVOLUTION_CHAIN);
+
+  if (id) {
+    const species = axios.get(`${BASE_URL}${SPECIES}/${id}`);
+    const characteristic = axios.get(`${BASE_URL}${CHARACTERISTIC}/${id}`);
+    const evolution_chain = axios.get(`${BASE_URL}${EVOLUTION_CHAIN}/${id}`);
+
+    Promise.all([species, characteristic, evolution_chain])
+      .then((response) => {
+        let [
+          species_response,
+          characteristic_response,
+          evolution_chain_response,
+        ] = response;
+
+        const obj = {};
+        obj.species_text =
+          species_response.data.flavor_text_entries[0].flavor_text;
+        obj.description =
+          characteristic_response.data.descriptions[0].description;
+        obj.evolution_chain = getEvolutions(
+          evolution_chain_response.data.chain
+        );
+
+        return res.send(obj);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  } else {
+    res.status(500).send("You need to provide an id");
+  }
 }
 
 function createPokemon(req, res, next) {
@@ -111,4 +152,9 @@ function searchPokemonById(req, res, next) {
   }
 }
 
-module.exports = { getAllPokemons, createPokemon, searchPokemonById };
+module.exports = {
+  getAllPokemons,
+  createPokemon,
+  searchPokemonById,
+  getPokemonDetails,
+};
