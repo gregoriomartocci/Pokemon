@@ -1,4 +1,4 @@
-import { filterType, searchFilter, sort } from "../../utils";
+import { filterType, getChainData, searchFilter, sort } from "../../utils";
 import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
   types: { data: [] },
   pokemonCreated: { data: {} },
   pokemonAditional: { data: [] },
+  pokemonChain: { data: [] },
   loading: true,
 };
 
@@ -108,12 +109,17 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemonAditional: { loading: false, data: action.payload },
+        pokemonChain: {
+          data: state.allPokemons.data.filter((p) =>
+            getChainData(p, action.payload.chain_names)
+          ),
+        },
       };
 
     case ActionTypes.POKEMON_ADITIONAL_FAIL:
       return {
         ...state,
-        pokemonDetails: { loading: false, error: action.payload },
+        pokemonAditional: { loading: false, error: action.payload },
       };
 
     // POKEMON SEARCH

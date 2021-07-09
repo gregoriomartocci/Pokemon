@@ -62,12 +62,15 @@ function getPokemonDetails(req, res, next) {
       evolution_chain
         .then((response) => {
           const obj = {};
+          const data = getEvolutions(response.data.chain);
+          const names = data.map((e) => e.species_name);
 
           obj.species_text =
             species_response.data.flavor_text_entries[0].flavor_text;
           obj.description =
             characteristic_response.data.descriptions[0].description;
           obj.evolution_chain = getEvolutions(response.data.chain);
+          obj.chain_names = names;
 
           return res.send(obj);
         })

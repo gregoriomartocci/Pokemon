@@ -28,6 +28,11 @@ export const filterType = (item, types) => {
   return types.includes(item.types[0].type.name || item.types[1]?.type.name);
 };
 
+export const getChainData = (item, names) => {
+  if (!names.length) return true;
+  return names.includes(item.name);
+};
+
 export const searchFilter = (array, searchTearm) => {
   if (searchTearm === "") return array;
   return array.filter((e) =>
