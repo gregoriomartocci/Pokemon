@@ -26,8 +26,8 @@ function getAllTypes(req, res, next) {
         return res.send(types);
       }
     })
-    .catch(() => {
-      res.send((err) => console.log(err));
+    .catch((err) => {
+      res.send(err);
     });
 }
 

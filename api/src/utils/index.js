@@ -11,7 +11,7 @@ function generation(array, gen) {
 
     if (gen === 1) {
       startIndex = 0;
-      endIndex = 40;
+      endIndex = 151;
     }
 
     return array.slice(startIndex, endIndex);
@@ -20,19 +20,21 @@ function generation(array, gen) {
   }
 }
 
-
 const getEvolutions = (evoData) => {
   var evoChain = [];
 
   do {
     var evoDetails = evoData["evolution_details"][0];
 
-    evoChain.push({
-      species_name: evoData.species.name,
-      min_level: !evoDetails ? 1 : evoDetails.min_level,
-      trigger_name: !evoDetails ? null : evoDetails.trigger.name,
-      item: !evoDetails ? null : evoDetails.item,
-    });
+    evoChain = [
+      ...evoChain,
+      {
+        species_name: evoData.species.name,
+        min_level: !evoDetails ? 1 : evoDetails.min_level,
+        trigger_name: !evoDetails ? null : evoDetails.trigger.name,
+        item: !evoDetails ? null : evoDetails.item,
+      },
+    ];
 
     evoData = evoData["evolves_to"][0];
   } while (evoData && evoData.hasOwnProperty("evolves_to"));

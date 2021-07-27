@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemonAditional } from "../../../redux/actions";
+import { getPokemonAditional } from "../../redux/actions";
+import Evolution from "../Evolution/Evolution";
 import "./Tabs.css";
 
 function Tabs({ pokemon }) {
@@ -8,11 +9,7 @@ function Tabs({ pokemon }) {
   const aditional = useSelector(
     (state) => state.rootReducer.pokemonAditional.data
   );
-
-  if (aditional) {
-    console.log("esto es aditional", aditional);
-  }
-
+  const chain = useSelector((state) => state.rootReducer.pokemonChain.data);
   const [toggleState, setToggleState] = useState(1);
 
   useEffect(() => {
@@ -83,18 +80,13 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-            voluptatum qui adipisci.
-          </p>
+          <p>{aditional && aditional.description}</p>
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          {aditional
-            ? aditional.evolution_chain?.map((p) => p.species_name)
-            : "This Pokemons has No evolutions"}
+          <Evolution chain={chain} aditional={aditional} />
         </div>
       </div>
     </div>

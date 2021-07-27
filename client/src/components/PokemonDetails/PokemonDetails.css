@@ -28,6 +28,7 @@
   flex-direction: column;
   background-color: #fffffe;
   padding: 1.5rem;
+  height: 100%;
 }
 
 .pokemon-stats {

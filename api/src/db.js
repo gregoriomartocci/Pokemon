@@ -45,7 +45,6 @@ const { Pokemons, Types } = sequelize.models;
 Pokemons.belongsToMany(Types, { through: "PokemonTypes" }); //Relacion 1 pokemon puede tener muchos tipos
 Types.belongsToMany(Pokemons, { through: "PokemonTypes" }); // 1 tipo puede pertenecer a muchos pokemons
 
-
 /*
 const PokemonsTypes = sequelize.define('PokemonType', {
   expirationDate:{

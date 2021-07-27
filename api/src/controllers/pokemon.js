@@ -16,8 +16,6 @@ const { paginate, getPokemon, generation, getEvolutions } = require("../utils");
 function getAllPokemons(req, res, next) {
   var { name, page } = req.query;
 
-  console.log(req.query);
-
   page = parseInt(page);
 
   if (name && name !== undefined && name !== "undefined") {
@@ -26,7 +24,7 @@ function getAllPokemons(req, res, next) {
       .then((response) => {
         res.send(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => res.send(error));
   }
 
   // const pokemons_Db = Pokemons.findAll({ include: Types });
@@ -49,33 +47,35 @@ function getPokemonDetails(req, res, next) {
     const species = axios.get(`${BASE_URL}${SPECIES}/${id}`);
     const characteristic = axios.get(`${BASE_URL}${CHARACTERISTIC}/${id}`);
 
-    Promise.all([species, characteristic]).then((response) => {
-      let [species_response, characteristic_response] = response;
+    Promise.all([species, characteristic])
+      .then((response) => {
+        let [species_response, characteristic_response] = response;
 
-      const evolution_chain_number =
-        species_response.data.evolution_chain.url.split("/")[6];
+        const evolution_chain_number =
+          species_response.data.evolution_chain.url.split("/")[6];
 
-      const evolution_chain = axios.get(
-        `${BASE_URL}${EVOLUTION_CHAIN}/${evolution_chain_number}`
-      );
+        const evolution_chain = axios.get(
+          `${BASE_URL}${EVOLUTION_CHAIN}/${evolution_chain_number}`
+        );
 
-      evolution_chain
-        .then((response) => {
-          const obj = {};
-          const data = getEvolutions(response.data.chain);
-          const names = data.map((e) => e.species_name);
+        evolution_chain
+          .then((response) => {
+            const obj = {};
+            const data = getEvolutions(response.data.chain);
+            const names = data.map((e) => e.species_name);
 
-          obj.species_text =
-            species_response.data.flavor_text_entries[0].flavor_text;
-          obj.description =
-            characteristic_response.data.descriptions[0].description;
-          obj.evolution_chain = getEvolutions(response.data.chain);
-          obj.chain_names = names;
+            obj.species_text =
+              species_response.data.flavor_text_entries[0].flavor_text;
+            obj.description =
+              characteristic_response.data.descriptions[0].description;
+            obj.evolution_chain = getEvolutions(response.data.chain);
+            obj.chain_names = names;
 
-          return res.send(obj);
-        })
-        .catch((err) => res.send(err));
-    });
+            return res.send(obj);
+          })
+          .catch((err) => res.send(err));
+      })
+      .catch((err) => res.send(err));
   } else {
     res.status(500).send("You need to provide an id");
   }
@@ -108,7 +108,7 @@ function createPokemon(req, res, next) {
         .then((t) => {
           pokemon.addTypes(t);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => res.send(err));
     });
 
     return res.send(pokemon);
@@ -152,7 +152,7 @@ function searchPokemonById(req, res, next) {
       .then((response) => {
         res.send(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => res.send(error));
   }
 }
 

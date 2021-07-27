@@ -14,7 +14,6 @@ function Pagination({ pagination, setPage }) {
   }
 
   const handleClick = (page) => {
-    console.log(page);
     setPage(page);
   };
 

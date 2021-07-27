@@ -93,7 +93,6 @@ function Modal({ showModal, setShowModal }) {
   };
 
   const onClickHandler = () => {
-    console.log(input);
     if (
       input.name.validated === "true" &&
       input.attack.validated === "true" &&

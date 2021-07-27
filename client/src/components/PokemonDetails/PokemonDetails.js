@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { capitalize } from "../../utils";
-import Tabs from "../Card/Tabs/Tabs";
+import Tabs from "../Tabs/Tabs";
 import "./PokemonDetails.css";
 
 function PokemonDetails({ showModal, setShowModal, pokemon }) {
