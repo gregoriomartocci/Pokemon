@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./Modal.css";
 import { IoCloseSharp } from "react-icons/io5";

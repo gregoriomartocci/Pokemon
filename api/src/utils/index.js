@@ -11,7 +11,7 @@ function generation(array, gen) {
 
     if (gen === 1) {
       startIndex = 0;
-      endIndex = 151;
+      endIndex = 20;
     }
 
     return array.slice(startIndex, endIndex);

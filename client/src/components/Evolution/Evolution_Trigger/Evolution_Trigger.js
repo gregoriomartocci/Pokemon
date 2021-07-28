@@ -1,8 +1,6 @@
 import React from "react";
 
 function Evolution_Trigger({ trigger }) {
-  console.log("trigger =====> ", trigger);
-
   return (
     <>
       {trigger && (

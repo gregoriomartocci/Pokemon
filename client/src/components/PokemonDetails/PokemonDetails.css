@@ -31,28 +31,6 @@
   height: 100%;
 }
 
-.pokemon-stats {
-  width: 50%;
-  margin: 2rem 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-.pokemon-stats-labels {
-  display: flex;
-  flex-direction: column;
-  margin: 0.25rem 0;
-  font-weight: 600;
-  font-size: 2rem;
-  color: #bdbdbd;
-}
-
-.pokemon-stats-values {
-  display: flex;
-  flex-direction: column;
-  margin: 0.25rem 0;
-}
-
 .left-content {
   display: flex;
   justify-content: center;

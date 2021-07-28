@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonAditional } from "../../redux/actions";
 import Evolution from "../Evolution/Evolution";
+import Stats from "../Stats/Stats";
 import "./Tabs.css";
 
 function Tabs({ pokemon }) {
@@ -49,38 +51,13 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <div className="pokemon-stats">
-            <div className="pokemon-stats-labels">
-              <span className="label">HP</span>
-              <span className="label">STRENGH</span>
-              <span className="label">DEFENSE</span>
-              <span className="label">SPEED</span>
-              <span className="label">HEIGHT</span>
-              <span className="label">WEIGHT</span>
-            </div>
-            <div className="pokemon-stats-values">
-              <span className="value">
-                {pokemon && pokemon.stats[0]?.base_stat}
-              </span>
-              <span className="value">
-                {pokemon && pokemon.stats[1]?.base_stat}
-              </span>
-              <span className="value">
-                {pokemon && pokemon.stats[2]?.base_stat}
-              </span>
-              <span className="value">
-                {pokemon.stats && pokemon.stats[5]?.base_stat}
-              </span>
-              <span className="value">{pokemon && pokemon.height}</span>
-              <span className="value">{pokemon && pokemon.weight}</span>
-            </div>
-          </div>
+          <p>{aditional && aditional.description}</p>
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <p>{aditional && aditional.description}</p>
+          <Stats pokemon={pokemon} />
         </div>
 
         <div

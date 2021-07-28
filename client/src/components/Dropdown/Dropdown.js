@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./Style.css";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";

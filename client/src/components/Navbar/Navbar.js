@@ -3,13 +3,11 @@ import "./Navbar.css";
 import dotenv from "dotenv";
 import { useDispatch } from "react-redux";
 import { clearFilters } from "../../redux/actions";
-import { useHistory } from "react-router-dom";
 import Modal from "../Modal/Modal";
 
 dotenv.config();
 
 function Navbar() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
