@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProgressBar.css";
 
 const ProgressBar = ({ done }) => {
   const [style, setStyle] = useState({});
+
+  useEffect(() => {
+    return () => {};
+  }, []);
 
   setTimeout(() => {
     const newStyle = {
@@ -15,9 +19,7 @@ const ProgressBar = ({ done }) => {
 
   return (
     <div className="progress">
-      <div className="progress-done" style={style}>
-        {done}%
-      </div>
+      <div className="progress-done" style={style}></div>
     </div>
   );
 };

@@ -18,19 +18,21 @@ function Stats({ pokemon }) {
             <span className="stat-label">
               {pokemon && capitalize(p.stat.name.replace(/-/g, " "))}
             </span>
-            <ProgressBar done={percentage(p.base_stat, 125).toFixed(2)} />
+            <ProgressBar done={Math.round(percentage(p.base_stat, 125))} />
             <span className="stat-value">{pokemon && p.base_stat}</span>
           </div>
         ))}
-      <div className="pokemon-stats-row">
-        <span className="stat-label">Total</span>
-        <span className="stat-value">{pokemon ? total : null}</span>
-      </div>
-      <div className="pokemon-stats-row">
-        <span className="stat-label">Average</span>
-        <span className="stat-value">
-          {pokemon ? average.toFixed(2) : null}
-        </span>
+      <div className="pokemon-stats-bottom">
+        <div className="pokemon-stats-row">
+          <span className="stat-label">Total</span>
+          <span className="stat-value">{pokemon ? total : null}</span>
+        </div>
+        <div className="pokemon-stats-row">
+          <span className="stat-label">Average</span>
+          <span className="stat-value">
+            {pokemon ? Math.round(average) : null}
+          </span>
+        </div>
       </div>
     </div>
   );
