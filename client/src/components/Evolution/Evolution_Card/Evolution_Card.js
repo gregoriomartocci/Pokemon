@@ -12,7 +12,7 @@ function Evolution_Card({ pokemon }) {
             src={pokemon.sprites.other["official-artwork"].front_default}
             alt=""
           ></img>
-
+          {/* <img className="pokeball-background" src="/img/pokeball_background.svg" alt="" /> */}
           <span className="evolution-name">{capitalize(pokemon.name)}</span>
         </div>
       )}

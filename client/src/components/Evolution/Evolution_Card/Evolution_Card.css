@@ -1,9 +1,21 @@
 .evolution {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 110px;
+}
+
+.pokeball-background {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 150px;
+  height: 150px;
+  color: #f5f5f5;
+  opacity: 7%;
+  z-index: 5;
 }
 
 .evolution-trigger {
@@ -14,14 +26,22 @@
 }
 
 .evolution-name {
-  margin-top: 5px;
-  font-size: 11px;
+  margin-top: 12px;
+  font-size: 13px;
   font-weight: 500;
+  color: #bdbdbd;
 }
 
-.evolution-trigger-level,
+.evolution-trigger-level {
+  font-size: 20px;
+  font-weight: 600;
+  color: #424242;
+}
+
 .evolution-trigger-name {
-  font-size: 14px;
+  font-size: 13px;
+  color: #bdbdbd;
+  font-weight: 500;
 }
 
 .evolution-img {
