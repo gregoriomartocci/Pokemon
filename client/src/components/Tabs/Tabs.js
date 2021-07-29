@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonAditional } from "../../redux/actions";
+import About from "../About/About";
 import Evolution from "../Evolution/Evolution";
 import Stats from "../Stats/Stats";
 import "./Tabs.css";
@@ -51,7 +52,7 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <p>{aditional && aditional.description}</p>
+          <About pokemon={pokemon} aditional={aditional} />
         </div>
 
         <div

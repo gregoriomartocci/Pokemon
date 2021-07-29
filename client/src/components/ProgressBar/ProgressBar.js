@@ -5,17 +5,15 @@ const ProgressBar = ({ done }) => {
   const [style, setStyle] = useState({});
 
   useEffect(() => {
-    return () => {};
-  }, []);
+    setTimeout(() => {
+      const newStyle = {
+        opacity: 1,
+        width: `${done}%`,
+      };
 
-  setTimeout(() => {
-    const newStyle = {
-      opacity: 1,
-      width: `${done}%`,
-    };
-
-    setStyle(newStyle);
-  }, 200);
+      setStyle(newStyle);
+    }, 200);
+  }, [done]);
 
   return (
     <div className="progress">
