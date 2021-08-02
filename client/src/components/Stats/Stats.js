@@ -1,36 +1,44 @@
 import React from "react";
 import { percentage } from "../../utils";
+import Loading from "../Loading/Loading";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Stats.css";
 
-const data = ["Hp", "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed"];
+const data = ["HP", "ATTACK", "DEFENSE", "SP. ATK", "SP. DEF", "SPEED"];
 
-function Stats({ pokemon }) {
-  const total = pokemon.stats.reduce((a, b) => a + b.base_stat, 0);
+function Stats({ stats }) {
+  console.log("stats ====>", stats);
 
-  const average = pokemon.stats.reduce(function (a, b, _, { length }) {
-    return a + b.base_stat / length;
-  }, 0);
+  let total;
+  let average;
+
+  if (stats) {
+    total = stats.reduce((a, b) => a + b.value, 0);
+    average = stats.reduce((a, b, _, { length }) => {
+      return a + b.value / length;
+    }, 0);
+  }
 
   return (
     <div className="pokemon-stats">
-      {pokemon.stats &&
-        pokemon.stats.map((p, i) => (
+      {!stats ? (
+        <Loading />
+      ) : (
+        stats.map((e, i) => (
           <div key={i} className="pokemon-stats-row">
             <span className="stat-label">{data[i]}</span>
-            <span className="stat-value">{pokemon && p.base_stat}</span>
-            <ProgressBar done={Math.round(percentage(p.base_stat, 125))} />
+            <span className="stat-value">{stats && e.value}</span>
+            <ProgressBar done={Math.round(percentage(e.value, 125))} />
           </div>
-        ))}
+        ))
+      )}
       <div className="pokemon-stats-row ">
-        <span className="stat-label">Avg</span>
-        <span className="stat-value">
-          {pokemon ? Math.round(average) : null}
-        </span>
+        <span className="stat-label">AVG</span>
+        <span className="stat-value">{stats ? Math.round(average) : null}</span>
       </div>
       <div className="pokemon-stats-row ">
-        <span className="stat-label">Total</span>
-        <span className="stat-value">{pokemon ? total : null}</span>
+        <span className="stat-label">TOTAL</span>
+        <span className="stat-value">{stats ? total : null}</span>
       </div>
     </div>
   );

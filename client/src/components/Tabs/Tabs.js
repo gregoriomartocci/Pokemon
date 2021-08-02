@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemonAditional } from "../../redux/actions";
+import { getPokemonDetails } from "../../redux/actions";
+import { getChainData } from "../../utils";
 import About from "../About/About";
 import Evolution from "../Evolution/Evolution";
 import Stats from "../Stats/Stats";
@@ -9,15 +10,21 @@ import "./Tabs.css";
 
 function Tabs({ pokemon }) {
   const dispatch = useDispatch();
-  const aditional = useSelector(
-    (state) => state.rootReducer.pokemonAditional.data
-  );
-  const chain = useSelector((state) => state.rootReducer.pokemonChain.data);
   const [toggleState, setToggleState] = useState(1);
 
-  useEffect(() => {
-    dispatch(getPokemonAditional(pokemon.id));
+  const details = useSelector((state) => state.rootReducer.pokemonDetails);
+  const pokemons = useSelector((state) => state.rootReducer.allPokemons.data);
 
+  let chain = [];
+
+  if (pokemons && details.data) {
+    chain = pokemons.filter((e) =>
+      getChainData(e, details.data.evolution.evo_names)
+    );
+  }
+
+  useEffect(() => {
+    dispatch(getPokemonDetails(pokemon.id));
     return () => {};
   }, []);
 
@@ -52,19 +59,22 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <About pokemon={pokemon} aditional={aditional} />
+          <About about={!details.loading && details.data.about} />
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <Stats pokemon={pokemon} />
+          <Stats stats={!details.loading && details.data.stats} />
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <Evolution chain={chain} aditional={aditional} />
+          <Evolution
+            evolution={!details.loading && details.data.evolution}
+            chain={chain}
+          />
         </div>
       </div>
     </div>

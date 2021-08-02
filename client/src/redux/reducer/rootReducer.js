@@ -1,4 +1,4 @@
-import { filterType, getChainData, searchFilter, sort } from "../../utils";
+import { filterType, searchFilter, sort } from "../../utils";
 import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
@@ -6,8 +6,7 @@ const initialState = {
   pokemons: { data: [] },
   types: { data: [] },
   pokemonCreated: { data: {} },
-  pokemonAditional: { data: [] },
-  pokemonChain: { data: [] },
+  pokemonDetails: { data: {} },
   loading: true,
 };
 
@@ -86,6 +85,7 @@ export const rootReducer = (state = initialState, action) => {
     // POKEMON DETAILS
 
     case ActionTypes.POKEMON_DETAILS_REQUEST:
+      console.log(action.payload);
       return { ...state, pokemonDetails: { loading: true } };
 
     case ActionTypes.POKEMON_DETAILS_SUCCESS:
@@ -98,28 +98,6 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemonDetails: { loading: false, error: action.payload },
-      };
-
-    // POKEMON ADITIONAL
-
-    case ActionTypes.POKEMON_ADITIONAL_REQUEST:
-      return { ...state, pokemonAditional: { loading: true } };
-
-    case ActionTypes.POKEMON_ADITIONAL_SUCCESS:
-      return {
-        ...state,
-        pokemonAditional: { loading: false, data: action.payload },
-        pokemonChain: {
-          data: state.allPokemons.data.filter((p) =>
-            getChainData(p, action.payload.chain_names)
-          ),
-        },
-      };
-
-    case ActionTypes.POKEMON_ADITIONAL_FAIL:
-      return {
-        ...state,
-        pokemonAditional: { loading: false, error: action.payload },
       };
 
     // POKEMON SEARCH
@@ -146,6 +124,8 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
 
+    // CLEAR FILTER
+
     case ActionTypes.CLEAR_FILTERS:
       return {
         ...state,
@@ -154,6 +134,8 @@ export const rootReducer = (state = initialState, action) => {
           data: state.allPokemons.data,
         },
       };
+
+    // POKEMON SORT
 
     case ActionTypes.SORT:
       return {

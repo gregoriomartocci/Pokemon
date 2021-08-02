@@ -98,33 +98,20 @@ export const createPokemon = (pokemon) => async (dispatch) => {
 // GET POKEMON DETAILS
 
 export const getPokemonDetails = (pokemonId) => async (dispatch) => {
+  console.log(
+    `esta es la ruta =====> ${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}${REACT_APP_DETAILS}/${pokemonId}`
+  );
   dispatch({ type: ActionTypes.POKEMON_DETAILS_REQUEST });
+
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${pokemonId}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${REACT_APP_DETAILS}/${pokemonId}`
     );
-    console.log(data);
+
     dispatch({ type: ActionTypes.POKEMON_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: ActionTypes.POKEMON_DETAILS_FAIL,
-      payload: error.message,
-    });
-  }
-};
-
-// GET POKEMON ADITIONAL
-
-export const getPokemonAditional = (id) => async (dispatch) => {
-  dispatch({ type: ActionTypes.POKEMON_ADITIONAL_REQUEST });
-  try {
-    const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${REACT_APP_DETAILS}/${id}`
-    );
-    dispatch({ type: ActionTypes.POKEMON_ADITIONAL_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: ActionTypes.POKEMON_ADITIONAL_FAIL,
       payload: error.message,
     });
   }

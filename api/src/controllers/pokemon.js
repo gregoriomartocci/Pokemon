@@ -41,15 +41,13 @@ function getPokemonDetails(req, res, next) {
 
   console.log(id, "entre aca");
 
-  console.log(SPECIES, CHARACTERISTIC, EVOLUTION_CHAIN);
-
   if (id) {
     const species = axios.get(`${BASE_URL}${SPECIES}/${id}`);
-    const characteristic = axios.get(`${BASE_URL}${CHARACTERISTIC}/${id}`);
+    const pokemon = axios.get(`${BASE_URL}${POKEMONS_URL}/${id}`);
 
-    Promise.all([species, characteristic])
+    Promise.all([species, pokemon])
       .then((response) => {
-        let [species_response, characteristic_response] = response;
+        let [species_response, pokemon_response] = response;
 
         const evolution_chain_number =
           species_response.data.evolution_chain.url.split("/")[6];
@@ -60,24 +58,55 @@ function getPokemonDetails(req, res, next) {
 
         evolution_chain
           .then((response) => {
-            const obj = {};
-            const data = getEvolutions(response.data.chain);
-            const names = data.map((e) => e.species_name);
+            const evo_chain = getEvolutions(response.data.chain);
+            const species = species_response.data;
+            const pokemon = pokemon_response.data;
 
-            obj.species_text =
-              species_response.data.flavor_text_entries[0].flavor_text;
-            obj.description =
-              characteristic_response.data.descriptions[0].description;
-            obj.evolution_chain = getEvolutions(response.data.chain);
-            obj.chain_names = names;
+            // data extraction
 
-            return res.send(obj);
+            const stats = pokemon_response.data.stats.map((s) => {
+              return { name: s.stat.name, value: s.base_stat };
+            });
+            const description = species.flavor_text_entries.filter((obj) => {
+              return obj.language.name === "en" && obj.version.name === "sword";
+            });
+            const species_name = species.genera.filter((s) => {
+              return s.language.name === "en";
+            });
+            const egg_groups = species.egg_groups.map((e) => e.name);
+            const abilities = pokemon.abilities.map((a) => a.ability.name);
+
+            // console.log("species ====> ", species_name);
+
+            const about = {
+              description: description[0].flavor_text,
+              species: species_name[0].genus,
+              height: pokemon.height,
+              weight: pokemon.weight,
+              abilities,
+              egg_groups,
+              base_hapiness: species.base_happiness,
+              legendary: species.is_legendary,
+              mythical: species.is_mythical,
+              habitat: species.habitat.name,
+            };
+
+            const evolution = {
+              evo_chain,
+              evo_names: evo_chain.map((e) => e.species_name),
+            };
+
+            const details = { about, stats, evolution };
+
+            console.log(details);
+
+            return res.send(details);
           })
-          .catch((err) => res.send(err));
+          .catch((err) => console.log(err));
       })
-      .catch((err) => res.send(err));
+      .catch((err) => console.log(err));
   } else {
-    res.status(500).send("You need to provide an id");
+    res.status(500).console.log("You need to provide an id");
   }
 }
 
