@@ -30,16 +30,48 @@ function getAllPokemons(req, res, next) {
   // const pokemons_Db = Pokemons.findAll({ include: Types });
   // const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
 
-  axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((response) => {
-    console.log(response);
-    return res.send(generation(response.data.results));
+  axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((pokemons) => {
+    // console.log(pokemons.data.results);
+    // crear un arreglo de promesas para buscar todos los pokemons
+    // ejecutar el arreglo
+
+    const getPokemonData = async (name) => {
+      const pokemon = {};
+      try {
+        let url = `${BASE_URL}${POKEMONS_URL}/${name}`;
+        const { data } = await axios.get(url);
+        pokemon.name = data.name;
+        pokemon.height = data.height;
+        pokemon.weight = data.weight;
+        pokemon.stats = data.stats.map((s) => {
+          return { name: s.stat.name, value: s.base_stat };
+        });
+        pokemon.types = data.types.map((t) => t.type.name);
+        pokemon.img = data.sprites.other["official-artwork"].front_default;
+        return pokemon;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const promises = pokemons.data.results.map(async (pokemon) => {
+      return await getPokemonData(pokemon.name);
+    });
+
+    (async () => {
+      await Promise.all(promises)
+      .then((dale) => {
+        console.log("dale loooo", dale);
+      })
+      .catch((err) => console.log(err));
+    })();
+
+    return res.send(generation(pokemons.data.results));
   });
 }
 
 function getPokemonDetails(req, res, next) {
   const { id } = req.params;
-
-  console.log(id, "entre aca");
 
   if (id) {
     const species = axios.get(`${BASE_URL}${SPECIES}/${id}`);
