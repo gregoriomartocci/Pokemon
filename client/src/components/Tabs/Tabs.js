@@ -13,16 +13,6 @@ function Tabs({ pokemon }) {
   const [toggleState, setToggleState] = useState(1);
 
   const details = useSelector((state) => state.rootReducer.pokemonDetails);
-  const pokemons = useSelector((state) => state.rootReducer.allPokemons.data);
-
-  let chain = [];
-
-  if (pokemons && details.data) {
-    console.log("details  ====> ", details);
-    chain = pokemons.filter((e) =>
-      getChainData(e, details.data.evolution?.evo_names)
-    );
-  }
 
   useEffect(() => {
     dispatch(getPokemonDetails(pokemon.id));
@@ -32,6 +22,8 @@ function Tabs({ pokemon }) {
   const toggleTab = (index) => {
     setToggleState(index);
   };
+
+  details && console.log("DETAILSSS =====> ", details);
 
   return (
     <div className="container">
@@ -72,10 +64,7 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <Evolution
-            evolution={!details.loading && details.data?.evolution}
-            chain={chain.length && chain}
-          />
+          <Evolution evolution={!details.loading && details.data?.evolution} />
         </div>
       </div>
     </div>

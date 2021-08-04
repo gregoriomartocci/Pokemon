@@ -31,11 +31,6 @@ function getAllPokemons(req, res, next) {
   // const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
 
   axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((pokemons) => {
-    console.log(
-      "resultado ====> ",
-      `${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`
-    );
-    console.log("resultado ====> ", pokemons.data);
     // crear un arreglo de promesas para buscar todos los pokemons
     // ejecutar el arreglo
 
@@ -96,6 +91,7 @@ function getPokemonDetails(req, res, next) {
             const evo_chain = getEvolutions(response.data.chain);
             const species = species_response.data;
             const pokemon = pokemon_response.data;
+            const evo_names = evo_chain.map((e) => e.species_name);
 
             // data extraction
 
@@ -111,33 +107,59 @@ function getPokemonDetails(req, res, next) {
             const egg_groups = species.egg_groups.map((e) => e.name);
             const abilities = pokemon.abilities.map((a) => a.ability.name);
 
-            const about = {
-              description: description[0]?.flavor_text,
-              species: species_name[0].genus,
-              height: pokemon.height,
-              weight: pokemon.weight,
-              abilities,
-              egg_groups,
-              base_hapiness: species.base_happiness,
-              legendary: species.is_legendary,
-              mythical: species.is_mythical,
-              habitat: species.habitat.name,
+            // hago esto para buscar la info de los pokemons de la cadena de evolucion y no depender del state.
+
+            const getPokemonData = async (name) => {
+              const pokemon = {};
+              try {
+                let url = `${BASE_URL}${POKEMONS_URL}/${name}`;
+                const { data } = await axios.get(url);
+                pokemon.name = data.name;
+                pokemon.img =
+                  data.sprites.other["official-artwork"].front_default;
+                return pokemon;
+              } catch (err) {
+                console.log(err);
+              }
             };
 
-            const evolution = {
-              evo_chain,
-              evo_names: evo_chain.map((e) => e.species_name),
-            };
+            const promises = evo_names.map(async (pokemon) => {
+              return await getPokemonData(pokemon);
+            });
 
-            const details = { about, stats, evolution };
+            (async () => {
+              await Promise.all(promises)
+                .then((response) => {
+                  const about = {
+                    description: description[0]?.flavor_text,
+                    species: species_name[0].genus,
+                    height: pokemon.height,
+                    weight: pokemon.weight,
+                    abilities,
+                    egg_groups,
+                    base_hapiness: species.base_happiness,
+                    legendary: species.is_legendary,
+                    mythical: species.is_mythical,
+                    habitat: species.habitat.name,
+                  };
 
-            return res.send(details);
+                  const evolution = {
+                    evo_chain,
+                    evo_pokemons: response,
+                  };
+
+                  const details = { about, stats, evolution };
+
+                  return res.send(details);
+                })
+                .catch((err) => console.log(err));
+            })();
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   } else {
-    res.status(500).console.log("You need to provide an id");
+    res.status(500).send("You need to provide an id");
   }
 }
 
