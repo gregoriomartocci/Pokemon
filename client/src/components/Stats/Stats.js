@@ -28,7 +28,7 @@ function Stats({ stats }) {
           <div key={i} className="pokemon-stats-row">
             <span className="stat-label">{data[i]}</span>
             <span className="stat-value">{stats && e.value}</span>
-            <ProgressBar done={Math.round(percentage(e.value, 125))} />
+            <ProgressBar done={Math.round(percentage(e.value, 160))} />
           </div>
         ))
       )}

@@ -13,46 +13,19 @@ const {
 
 // SET POKEMONS
 
-export const setPokemons = () => async (dispatch) => {
-  dispatch({
-    type: ActionTypes.POKEMONS_LIST_REQUEST,
-  });
+export const setUp = () => async (dispatch) => {
+  // Busco los Pokemons
 
+  dispatch({
+    type: ActionTypes.SET_POKEMONS_REQUEST,
+  });
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}`
     );
-
-    dispatch({ type: ActionTypes.POKEMONS_LIST_SUCCESS, payload: data });
-
-    const getPokemonData = async (name) => {
-      try {
-        let url = `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${name}`;
-        const response = await axios.get(url);
-        return response.data;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const promises = data.map(async (pokemon) => {
-      return await getPokemonData(pokemon.name);
-    });
-
-    const results = await Promise.all(promises);
-
-    // Obtengo informacion detallada de los pokemons
-
-    dispatch({
-      type: ActionTypes.SET_POKEMONS_REQUEST,
-    });
-    try {
-      dispatch({ type: ActionTypes.SET_POKEMONS_SUCCESS, payload: results });
-    } catch (error) {
-      dispatch({ type: ActionTypes.SET_POKEMONS_FAIL, payload: error.message });
-    }
+    dispatch({ type: ActionTypes.SET_POKEMONS_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: ActionTypes.POKEMONS_LIST_FAIL, payload: error.message });
+    dispatch({ type: ActionTypes.SET_POKEMONS_FAIL, payload: error.message });
   }
 
   // Busco los types
@@ -60,7 +33,6 @@ export const setPokemons = () => async (dispatch) => {
   dispatch({
     type: ActionTypes.SET_TYPES_REQUEST,
   });
-
   try {
     const { data } = await axios.get(`${REACT_APP_BASE_URL}${REACT_APP_TYPES}`);
     dispatch({ type: ActionTypes.SET_TYPES_SUCCESS, payload: data });
@@ -99,7 +71,7 @@ export const createPokemon = (pokemon) => async (dispatch) => {
 
 export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   console.log(
-    `esta es la ruta =====> ${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}${REACT_APP_DETAILS}/${pokemonId}`
+    `LA URL PARA PEDIR DETALLES${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}/${REACT_APP_DETAILS}/${pokemonId}`
   );
   dispatch({ type: ActionTypes.POKEMON_DETAILS_REQUEST });
 

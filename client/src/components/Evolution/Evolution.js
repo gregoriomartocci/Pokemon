@@ -16,6 +16,7 @@ function Evolution({ evolution, chain }) {
         <Loading />
       ) : evolution.evo_chain.length === 2 ? (
         <>
+          {console.log("EVO Y CHAINN ====>", evolution, chain)}
           <div className="evolution-row">
             <Evolution_Card pokemon={chain[0]} />
             <Evolution_Trigger trigger={evolution.evo_chain[1]} />
@@ -57,7 +58,9 @@ function Evolution({ evolution, chain }) {
             <Evolution_Card pokemon={chain[3]} />
           </div>
         </>
-      ) : null}
+      ) : (
+        <p>This pokemon has no evolutions</p>
+      )}
     </>
   );
 }

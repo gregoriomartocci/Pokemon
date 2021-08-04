@@ -9,6 +9,7 @@
   list-style: none;
   margin: 7.5px 0;
   font-size: 14px;
+  width: max-content;
 }
 
 .about-legend {
@@ -16,12 +17,30 @@
   font-size: 16px;
   font-weight: 500;
   color: #212121;
+  margin: 10px 0;
 }
 
-.about-top,
-.about-bot {
+.about-top {
   display: flex;
   margin: 10px 0;
+}
+
+.about-bot {
+  display: flex;
+  margin: 15px 0px;
+  justify-content: space-between;
+}
+
+.about-bot-left,
+.about-bot-right {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.about-bot-left-container,
+.about-bot-rigth-container {
+  display: flex;
 }
 
 .value {

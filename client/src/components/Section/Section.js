@@ -4,7 +4,7 @@ import Pagination from "../Pagination/Pagination.js";
 import Cards from "../Cards/Cards";
 import { paginate } from "../../utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setPokemons } from "../../redux/actions/index.js";
+import { setUp } from "../../redux/actions/index.js";
 import Loading from "../Loading/Loading";
 
 function Section() {
@@ -20,7 +20,7 @@ function Section() {
   }
 
   useEffect(() => {
-    dispatch(setPokemons());
+    dispatch(setUp());
     return () => {};
   }, []);
 

@@ -39,10 +39,7 @@ function PokemonDetails({ showModal, setShowModal, pokemon }) {
               <div className="modal-img">
                 <img
                   className="img"
-                  src={
-                    pokemon &&
-                    pokemon.sprites.other["official-artwork"].front_default
-                  }
+                  src={pokemon && pokemon.img}
                   alt="pokemon-img"
                 ></img>
               </div>
@@ -53,17 +50,13 @@ function PokemonDetails({ showModal, setShowModal, pokemon }) {
                 <div className="top-info">
                   <div className="pokemon-types">
                     {pokemon && (
-                      <span
-                        className={`pokemon-type  ${pokemon.types[0]?.type.name}`}
-                      >
-                        {pokemon.types[0]?.type.name}
+                      <span className={`pokemon-type  ${pokemon.types[0]}`}>
+                        {pokemon.types[0]}
                       </span>
                     )}
                     {pokemon && (
-                      <span
-                        className={`pokemon-type ${pokemon.types[1]?.type.name}`}
-                      >
-                        {pokemon.types[1]?.type.name}
+                      <span className={`pokemon-type ${pokemon.types[1]}`}>
+                        {pokemon.types[1]}
                       </span>
                     )}
                   </div>

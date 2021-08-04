@@ -18,8 +18,9 @@ function Tabs({ pokemon }) {
   let chain = [];
 
   if (pokemons && details.data) {
+    console.log("details  ====> ", details);
     chain = pokemons.filter((e) =>
-      getChainData(e, details.data.evolution.evo_names)
+      getChainData(e, details.data.evolution?.evo_names)
     );
   }
 
@@ -59,21 +60,21 @@ function Tabs({ pokemon }) {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <About about={!details.loading && details.data.about} />
+          <About about={!details.loading && details.data?.about} />
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <Stats stats={!details.loading && details.data.stats} />
+          <Stats stats={!details.loading && details.data?.stats} />
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <Evolution
-            evolution={!details.loading && details.data.evolution}
-            chain={chain}
+            evolution={!details.loading && details.data?.evolution}
+            chain={chain.length && chain}
           />
         </div>
       </div>

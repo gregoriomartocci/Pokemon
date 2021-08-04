@@ -11,7 +11,7 @@ const {
   EVOLUTION_CHAIN,
 } = require("../../constants");
 
-const { paginate, getPokemon, generation, getEvolutions } = require("../utils");
+const { getEvolutions } = require("../utils");
 
 function getAllPokemons(req, res, next) {
   var { name, page } = req.query;
@@ -31,7 +31,11 @@ function getAllPokemons(req, res, next) {
   // const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
 
   axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((pokemons) => {
-    // console.log(pokemons.data.results);
+    console.log(
+      "resultado ====> ",
+      `${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`
+    );
+    console.log("resultado ====> ", pokemons.data);
     // crear un arreglo de promesas para buscar todos los pokemons
     // ejecutar el arreglo
 
@@ -41,6 +45,7 @@ function getAllPokemons(req, res, next) {
         let url = `${BASE_URL}${POKEMONS_URL}/${name}`;
         const { data } = await axios.get(url);
         pokemon.name = data.name;
+        pokemon.id = data.id;
         pokemon.height = data.height;
         pokemon.weight = data.weight;
         pokemon.stats = data.stats.map((s) => {
@@ -60,13 +65,11 @@ function getAllPokemons(req, res, next) {
 
     (async () => {
       await Promise.all(promises)
-      .then((dale) => {
-        console.log("dale loooo", dale);
-      })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          return res.send(response);
+        })
+        .catch((err) => console.log(err));
     })();
-
-    return res.send(generation(pokemons.data.results));
   });
 }
 
@@ -100,7 +103,7 @@ function getPokemonDetails(req, res, next) {
               return { name: s.stat.name, value: s.base_stat };
             });
             const description = species.flavor_text_entries.filter((obj) => {
-              return obj.language.name === "en" && obj.version.name === "sword";
+              return obj.language.name === "en";
             });
             const species_name = species.genera.filter((s) => {
               return s.language.name === "en";
@@ -108,10 +111,8 @@ function getPokemonDetails(req, res, next) {
             const egg_groups = species.egg_groups.map((e) => e.name);
             const abilities = pokemon.abilities.map((a) => a.ability.name);
 
-            // console.log("species ====> ", species_name);
-
             const about = {
-              description: description[0].flavor_text,
+              description: description[0]?.flavor_text,
               species: species_name[0].genus,
               height: pokemon.height,
               weight: pokemon.weight,
@@ -129,8 +130,6 @@ function getPokemonDetails(req, res, next) {
             };
 
             const details = { about, stats, evolution };
-
-            console.log(details);
 
             return res.send(details);
           })

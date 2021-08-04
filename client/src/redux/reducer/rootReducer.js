@@ -85,7 +85,6 @@ export const rootReducer = (state = initialState, action) => {
     // POKEMON DETAILS
 
     case ActionTypes.POKEMON_DETAILS_REQUEST:
-      console.log(action.payload);
       return { ...state, pokemonDetails: { loading: true } };
 
     case ActionTypes.POKEMON_DETAILS_SUCCESS:
