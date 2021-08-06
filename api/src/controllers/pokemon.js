@@ -131,7 +131,7 @@ function getPokemonDetails(req, res, next) {
               await Promise.all(promises)
                 .then((response) => {
                   const about = {
-                    description: description[0]?.flavor_text,
+                    description: description[0]?.flavor_text.replace("", " "),
                     species: species_name[0].genus,
                     height: pokemon.height,
                     weight: pokemon.weight,

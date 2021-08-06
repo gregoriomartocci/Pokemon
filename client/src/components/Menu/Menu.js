@@ -8,7 +8,6 @@ import { filterByType, sortBy } from "../../redux/actions";
 
 const sortItems = [
   { id: 1, name: "name" },
-  { id: 2, name: "z-a" },
   { id: 3, name: "attack" },
   { id: 4, name: "defense" },
   { id: 5, name: "hp" },

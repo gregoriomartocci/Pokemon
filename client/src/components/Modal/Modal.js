@@ -26,6 +26,8 @@ function Modal({ showModal, setShowModal }) {
     strenght: { value: "", validated: "" },
     height: { value: "", validated: "" },
     weight: { value: "", validated: "" },
+    special_attack: { value: "", validated: "" },
+    special_defense: { value: "", validated: "" },
     types: [],
   });
 
@@ -38,6 +40,8 @@ function Modal({ showModal, setShowModal }) {
     strenght: /^.{1,5}$/, // 4 a 12 digitos.
     height: /^.{1,5}$/, // 4 a 12 digitos.
     weight: /^.{1,5}$/, // 4 a 12 digitos.
+    special_attack: /^.{1,5}$/, // 4 a 12 digitos.
+    special_defense: /^.{1,5}$/, // 4 a 12 digitos.
     // types: /^[a-zA-ZÀ-ÿ\s]{6,15}$/, // Letras y espacios, pueden llevar acentos.
   };
 
@@ -102,7 +106,9 @@ function Modal({ showModal, setShowModal }) {
       input.speed.validated === "true" &&
       input.strenght.validated === "true" &&
       input.height.validated === "true" &&
-      input.weight.validated === "true"
+      input.weight.validated === "true" &&
+      input.special_attack.validated === "true" &&
+      input.special_defense.validated === "true"
     ) {
       setFormValidation(true);
       dispatch(createPokemon(input));
@@ -205,6 +211,26 @@ function Modal({ showModal, setShowModal }) {
                   <Input
                     name="weight"
                     title="Weight"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                </div>
+                <div className="row">
+                  <Input
+                    name="special_attack"
+                    title="Sp. Attack"
+                    type="number"
+                    input={input}
+                    onChangeHandler={onChangeHandler}
+                    validate={validate}
+                    error="Must be between 1 to 5 digits"
+                  ></Input>
+                  <Input
+                    name="special_defense"
+                    title="Sp. Defense"
                     type="number"
                     input={input}
                     onChangeHandler={onChangeHandler}

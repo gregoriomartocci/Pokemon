@@ -42,18 +42,33 @@ export const searchFilter = (array, searchTearm) => {
 };
 
 export const sort = (array, item) => {
-  array = [...array];
+  let newArray = [...array];
+
+  // console.log("ARRAY DE POKEMONS", array);
+
+  // const stat = stats.filter((obj) => {
+  //   return obj.name === item;
+  // });
+
+  const getStat = (stats) => {
+    return stats.find((stat) => stat.name === item).value;
+  };
 
   if (item === "name" || item === "weight" || item === "height") {
-    return array.sort((a, b) => (a[item] < b[item] ? 1 : -1));
+    newArray.sort((a, b) => (a[item] < b[item] ? 1 : -1));
+    console.log(
+      item,
+      newArray.map((poke) => poke.stats.find((s) => s[item]))
+    );
   } else {
-    return array.sort((a, b) =>
-      a.stats.some((stat) => stat.name === item).base_stat <
-      b.stats.some((stat) => stat.name === item).base_stat
-        ? 1
-        : -1
+    newArray.sort((a, b) => (getStat(a.stats) < getStat(b.stats) ? 1 : -1));
+    console.log(
+      item,
+      newArray.map((p) => p.stats.find((s) => s.name === item).value)
     );
   }
+
+  return newArray;
 };
 
 export const capitalize = (s) => {

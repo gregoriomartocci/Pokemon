@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonDetails } from "../../redux/actions";
-import { getChainData } from "../../utils";
 import About from "../About/About";
 import Evolution from "../Evolution/Evolution";
 import Stats from "../Stats/Stats";
