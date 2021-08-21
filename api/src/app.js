@@ -10,7 +10,6 @@ const server = express();
 
 server.name = 'API';
 
-
 /* Vamos a setear los Headers */
 server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.use(express.json({ limit: '50mb' }));

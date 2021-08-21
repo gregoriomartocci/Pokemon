@@ -6,15 +6,20 @@ export const paginate = (array, page) => {
     const pagination = {};
     const result = {};
     pagination.actual = page;
+    const pageCount = Math.ceil(array.length / limit);
 
     if (startIndex > 0) {
       pagination.previous = page - 1;
     }
 
-    if (endIndex < array.length) {
+    if (page < pageCount) {
       pagination.next = page + 1;
     }
-    pagination.pageCount = Math.ceil(array.length / limit);
+
+    if (page !== pageCount) {
+      pagination.pageCount = pageCount;
+    }
+    
     result.pagination = pagination;
     result.result = array.slice(startIndex, endIndex);
     return result;
@@ -25,7 +30,9 @@ export const paginate = (array, page) => {
 
 export const filterType = (item, types) => {
   if (!types.length) return true;
-  return types.includes(item.types[0]) || types.includes(item.types[1]);
+  return (
+    types.includes(item.types[0]?.name) || types.includes(item.types[1]?.name)
+  );
 };
 
 export const getChainData = (item, array) => {
@@ -39,6 +46,18 @@ export const searchFilter = (array, searchTearm) => {
   return array.filter((e) =>
     e.name.toLowerCase().includes(searchTearm.toLowerCase())
   );
+};
+
+export const keysToLowerCase = (obj) => {
+  let key,
+    keys = Object.keys(obj);
+  let n = keys.length;
+  let newobj = {};
+  while (n--) {
+    key = keys[n];
+    newobj[key.toLowerCase()] = obj[key];
+  }
+  return newobj;
 };
 
 export const sort = (array, item) => {

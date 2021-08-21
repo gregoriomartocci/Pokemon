@@ -37,7 +37,6 @@ function Modal({ showModal, setShowModal }) {
     defense: /^.{1,5}$/, // 4 a 12 digitos.
     health: /^.{1,5}$/, // 4 a 12 digitos.
     speed: /^.{1,5}$/, // 4 a 12 digitos.
-    strenght: /^.{1,5}$/, // 4 a 12 digitos.
     height: /^.{1,5}$/, // 4 a 12 digitos.
     weight: /^.{1,5}$/, // 4 a 12 digitos.
     special_attack: /^.{1,5}$/, // 4 a 12 digitos.
@@ -104,7 +103,6 @@ function Modal({ showModal, setShowModal }) {
       input.defense.validated === "true" &&
       input.health.validated === "true" &&
       input.speed.validated === "true" &&
-      input.strenght.validated === "true" &&
       input.height.validated === "true" &&
       input.weight.validated === "true" &&
       input.special_attack.validated === "true" &&
@@ -189,17 +187,6 @@ function Modal({ showModal, setShowModal }) {
                     error="Must be between 1 to 5 digits"
                   ></Input>
                   <Input
-                    name="strenght"
-                    title="Strenght"
-                    type="number"
-                    input={input}
-                    onChangeHandler={onChangeHandler}
-                    validate={validate}
-                    error="Must be between 1 to 5 digits"
-                  ></Input>
-                </div>
-                <div className="row">
-                  <Input
                     name="height"
                     title="Height"
                     type="number"
@@ -208,6 +195,8 @@ function Modal({ showModal, setShowModal }) {
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
+                </div>
+                <div className="row">
                   <Input
                     name="weight"
                     title="Weight"
@@ -217,8 +206,6 @@ function Modal({ showModal, setShowModal }) {
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
-                </div>
-                <div className="row">
                   <Input
                     name="special_attack"
                     title="Sp. Attack"
@@ -228,6 +215,8 @@ function Modal({ showModal, setShowModal }) {
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
+                </div>
+                <div className="row">
                   <Input
                     name="special_defense"
                     title="Sp. Defense"
@@ -237,8 +226,6 @@ function Modal({ showModal, setShowModal }) {
                     validate={validate}
                     error="Must be between 1 to 5 digits"
                   ></Input>
-                </div>
-                <div className="row">
                   <div className="input-element">
                     <Dropdown
                       title="Type"
@@ -249,6 +236,7 @@ function Modal({ showModal, setShowModal }) {
                     ></Dropdown>
                   </div>
                 </div>
+
                 {formValidation === true && (
                   <div className="success-toast">
                     <div className="toast-col">

@@ -3,7 +3,7 @@ import "./Pagination.css";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-function Pagination({ pagination, setPage }) {
+function Pagination({ pagination, setPage, page }) {
   var pageCount, previous, actual, next;
 
   if (pagination) {
@@ -22,7 +22,7 @@ function Pagination({ pagination, setPage }) {
       {pagination ? (
         <>
           {previous && (
-            <button className="prev">
+            <button className="prev" onClick={() => handleClick(previous)}>
               <MdKeyboardArrowLeft />
             </button>
           )}
@@ -30,7 +30,7 @@ function Pagination({ pagination, setPage }) {
           <ul className="pagination-list">
             <li
               className="pagination-item"
-              onClick={() => handleClick(previous)}
+              onClick={() => pagination.previous && handleClick(previous)}
             >
               {previous}
             </li>
@@ -41,14 +41,21 @@ function Pagination({ pagination, setPage }) {
               {actual}
             </li>
             <li className="pagination-item" onClick={() => handleClick(next)}>
-              {next}
+              {page + 1 !== pageCount && next}
             </li>
-            ...
-            <li className="pagination-item">{pageCount}</li>
+            {pagination.pageCount && <span>...</span>}
+            <li
+              className="pagination-item"
+              onClick={() => handleClick(pageCount)}
+            >
+              {pageCount}
+            </li>
           </ul>
-          <button className="next">
-            <MdKeyboardArrowRight />
-          </button>
+          {pagination.next && page !== pagination.pageCount && (
+            <button className="next" onClick={() => handleClick(next)}>
+              <MdKeyboardArrowRight />
+            </button>
+          )}
         </>
       ) : null}
     </div>

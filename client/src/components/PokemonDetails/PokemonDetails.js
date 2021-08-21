@@ -50,13 +50,15 @@ function PokemonDetails({ showModal, setShowModal, pokemon }) {
                 <div className="top-info">
                   <div className="pokemon-types">
                     {pokemon && (
-                      <span className={`pokemon-type  ${pokemon.types[0]}`}>
-                        {pokemon.types[0]}
+                      <span
+                        className={`pokemon-type  ${pokemon.types[0]?.name}`}
+                      >
+                        {pokemon.types[0]?.name}
                       </span>
                     )}
                     {pokemon && (
-                      <span className={`pokemon-type ${pokemon.types[1]}`}>
-                        {pokemon.types[1]}
+                      <span className={`pokemon-type ${pokemon.types[1]?.name}`}>
+                        {pokemon.types[1]?.name}
                       </span>
                     )}
                   </div>

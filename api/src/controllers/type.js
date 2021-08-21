@@ -1,11 +1,11 @@
-const { Types } = require("../db");
+const { Type } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
 
 const { BASE_URL, POKEMONS_TYPE } = require("../../constants");
 
 function getAllTypes(req, res, next) {
-  Types.findAll()
+  Type.findAll()
     .then((types) => {
       if (!types.lenght) {
         axios.get(`${BASE_URL}${POKEMONS_TYPE}`).then((response) => {
@@ -18,7 +18,7 @@ function getAllTypes(req, res, next) {
 
           console.log(api_types);
 
-          Types.bulkCreate(api_types, { returning: true }).then((response) => {
+          Type.bulkCreate(api_types, { returning: true }).then((response) => {
             res.send(response);
           });
         });
@@ -39,7 +39,7 @@ function createType(req, res, next) {
     name,
   };
 
-  return Types.create(typeData).then((response) => {
+  return Type.create(typeData).then((response) => {
     res.json(response);
   });
 }

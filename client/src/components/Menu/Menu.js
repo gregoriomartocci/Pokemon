@@ -14,6 +14,8 @@ const sortItems = [
   { id: 6, name: "speed" },
   { id: 7, name: "weight" },
   { id: 8, name: "height" },
+  { id: 9, name: "special-attack" },
+  { id: 10, name: "special-defense" },
 ];
 
 function Menu() {

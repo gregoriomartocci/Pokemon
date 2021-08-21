@@ -1,4 +1,4 @@
-const { Pokemons, Types } = require("../db");
+const { Pokemon, Type, Stat } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
 
@@ -12,6 +12,9 @@ const {
 } = require("../../constants");
 
 const { getEvolutions } = require("../utils");
+
+// const Stat = require("../models/Stat");
+// API + DB
 
 function getAllPokemons(req, res, next) {
   var { name, page } = req.query;
@@ -27,13 +30,22 @@ function getAllPokemons(req, res, next) {
       .catch((error) => res.send(error));
   }
 
-  // const pokemons_Db = Pokemons.findAll({ include: Types });
-  // const array = pokemons_db_response.concat(pokemons_Api_response.data); // Arreglo con todos los pokemons. Base de datos  + API
+  const db = Pokemon.findAll({
+    include: [
+      {
+        model: Type,
+      },
+      {
+        model: Stat,
+      },
+    ],
+  });
+
+  // db.then((pkm) => console.log("los de la db", pkm)).catch((err) =>
+  //   console.log(err)
+  // );
 
   axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((pokemons) => {
-    // crear un arreglo de promesas para buscar todos los pokemons
-    // ejecutar el arreglo
-
     const getPokemonData = async (name) => {
       const pokemon = {};
       try {
@@ -46,7 +58,9 @@ function getAllPokemons(req, res, next) {
         pokemon.stats = data.stats.map((s) => {
           return { name: s.stat.name, value: s.base_stat };
         });
-        pokemon.types = data.types.map((t) => t.type.name);
+        pokemon.types = data.types.map((t) => {
+          return { name: t.type.name };
+        });
         pokemon.img = data.sprites.other["official-artwork"].front_default;
         return pokemon;
       } catch (err) {
@@ -60,13 +74,35 @@ function getAllPokemons(req, res, next) {
 
     (async () => {
       await Promise.all(promises)
-        .then((response) => {
-          return res.send(response);
+        .then((api) => {
+          db.then((result) => {
+            return res.send([...result, ...api]);
+          });
         })
         .catch((err) => console.log(err));
     })();
   });
 }
+
+// DB Pokemons
+
+function getDBPokemons(req, res, next) {
+  const db = Pokemon.findAll({
+    include: [
+      {
+        model: Type,
+      },
+      {
+        model: Stat,
+      },
+    ],
+  });
+  db.then((response) => {
+    return res.send(response);
+  });
+}
+
+// DETAILS
 
 function getPokemonDetails(req, res, next) {
   const { id } = req.params;
@@ -163,38 +199,62 @@ function getPokemonDetails(req, res, next) {
   }
 }
 
+// CREATE
+
 function createPokemon(req, res, next) {
-  const { name, health, strenght, defense, speed, height, weight, types } =
+  const { name, health, attack, defense, speed, height, weight, types } =
     req.body; // Los valores los va a traer del body
+
+  // console.log("esto llega del body", req.body);
+
+  const stats = [
+    { id: uuidv4(), name: "hp", value: health.value },
+    { id: uuidv4(), name: "attack", value: attack.value },
+    { id: uuidv4(), name: "defense", value: defense.value },
+    { id: uuidv4(), name: "special-attack", value: health.value },
+    { id: uuidv4(), name: "special-defense", value: health.value },
+    { id: uuidv4(), name: "speed", value: health.value },
+  ];
+
+  // por cada stat crear uno
+  // asociar esos stat a un stat
+  // asociar el pokemon creado a un Stat
 
   const newPokemon = {
     id: uuidv4(),
     name: name.value,
-    health: health.value,
-    strenght: strenght.value,
-    defense: defense.value,
-    speed: speed.value,
     height: height.value,
     weight: weight.value,
+    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
   };
 
-  console.log(newPokemon);
+  Pokemon.create(newPokemon)
+    .then((pokemon) => {
+      // Types
+      types.forEach((e) => {
+        Type.findByPk(e.id)
+          .then((t) => {
+            pokemon.addType(t.id);
+          })
+          .catch((err) => res.send(err));
+      });
 
-  Pokemons.create(newPokemon).then((pokemon) => {
-    //Crea una instancia de pokemon con los valores de pokemonData
-
-    console.log(types);
-
-    types.forEach((e) => {
-      Types.findByPk(e.id)
-        .then((t) => {
-          pokemon.addTypes(t);
-        })
-        .catch((err) => res.send(err));
+      stats.map((s) => {
+        Stat.create(s)
+          .then((statCreated) => {
+            pokemon.addStat(statCreated);
+          })
+          .catch((err) => console.log(err));
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 
-    return res.send(pokemon);
-  });
+  newPokemon.stats = stats;
+  newPokemon.types = types;
+
+  return res.send(newPokemon);
 
   // function createGame(req, res, next) {
   //   const { name, description, date, rating, genres, platforms } = req.body;
@@ -225,6 +285,8 @@ function createPokemon(req, res, next) {
   // }
 }
 
+// SEARCH
+
 function searchPokemonById(req, res, next) {
   //Funcion buscar pokemon
   const { id } = req.params; // Uso el id que me llega por params (preguntar)
@@ -243,4 +305,5 @@ module.exports = {
   createPokemon,
   searchPokemonById,
   getPokemonDetails,
+  getDBPokemons,
 };

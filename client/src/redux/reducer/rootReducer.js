@@ -73,7 +73,8 @@ export const rootReducer = (state = initialState, action) => {
     case ActionTypes.POKEMON_CREATED_SUCCESS:
       return {
         ...state,
-        pokemonCreated: { loading: false, data: action.payload },
+        allPokemons: { data: [action.payload, ...state.pokemons.data] },
+        pokemons: { data: [action.payload, ...state.pokemons.data] },
       };
 
     case ActionTypes.POKEMON_CREATED_FAIL:

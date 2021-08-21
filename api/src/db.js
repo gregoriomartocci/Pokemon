@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
@@ -37,43 +37,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Pokemons, Types } = sequelize.models;
+const { Pokemon, Type, Stat } = sequelize.models;
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
-
-Pokemons.belongsToMany(Types, { through: "PokemonTypes" }); //Relacion 1 pokemon puede tener muchos tipos
-Types.belongsToMany(Pokemons, { through: "PokemonTypes" }); // 1 tipo puede pertenecer a muchos pokemons
-
-/*
-const PokemonsTypes = sequelize.define('PokemonType', {
-  expirationDate:{
-    type: DataTypes.DATE,
-    defaultValue: new Date()
-  }
-})
-
-
-Pokemon.hasMany(Type,{
-  foreignKey:{
-    name: 'pokemonId',
-    allowNull: false,
-    
-}});
-
-Type.belongsToMany(Pokemon,{
-  foreignKey:{
-    name: 'pokemonId',
-    allowNull: false,
-  }
-}); */
 
 console.log(sequelize.models);
+
+// Type
+Pokemon.belongsToMany(Type, { through: "PokemonTypes", timestamps: false });
+Type.belongsToMany(Pokemon, { through: "PokemonTypes", timestamps: false });
+
+// Pokemon Stats
+Pokemon.belongsToMany(Stat, { through: "PokemonStats", timestamps: false });
+Stat.belongsToMany(Pokemon, { through: "PokemonStats", timestamps: false });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
-
-//Un pokemon puede tener muchos tipos
-//Un tipo puede tener muchos pokemons

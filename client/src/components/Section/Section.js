@@ -24,6 +24,10 @@ function Section() {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    setPage(1);
+  }, [data]);
+
   return (
     <div>
       {loading ? (
@@ -31,7 +35,11 @@ function Section() {
       ) : (
         <div>
           <Cards data={pokemons.result} />
-          <Pagination pagination={pokemons.pagination} setPage={setPage} />
+          <Pagination
+            pagination={pokemons.pagination}
+            setPage={setPage}
+            page={page}
+          />
         </div>
       )}
     </div>
