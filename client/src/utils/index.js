@@ -1,3 +1,5 @@
+// Paginate
+
 export const paginate = (array, page) => {
   if (array) {
     const limit = 12;
@@ -19,7 +21,7 @@ export const paginate = (array, page) => {
     if (page !== pageCount) {
       pagination.pageCount = pageCount;
     }
-    
+
     result.pagination = pagination;
     result.result = array.slice(startIndex, endIndex);
     return result;
@@ -28,6 +30,8 @@ export const paginate = (array, page) => {
   }
 };
 
+// Filter by Type
+
 export const filterType = (item, types) => {
   if (!types.length) return true;
   return (
@@ -35,11 +39,15 @@ export const filterType = (item, types) => {
   );
 };
 
+// get Chain
+
 export const getChainData = (item, array) => {
   if (array && array.length) {
     return array.includes(item.name);
   }
 };
+
+// Perform Search
 
 export const searchFilter = (array, searchTearm) => {
   if (searchTearm === "") return array;
@@ -47,6 +55,8 @@ export const searchFilter = (array, searchTearm) => {
     e.name.toLowerCase().includes(searchTearm.toLowerCase())
   );
 };
+
+// KeystoLowerCase
 
 export const keysToLowerCase = (obj) => {
   let key,
@@ -60,14 +70,32 @@ export const keysToLowerCase = (obj) => {
   return newobj;
 };
 
+// Gen Filtering
+
+export const genFiltering = (array, gens) => {
+  let pokemons = [];
+
+  const sort = gens.sort((a, b) => a.id - b.id);
+
+  if (sort.length > 1) {
+    sort.map((g) => {
+      pokemons = [
+        ...pokemons,
+        ...array.filter((p) => p.id >= g.value[0] && p.id <= g.value[1]),
+      ];
+    });
+    return pokemons;
+  } else {
+    return array.filter(
+      (p) => p.id >= gens[0].value[0] && p.id <= gens[0].value[1]
+    );
+  }
+};
+
+// Sort
+
 export const sort = (array, item) => {
   let newArray = [...array];
-
-  // console.log("ARRAY DE POKEMONS", array);
-
-  // const stat = stats.filter((obj) => {
-  //   return obj.name === item;
-  // });
 
   const getStat = (stats) => {
     return stats.find((stat) => stat.name === item).value;
@@ -90,10 +118,14 @@ export const sort = (array, item) => {
   return newArray;
 };
 
+// Capitalize
+
 export const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+// get Percentage
 
 export const percentage = (partialValue, totalValue) => {
   return (100 * partialValue) / totalValue;

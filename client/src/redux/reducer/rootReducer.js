@@ -1,4 +1,4 @@
-import { filterType, searchFilter, sort } from "../../utils";
+import { filterType, genFiltering, searchFilter, sort } from "../../utils";
 import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
@@ -100,6 +100,30 @@ export const rootReducer = (state = initialState, action) => {
         pokemonDetails: { loading: false, error: action.payload },
       };
 
+    // POKEMON GEN
+
+    case ActionTypes.GET_GEN_REQUEST:
+      return {
+        ...state,
+        allPokemons: { loading: true, data: state.allPokemons.data },
+        loading: true,
+      };
+    case ActionTypes.GET_GEN_SUCCESS:
+      return {
+        ...state,
+        allPokemons: {
+          data: [...state.allPokemons.data, ...action.payload],
+          loading: false,
+        },
+        loading: false,
+      };
+    case ActionTypes.GET_GEN_FAIL:
+      return {
+        ...state,
+        allPokemons: { loading: false, error: action.payload },
+        loading: false,
+      };
+
     // POKEMON SEARCH
 
     case ActionTypes.POKEMONS_SEARCH:
@@ -121,6 +145,17 @@ export const rootReducer = (state = initialState, action) => {
           data: state.allPokemons.data.filter((e) =>
             filterType(e, action.payload)
           ),
+        },
+      };
+
+    // POKEMON FILTER GEN
+
+    case ActionTypes.FILTER_GEN:
+      return {
+        ...state,
+        pokemons: {
+          loading: false,
+          data: genFiltering(state.allPokemons.data, action.payload),
         },
       };
 

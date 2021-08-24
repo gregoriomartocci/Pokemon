@@ -34,9 +34,9 @@ function Section() {
         <Loading></Loading>
       ) : (
         <div>
-          <Cards data={pokemons.result} />
+          <Cards data={pokemons?.result} />
           <Pagination
-            pagination={pokemons.pagination}
+            pagination={pokemons?.pagination}
             setPage={setPage}
             page={page}
           />

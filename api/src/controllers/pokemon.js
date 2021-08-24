@@ -17,9 +17,7 @@ const { getEvolutions } = require("../utils");
 // API + DB
 
 function getAllPokemons(req, res, next) {
-  var { name, page } = req.query;
-
-  page = parseInt(page);
+  let { name, offset, limit } = req.query;
 
   if (name && name !== undefined && name !== "undefined") {
     return axios
@@ -41,47 +39,61 @@ function getAllPokemons(req, res, next) {
     ],
   });
 
-  // db.then((pkm) => console.log("los de la db", pkm)).catch((err) =>
-  //   console.log(err)
-  // );
+  if (!offset) {
+    offset = 1;
+  }
+  if (!limit) {
+    limit = 151;
+  }
 
-  axios.get(`${BASE_URL}${POKEMONS_URL}${ALL_POKEMONS}`).then((pokemons) => {
-    const getPokemonData = async (name) => {
-      const pokemon = {};
-      try {
-        let url = `${BASE_URL}${POKEMONS_URL}/${name}`;
-        const { data } = await axios.get(url);
-        pokemon.name = data.name;
-        pokemon.id = data.id;
-        pokemon.height = data.height;
-        pokemon.weight = data.weight;
-        pokemon.stats = data.stats.map((s) => {
-          return { name: s.stat.name, value: s.base_stat };
-        });
-        pokemon.types = data.types.map((t) => {
-          return { name: t.type.name };
-        });
-        pokemon.img = data.sprites.other["official-artwork"].front_default;
-        return pokemon;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const promises = pokemons.data.results.map(async (pokemon) => {
-      return await getPokemonData(pokemon.name);
-    });
-
-    (async () => {
-      await Promise.all(promises)
-        .then((api) => {
-          db.then((result) => {
-            return res.send([...result, ...api]);
+  axios
+    .get(`${BASE_URL}${POKEMONS_URL}?offset=${offset}&limit=${limit}/`)
+    .then(() => {
+      const getPokemonData = async (id) => {
+        const pokemon = {};
+        try {
+          let url = `${BASE_URL}${POKEMONS_URL}${id}`;
+          const { data } = await axios.get(url);
+          pokemon.name = data.name;
+          pokemon.id = data.id;
+          pokemon.height = data.height;
+          pokemon.weight = data.weight;
+          pokemon.stats = data.stats.map((s) => {
+            return { name: s.stat.name, value: s.base_stat };
           });
-        })
-        .catch((err) => console.log(err));
-    })();
-  });
+          pokemon.types = data.types.map((t) => {
+            return { name: t.type.name };
+          });
+          pokemon.img = data.sprites.other["official-artwork"].front_default;
+          return pokemon;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      const aux = parseInt(limit) - parseInt(offset);
+      let array = [];
+      let index = 0;
+
+      while (index !== aux) {
+        array[index] = parseInt(offset) + index;
+        index++;
+      }
+
+      const promises = array.map(async (e) => {
+        return await getPokemonData(e);
+      });
+
+      (async () => {
+        await Promise.all(promises)
+          .then((api) => {
+            db.then((result) => {
+              return res.send([...result, ...api]);
+            });
+          })
+          .catch((err) => console.log(err));
+      })();
+    });
 }
 
 // DB Pokemons
@@ -255,34 +267,6 @@ function createPokemon(req, res, next) {
   newPokemon.types = types;
 
   return res.send(newPokemon);
-
-  // function createGame(req, res, next) {
-  //   const { name, description, date, rating, genres, platforms } = req.body;
-
-  //   const newGame = {
-  //     id: uuidv4(),
-  //     name,
-  //     description,
-  //     date,
-  //     rating,
-  //     genres,
-  //     platforms,
-  //   };
-
-  //   Videogame.create(newGame)
-  //     .then((videogame) => {
-  //       genres.forEach((g) =>
-  //         Genre.findByPk(g.id)
-  //           .then((resp) => {
-  //             console.log(resp);
-
-  //             videogame.addGenre(resp);
-  //           })
-  //           .catch((err) => console.log(err))
-  //       );
-  //     })
-  //     .catch((error) => console.log(error));
-  // }
 }
 
 // SEARCH

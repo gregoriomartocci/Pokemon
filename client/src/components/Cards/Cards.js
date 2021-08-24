@@ -6,7 +6,7 @@ function Cards({ data }) {
   return (
     <div className="cards">
       <div className="cardsContainter">
-        {data.map((pokemon, index) => (
+        {data?.map((pokemon, index) => (
           <Card key={index} pokemon={pokemon} />
         ))}
       </div>

@@ -89,10 +89,30 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
   }
 };
 
+// GET GEN
+
+export const getGen = (payload) => async (dispatch) => {
+  dispatch({ type: ActionTypes.GET_GEN_REQUEST, payload });
+  try {
+    const { data } = await axios.get(
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?offset=${payload[0]}&limit=${payload[1]}`
+    );
+    dispatch({ type: ActionTypes.GET_GEN_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: ActionTypes.GET_GEN_FAIL, payload: error.message });
+  }
+};
+
 // POKEMON SEARCH
 
 export const pokemonSearch = (payload) => async (dispatch) => {
   dispatch({ type: ActionTypes.POKEMONS_SEARCH, payload });
+};
+
+// POKEMON FILTER BY GEN
+
+export const filterByGen = (payload) => async (dispatch) => {
+  dispatch({ type: ActionTypes.FILTER_GEN, payload });
 };
 
 // FITER BY TYPE
