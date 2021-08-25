@@ -25,6 +25,8 @@ const ActionTypes = {
   FILTER_GEN: "FILTER_GEN",
   CLEAR_FILTERS: "CLEAR_FILTERS",
   SORT: "SORT",
+  FILTER_API: "FILTER_API",
+  FILTER_DB: "FILTER_DB",
 };
 
 export default ActionTypes;

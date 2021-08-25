@@ -95,7 +95,7 @@ export const getGen = (payload) => async (dispatch) => {
   dispatch({ type: ActionTypes.GET_GEN_REQUEST, payload });
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?offset=${payload[0]}&limit=${payload[1]}`
+      `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?offset=${payload[0]}&limit=${payload[1]}&api_only=true`
     );
     dispatch({ type: ActionTypes.GET_GEN_SUCCESS, payload: data });
   } catch (error) {
@@ -119,6 +119,18 @@ export const filterByGen = (payload) => async (dispatch) => {
 
 export const filterByType = (payload) => (dispatch) => {
   dispatch({ type: ActionTypes.FILTER_TYPE, payload });
+};
+
+// ONLY DB
+
+export const filterByDB = () => (dispatch) => {
+  dispatch({ type: ActionTypes.FILTER_DB });
+};
+
+// ONLY API
+
+export const filterByAPI = () => (dispatch) => {
+  dispatch({ type: ActionTypes.FILTER_API });
 };
 
 // SORT BY

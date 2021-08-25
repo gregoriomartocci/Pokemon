@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import dotenv from "dotenv";
-import { FaSearch } from "react-icons/fa";
+import { HiOutlineSearch } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { pokemonSearch } from "../../redux/actions";
 
@@ -20,15 +20,15 @@ function searchBar() {
   return (
     <div className="search-bar">
       <div>
-        <button type="submit" className="search-btn">
-          <FaSearch />
-        </button>
+        <i className="search-icon">
+          <HiOutlineSearch />
+        </i>
       </div>
 
       <div className="input-container">
         <input
           value={input}
-          placeholder="Ingrese el nombre de su pokemon"
+          placeholder="Search for pokemons!"
           className="search-input"
           onChange={(e) => {
             onChangeHandler(e.target.value);

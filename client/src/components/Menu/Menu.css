@@ -9,11 +9,17 @@
   display: flex;
 }
 
+.toggle{
+  padding: 0 25px;
+}
+
 .view,
 .sort,
+.toggle,
 .generation,
 .filter {
-  margin: 1rem;
-  font-size: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }

@@ -5,6 +5,7 @@ import "./Menu.css";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByGen, filterByType, getGen, sortBy } from "../../redux/actions";
+import Toggle from "../Toggle/Toggle";
 
 const sortItems = [
   { id: 1, name: "name" },
@@ -93,6 +94,10 @@ function Menu() {
             selection={sort}
             setSelection={setSort}
           ></Dropdown>
+        </div>
+        <div className="toggle">
+          {/* <HiOutlineAdjustments /> */}
+          <Toggle op1="API" op2="DB" />
         </div>
       </div>
     </div>

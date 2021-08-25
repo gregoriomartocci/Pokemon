@@ -17,7 +17,7 @@ const { getEvolutions } = require("../utils");
 // API + DB
 
 function getAllPokemons(req, res, next) {
-  let { name, offset, limit } = req.query;
+  let { name, offset, limit, api_only } = req.query;
 
   if (name && name !== undefined && name !== "undefined") {
     return axios
@@ -87,13 +87,17 @@ function getAllPokemons(req, res, next) {
       (async () => {
         await Promise.all(promises)
           .then((api) => {
+            if (api_only) {
+              return res.send([...api]);
+            }
             db.then((result) => {
               return res.send([...result, ...api]);
             });
           })
           .catch((err) => console.log(err));
       })();
-    });
+    })
+    .catch((err) => console.log(err));
 }
 
 // DB Pokemons
@@ -111,7 +115,7 @@ function getDBPokemons(req, res, next) {
   });
   db.then((response) => {
     return res.send(response);
-  });
+  }).catch((err) => console.log(err));
 }
 
 // DETAILS

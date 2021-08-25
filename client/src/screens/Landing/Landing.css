@@ -1,0 +1,111 @@
+.landing {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  /* background: linear-gradient(to right, #ffafbd, #ffc3a0); */
+  /* background: linear-gradient(to right, #ee9ca7, #ffdde1); */
+  /* background: linear-gradient(to right, #02aab0, #00cdac); */
+  /* background: linear-gradient(to right, #d66d75, #e29587); */
+  /* background: linear-gradient(to right, #f66f64, #f65393); */
+  /* background: linear-gradient(to right, #ff9966, #ff5e62); */
+  /* background: linear-gradient(to right, #ed4264, #ffedbc); */
+  background: linear-gradient(to right, #ec6f66, #f3a183);
+}
+
+.landing-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100%;
+  width: 100%;
+  padding: 0 15%;
+}
+
+.landing-logo {
+  max-width: 140px;
+}
+
+.landing-header {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  padding: 45px 15%;
+  width: 100%;
+}
+
+.landing-img {
+  max-width: 100%;
+}
+
+.landing-search-bar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50px;
+}
+
+.landing-search-input {
+  border: unset;
+  outline: unset;
+  background-color: unset;
+  color: #bdbdbd;
+  padding: 0 25px;
+}
+
+.landing-search-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.landing-left {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  width: 50%;
+  justify-content: center;
+  color: #fff;
+  text-align: left;
+}
+
+.landing-title {
+  font-size: 70px;
+}
+
+.landing-right {
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.landing-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 25px;
+  border: 1px solid #fff;
+  border-radius: 45px;
+  max-width: 230px;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-size: 15px;
+}
+
+.landing-link {
+  max-width: 230px;
+}
+
+.landing-btn:hover {
+  cursor: pointer;
+}

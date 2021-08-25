@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./Card.css";
 import PokemonDetails from "../PokemonDetails/PokemonDetails";
 import { useEffect } from "react";
-import { capitalize, keysToLowerCase } from "../../utils";
+import { capitalize } from "../../utils";
 
 function Card({ pokemon }) {
   const [showModal, setShowModal] = useState(false);

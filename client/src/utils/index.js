@@ -78,12 +78,13 @@ export const genFiltering = (array, gens) => {
   const sort = gens.sort((a, b) => a.id - b.id);
 
   if (sort.length > 1) {
-    sort.map((g) => {
-      pokemons = [
-        ...pokemons,
-        ...array.filter((p) => p.id >= g.value[0] && p.id <= g.value[1]),
-      ];
-    });
+    sort.map(
+      (g) =>
+        (pokemons = [
+          ...pokemons,
+          ...array.filter((p) => p.id >= g.value[0] && p.id <= g.value[1]),
+        ])
+    );
     return pokemons;
   } else {
     return array.filter(
@@ -123,6 +124,22 @@ export const sort = (array, item) => {
 export const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+// only DB
+
+export const onlyDB = (id) => {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    id
+  );
+};
+
+// only API
+
+export const onlyAPI = (id) => {
+  return !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    id
+  );
 };
 
 // get Percentage

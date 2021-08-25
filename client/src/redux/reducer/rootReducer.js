@@ -1,4 +1,11 @@
-import { filterType, genFiltering, searchFilter, sort } from "../../utils";
+import {
+  filterType,
+  genFiltering,
+  onlyAPI,
+  onlyDB,
+  searchFilter,
+  sort,
+} from "../../utils";
 import ActionTypes from "../constants/pokemonConstants";
 
 const initialState = {
@@ -130,7 +137,6 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: {
-          loading: false,
           data: searchFilter(state.allPokemons.data, action.payload),
         },
       };
@@ -141,7 +147,6 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: {
-          loading: false,
           data: state.allPokemons.data.filter((e) =>
             filterType(e, action.payload)
           ),
@@ -154,7 +159,6 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: {
-          loading: false,
           data: genFiltering(state.allPokemons.data, action.payload),
         },
       };
@@ -165,8 +169,27 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: {
-          loading: false,
           data: state.allPokemons.data,
+        },
+      };
+
+    // ONLY API
+
+    case ActionTypes.FILTER_API:
+      return {
+        ...state,
+        pokemons: {
+          data: state.allPokemons.data.filter((p) => onlyAPI(p.id)),
+        },
+      };
+
+    // ONLY db
+
+    case ActionTypes.FILTER_DB:
+      return {
+        ...state,
+        pokemons: {
+          data: state.allPokemons.data.filter((p) => onlyDB(p.id)),
         },
       };
 
