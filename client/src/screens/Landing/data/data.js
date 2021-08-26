@@ -1,103 +1,59 @@
 const data = [
   {
-    name: "bulbasaur",
-    id: 1,
-    height: 7,
-    weight: 69,
-    stats: [
-      {
-        name: "hp",
-        value: 45,
-      },
-      {
-        name: "attack",
-        value: 49,
-      },
-      {
-        name: "defense",
-        value: 49,
-      },
-      {
-        name: "special-attack",
-        value: 65,
-      },
-      {
-        name: "special-defense",
-        value: 65,
-      },
-      {
-        name: "speed",
-        value: 45,
-      },
-    ],
-    types: [
-      {
-        name: "grass",
-      },
-      {
-        name: "poison",
-      },
-    ],
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-  },
-  {
-    name: "ivysaur",
-    id: 2,
-    height: 10,
-    weight: 130,
-    stats: [
-      {
-        name: "hp",
-        value: 60,
-      },
-      {
-        name: "attack",
-        value: 62,
-      },
-      {
-        name: "defense",
-        value: 63,
-      },
-      {
-        name: "special-attack",
-        value: 80,
-      },
-      {
-        name: "special-defense",
-        value: 80,
-      },
-      {
-        name: "speed",
-        value: 60,
-      },
-    ],
-    types: [
-      {
-        name: "grass",
-      },
-      {
-        name: "poison",
-      },
-    ],
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-  },
-  {
-    name: "venusaur",
-    id: 3,
+    name: "mewtwo",
+    id: 150,
     height: 20,
-    weight: 1000,
+    weight: 1220,
     stats: [
       {
         name: "hp",
-        value: 80,
+        value: 106,
       },
       {
         name: "attack",
-        value: 82,
+        value: 110,
       },
       {
         name: "defense",
-        value: 83,
+        value: 90,
+      },
+      {
+        name: "special-attack",
+        value: 154,
+      },
+      {
+        name: "special-defense",
+        value: 90,
+      },
+      {
+        name: "speed",
+        value: 130,
+      },
+    ],
+    types: [
+      {
+        name: "psychic",
+      },
+    ],
+    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png",
+  },
+  {
+    name: "groudon",
+    id: 383,
+    height: 35,
+    weight: 9500,
+    stats: [
+      {
+        name: "hp",
+        value: 100,
+      },
+      {
+        name: "attack",
+        value: 150,
+      },
+      {
+        name: "defense",
+        value: 140,
       },
       {
         name: "special-attack",
@@ -105,22 +61,57 @@ const data = [
       },
       {
         name: "special-defense",
-        value: 100,
+        value: 90,
       },
       {
         name: "speed",
-        value: 80,
+        value: 90,
       },
     ],
     types: [
       {
-        name: "grass",
-      },
-      {
-        name: "poison",
+        name: "ground",
       },
     ],
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/383.png",
+  },
+  {
+    name: "arceus",
+    id: 493,
+    height: 32,
+    weight: 3200,
+    stats: [
+      {
+        name: "hp",
+        value: 120,
+      },
+      {
+        name: "attack",
+        value: 120,
+      },
+      {
+        name: "defense",
+        value: 120,
+      },
+      {
+        name: "special-attack",
+        value: 120,
+      },
+      {
+        name: "special-defense",
+        value: 120,
+      },
+      {
+        name: "speed",
+        value: 120,
+      },
+    ],
+    types: [
+      {
+        name: "normal",
+      },
+    ],
+    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/493.png",
   },
 ];
 

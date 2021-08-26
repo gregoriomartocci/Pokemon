@@ -33,34 +33,42 @@ let generationsItems = [
 function Menu() {
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
+
   const [generation, setGeneration] = useState([
     { id: 1, name: "I", value: [1, 151], loaded: true },
   ]);
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.rootReducer.pokemons.data);
+  const loaded = useSelector((state) => state.rootReducer.loaded);
   const types = useSelector((state) => state.rootReducer.types.data);
 
   useEffect(() => {
     var array = [];
     filter.map((e) => (array = [...array, e.name.toLowerCase()])); // aca reemplazo el arreglo
-    pokemons && dispatch(filterByType(array));
+    if (loaded) {
+      pokemons && dispatch(filterByType(array));
+    }
     return () => {};
   }, [filter]);
 
   useEffect(() => {
-    sort[0] && dispatch(sortBy(sort[0].name));
+    if (loaded) {
+      sort[0] && dispatch(sortBy(sort[0].name));
+    }
     return () => {};
   }, [sort]);
 
   useEffect(() => {
-    generation.map((g) =>
-      g.loaded === false
-        ? pokemons && dispatch(getGen(g.value)) && (g.loaded = true)
-        : dispatch(filterByGen(generation))
-    );
+
+    if (loaded) {
+      generation.map((g) =>
+        g.loaded === false
+          ? pokemons && dispatch(getGen(g.value)) && (g.loaded = true)
+          : dispatch(filterByGen(generation))
+      );
+    }
 
     // por cada posicion en el arreglo tengo que checkear que todos los ids estan entre la generacion que vino
-
     return () => {};
   }, [generation]);
 

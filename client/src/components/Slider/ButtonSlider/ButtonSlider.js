@@ -3,6 +3,8 @@ import "./ButtonSlider.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const ButtonSlider = ({ direction, moveSlide }) => {
+
+
   return (
     <button
       onClick={moveSlide}
@@ -12,7 +14,7 @@ const ButtonSlider = ({ direction, moveSlide }) => {
           : "btn-slide slider-prev"
       }
     >
-      {direction === "next" ? (
+      {direction === "slider-next" ? (
         <MdKeyboardArrowRight />
       ) : (
         <MdKeyboardArrowLeft />

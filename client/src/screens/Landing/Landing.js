@@ -25,13 +25,14 @@ function Landing() {
           <div></div>
           <div>
             <h1 className="landing-title">Gotta catch 'em all!</h1>
-            <p style={{ margin: "15px 0" }}>Lorem ipsum dolor.</p>
+            <p style={{ margin: "15px 0" }}>join the pokemon adventure</p>
             <Link className="landing-link" to="/">
               <div className="landing-btn">DISCOVER</div>
             </Link>
           </div>
           <div className="landing-featured">
-            <Slider data={data}></Slider>
+            <span className="landing-featured-title">Featured Pokemons</span>
+            <Slider data={data} dots={false}></Slider>
           </div>
         </div>
 

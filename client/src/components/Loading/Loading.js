@@ -3,7 +3,7 @@ import "./Loading.css";
 
 function Loading() {
   return (
-    <div>
+    <div className="spinner-container">
       <img className="spinner" src="/img/loader.svg" alt=""></img>
     </div>
   );

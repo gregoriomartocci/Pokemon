@@ -15,6 +15,7 @@ const initialState = {
   pokemonCreated: { data: {} },
   pokemonDetails: { data: {} },
   loading: true,
+  loaded: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -37,6 +38,8 @@ export const rootReducer = (state = initialState, action) => {
           loading: false,
           data: action.payload,
         },
+        loading: false,
+        loaded: true,
       };
 
     case ActionTypes.SET_POKEMONS_FAIL:
@@ -44,6 +47,8 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         allPokemons: { loading: false, error: action.payload },
         pokemons: { loading: false, error: action.payload },
+        loaded: false,
+        loading: false,
       };
 
     // SET TYPES

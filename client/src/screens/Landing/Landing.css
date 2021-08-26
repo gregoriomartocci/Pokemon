@@ -9,8 +9,8 @@
   /* background: linear-gradient(to right, #d66d75, #e29587); */
   /* background: linear-gradient(to right, #f66f64, #f65393); */
   /* background: linear-gradient(to right, #ff9966, #ff5e62); */
-  /* background: linear-gradient(to right, #ed4264, #ffedbc); */
-  background: linear-gradient(to right, #ec6f66, #f3a183);
+  background: linear-gradient(to right, #ed4264, #ffedbc);
+  /* background: linear-gradient(to right, #ec6f66, #f3a183); */
 }
 
 .landing-main {
@@ -20,6 +20,16 @@
   min-height: 100%;
   width: 100%;
   padding: 0 15%;
+}
+
+.landing-featured {
+  width: 100%;
+  height: 150px;
+}
+
+.landing-featured-title {
+  font-size: 15px;
+  color: #fff;
 }
 
 .landing-logo {
@@ -70,13 +80,13 @@
   height: 100%;
   min-height: 100vh;
   width: 50%;
-  justify-content: center;
+  justify-content: space-around;
   color: #fff;
   text-align: left;
 }
 
 .landing-title {
-  font-size: 70px;
+  font-size: 45px;
 }
 
 .landing-right {

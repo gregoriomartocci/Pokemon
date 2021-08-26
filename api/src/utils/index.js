@@ -1,24 +1,19 @@
-function generation(array, gen) {
-  // page = 3 // page = 5
+const apiWithTimeout = (request, milliseconds) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error("Data fetch failed in 10 seconds"));
+    }, milliseconds);
 
-  let startIndex;
-  let endIndex;
-
-  if (array) {
-    if (!gen) {
-      gen = 1;
-    }
-
-    if (gen === 1) {
-      startIndex = 0;
-      endIndex = 20;
-    }
-
-    return array.slice(startIndex, endIndex);
-  } else {
-    console.log("No cargo el array");
-  }
-}
+    request.then(
+      (res) => {
+        resolve(res);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+};
 
 const getEvolutions = (evoData) => {
   var evoChain = [];
@@ -42,4 +37,4 @@ const getEvolutions = (evoData) => {
   return evoChain;
 };
 
-module.exports = { generation, getEvolutions };
+module.exports = { getEvolutions, apiWithTimeout };

@@ -11,7 +11,7 @@ const {
   EVOLUTION_CHAIN,
 } = require("../../constants");
 
-const { getEvolutions } = require("../utils");
+const { getEvolutions, apiWithTimeout } = require("../utils");
 
 // const Stat = require("../models/Stat");
 // API + DB
@@ -84,20 +84,18 @@ function getAllPokemons(req, res, next) {
         return await getPokemonData(e);
       });
 
-      (async () => {
-        await Promise.all(promises)
-          .then((api) => {
-            if (api_only) {
-              return res.send([...api]);
-            }
-            db.then((result) => {
-              return res.send([...result, ...api]);
-            });
-          })
-          .catch((err) => console.log(err));
-      })();
+      apiWithTimeout(Promise.all(promises), 10000)
+        .then((api) => {
+          if (api_only) {
+            return res.send([...api]);
+          }
+          db.then((result) => {
+            return res.send([...result, ...api]);
+          });
+        })
+        .catch((err) => console.log(err));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(500).send(err));
 }
 
 // DB Pokemons

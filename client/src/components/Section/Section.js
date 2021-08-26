@@ -12,6 +12,7 @@ function Section() {
   const [page, setPage] = useState(1);
   const data = useSelector((state) => state.rootReducer.pokemons.data);
   const loading = useSelector((state) => state.rootReducer.loading);
+  const loaded = useSelector((state) => state.rootReducer.loaded);
 
   var pokemons;
 
@@ -20,7 +21,9 @@ function Section() {
   }
 
   useEffect(() => {
-    dispatch(setUp());
+    if (!loaded) {
+      dispatch(setUp());
+    }
     return () => {};
   }, []);
 
