@@ -23,7 +23,7 @@ export const paginate = (array, page) => {
     }
 
     result.pagination = pagination;
-    result.result = array.slice(startIndex, endIndex);
+    result.result = array?.slice(startIndex, endIndex);
     return result;
   } else {
     console.log("No cargo el array");
@@ -51,7 +51,7 @@ export const getChainData = (item, array) => {
 
 export const searchFilter = (array, searchTearm) => {
   if (searchTearm === "") return array;
-  return array.filter((e) =>
+  return array?.filter((e) =>
     e.name.toLowerCase().includes(searchTearm.toLowerCase())
   );
 };
@@ -77,19 +77,21 @@ export const genFiltering = (array, gens) => {
 
   const sort = gens.sort((a, b) => a.id - b.id);
 
-  if (sort.length > 1) {
-    sort.map(
-      (g) =>
-        (pokemons = [
-          ...pokemons,
-          ...array.filter((p) => p.id >= g.value[0] && p.id <= g.value[1]),
-        ])
-    );
-    return pokemons;
-  } else {
-    return array.filter(
-      (p) => p.id >= gens[0].value[0] && p.id <= gens[0].value[1]
-    );
+  if (array) {
+    if (sort.length > 1) {
+      sort.map(
+        (g) =>
+          (pokemons = [
+            ...pokemons,
+            ...array.filter((p) => p?.id >= g.value[0] && p?.id <= g.value[1]),
+          ])
+      );
+      return pokemons;
+    } else {
+      return array.filter(
+        (p) => p.id >= gens[0]?.value[0] && p?.id <= gens[0].value[1]
+      );
+    }
   }
 };
 

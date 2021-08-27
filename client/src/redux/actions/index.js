@@ -93,6 +93,9 @@ export const getPokemonDetails = (pokemonId) => async (dispatch) => {
 
 export const getGen = (payload) => async (dispatch) => {
   dispatch({ type: ActionTypes.GET_GEN_REQUEST, payload });
+
+  console.log("aguante la papilla", payload);
+
   try {
     const { data } = await axios.get(
       `${REACT_APP_BASE_URL}${REACT_APP_POKEMONS}?offset=${payload[0]}&limit=${payload[1]}&api_only=true`

@@ -6,6 +6,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByGen, filterByType, getGen, sortBy } from "../../redux/actions";
 import Toggle from "../Toggle/Toggle";
+import Alert from "../Alert/Alert";
 
 const sortItems = [
   { id: 1, name: "name" },
@@ -27,43 +28,47 @@ let generationsItems = [
   { id: 5, name: "V", value: [495, 649], loaded: false },
   { id: 6, name: "VI", value: [650, 721], loaded: false },
   { id: 7, name: "VII", value: [722, 809], loaded: false },
-  { id: 8, name: "VIII", value: [810, 900], loaded: false },
+  { id: 8, name: "VIII", value: [810, 899], loaded: false },
 ];
 
 function Menu() {
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
-
+  const [lastRequest, setLastRequest] = useState([1, 151]);
   const [generation, setGeneration] = useState([
     { id: 1, name: "I", value: [1, 151], loaded: true },
   ]);
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.rootReducer.pokemons.data);
+  const error = useSelector((state) => state.rootReducer.allPokemons.error);
   const loaded = useSelector((state) => state.rootReducer.loaded);
+  const loading = useSelector((state) => state.rootReducer.loading);
   const types = useSelector((state) => state.rootReducer.types.data);
 
   useEffect(() => {
     var array = [];
     filter.map((e) => (array = [...array, e.name.toLowerCase()])); // aca reemplazo el arreglo
-    if (loaded) {
+    if (loaded && !loading) {
       pokemons && dispatch(filterByType(array));
     }
     return () => {};
   }, [filter]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && !loading) {
       sort[0] && dispatch(sortBy(sort[0].name));
     }
     return () => {};
   }, [sort]);
 
   useEffect(() => {
-
-    if (loaded) {
+    if (loaded && !loading) {
       generation.map((g) =>
         g.loaded === false
-          ? pokemons && dispatch(getGen(g.value)) && (g.loaded = true)
+          ? pokemons &&
+            dispatch(getGen(g.value)) &&
+            (g.loaded = true) &&
+            setLastRequest(g.value)
           : dispatch(filterByGen(generation))
       );
     }
@@ -73,42 +78,45 @@ function Menu() {
   }, [generation]);
 
   return (
-    <div className="menu">
-      <SearchBar />
-      <div className="filter-sort">
-        <div className="filter">
-          {/* <HiOutlineAdjustments /> */}
-          <Dropdown
-            title="Type"
-            items={types && types}
-            multiselect
-            selection={filter}
-            setSelection={setFilter}
-          ></Dropdown>
-        </div>
-        <div className="generation">
-          <Dropdown
-            title="Generation"
-            items={generationsItems}
-            multiselect
-            selection={generation}
-            setSelection={setGeneration}
-          ></Dropdown>
-        </div>
-        <div className="sort">
-          <Dropdown
-            title="Sort"
-            items={sortItems}
-            selection={sort}
-            setSelection={setSort}
-          ></Dropdown>
-        </div>
-        <div className="toggle">
-          {/* <HiOutlineAdjustments /> */}
-          <Toggle op1="API" op2="DB" />
+    <>
+      {error && <Alert req={lastRequest} />}
+      <div className="menu">
+        <SearchBar />
+        <div className="filter-sort">
+          <div className="filter">
+            {/* <HiOutlineAdjustments /> */}
+            <Dropdown
+              title="Type"
+              items={types && types}
+              multiselect
+              selection={filter}
+              setSelection={setFilter}
+            ></Dropdown>
+          </div>
+          <div className="generation">
+            <Dropdown
+              title="Generation"
+              items={generationsItems}
+              multiselect
+              selection={generation}
+              setSelection={setGeneration}
+            ></Dropdown>
+          </div>
+          <div className="sort">
+            <Dropdown
+              title="Sort"
+              items={sortItems}
+              selection={sort}
+              setSelection={setSort}
+            ></Dropdown>
+          </div>
+          <div className="toggle">
+            {/* <HiOutlineAdjustments /> */}
+            <Toggle op1="API" op2="DB" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

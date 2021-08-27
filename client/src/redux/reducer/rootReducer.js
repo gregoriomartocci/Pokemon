@@ -118,6 +118,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allPokemons: { loading: true, data: state.allPokemons.data },
+        pokemons: { loading: true, data: state.pokemons.data },
         loading: true,
       };
     case ActionTypes.GET_GEN_SUCCESS:
@@ -132,7 +133,11 @@ export const rootReducer = (state = initialState, action) => {
     case ActionTypes.GET_GEN_FAIL:
       return {
         ...state,
-        allPokemons: { loading: false, error: action.payload },
+        allPokemons: {
+          loading: false,
+          error: action.payload,
+          data: state.allPokemons.data,
+        },
         loading: false,
       };
 

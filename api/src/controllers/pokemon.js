@@ -43,7 +43,7 @@ function getAllPokemons(req, res, next) {
     offset = 1;
   }
   if (!limit) {
-    limit = 151;
+    limit = 25;
   }
 
   axios
@@ -84,16 +84,16 @@ function getAllPokemons(req, res, next) {
         return await getPokemonData(e);
       });
 
-      apiWithTimeout(Promise.all(promises), 10000)
+      apiWithTimeout(Promise.all(promises), 15000)
         .then((api) => {
           if (api_only) {
             return res.send([...api]);
           }
           db.then((result) => {
             return res.send([...result, ...api]);
-          });
+          }).catch((err) => res.status(500).send(err));
         })
-        .catch((err) => console.log(err));
+        .catch(() => res.status(500).send("Data fetch failed in 10 seconds"));
     })
     .catch((err) => res.status(500).send(err));
 }
@@ -113,7 +113,7 @@ function getDBPokemons(req, res, next) {
   });
   db.then((response) => {
     return res.send(response);
-  }).catch((err) => console.log(err));
+  }).catch((err) => res.status(500).send(err));
 }
 
 // DETAILS
@@ -169,7 +169,7 @@ function getPokemonDetails(req, res, next) {
                   data.sprites.other["official-artwork"].front_default;
                 return pokemon;
               } catch (err) {
-                console.log(err);
+                res.status(500).send(err);
               }
             };
 
@@ -202,12 +202,12 @@ function getPokemonDetails(req, res, next) {
 
                   return res.send(details);
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => res.status(500).send(err));
             })();
           })
-          .catch((err) => console.log(err));
+          .catch((err) => res.status(500).send(err));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => res.status(500).send(err));
   } else {
     res.status(500).send("You need to provide an id");
   }
@@ -250,7 +250,7 @@ function createPokemon(req, res, next) {
           .then((t) => {
             pokemon.addType(t.id);
           })
-          .catch((err) => res.send(err));
+          .catch((err) => res.status(500).send(err));
       });
 
       stats.map((s) => {
@@ -258,12 +258,10 @@ function createPokemon(req, res, next) {
           .then((statCreated) => {
             pokemon.addStat(statCreated);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => res.status(500).send(err));
       });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => res.status(500).send(err));
 
   newPokemon.stats = stats;
   newPokemon.types = types;
@@ -282,7 +280,7 @@ function searchPokemonById(req, res, next) {
       .then((response) => {
         res.send(response.data);
       })
-      .catch((error) => res.send(error));
+      .catch((err) => res.status(500).send(err));
   }
 }
 
