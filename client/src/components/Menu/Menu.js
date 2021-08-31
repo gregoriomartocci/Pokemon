@@ -4,12 +4,19 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./Menu.css";
 import Dropdown from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { filterByGen, filterByType, getGen, sortBy } from "../../redux/actions";
+import {
+  clearFilters,
+  filterByGen,
+  filterByType,
+  getGen,
+  sortBy,
+} from "../../redux/actions";
 import Toggle from "../Toggle/Toggle";
 import Alert from "../Alert/Alert";
 
 const sortItems = [
-  { id: 1, name: "name", value: "name" },
+  { id: 1, name: "a - z", value: "name" },
+  { id: 2, name: "z - a", value: "name" },
   { id: 3, name: "attack", value: "attack" },
   { id: 4, name: "defense", value: "defense" },
   { id: 5, name: "hp", value: "hp" },
@@ -63,6 +70,8 @@ function Menu() {
 
   useEffect(() => {
     if (loaded && !loading) {
+      // si la app no esta cargando y ya se cargo todo
+
       generation.map((g) =>
         g.loaded === false
           ? pokemons &&
@@ -74,8 +83,13 @@ function Menu() {
     }
 
     // por cada posicion en el arreglo tengo que checkear que todos los ids estan entre la generacion que vino
-    return () => {};
   }, [generation]);
+
+  const onClickHandler = () => {
+    dispatch(clearFilters());
+    setSort([]);
+    setFilter([]);
+  };
 
   return (
     <>
@@ -110,8 +124,12 @@ function Menu() {
               setSelection={setSort}
             ></Dropdown>
           </div>
+          <div className="clear-filters">
+            <p className="clear-filters-span" onClick={() => onClickHandler()}>
+              Reset Filters
+            </p>
+          </div>
           <div className="toggle">
-            {/* <HiOutlineAdjustments /> */}
             <Toggle op1="API" op2="DB" />
           </div>
         </div>
