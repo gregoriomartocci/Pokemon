@@ -75,7 +75,7 @@ function Dropdown({ title, items, multiselect, selection, setSelection }) {
         <ul className={`dropdown-list ${title.toLowerCase()}`} ref={ref}>
           {items.map((item) => (
             <li
-              className={`dropdown-list-item`}
+              className={`dropdown-list-item-${title.toLowerCase()}`}
               key={item.id}
             >
               <button

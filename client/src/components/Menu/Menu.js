@@ -9,15 +9,15 @@ import Toggle from "../Toggle/Toggle";
 import Alert from "../Alert/Alert";
 
 const sortItems = [
-  { id: 1, name: "name" },
-  { id: 3, name: "attack" },
-  { id: 4, name: "defense" },
-  { id: 5, name: "hp" },
-  { id: 6, name: "speed" },
-  { id: 7, name: "weight" },
-  { id: 8, name: "height" },
-  { id: 9, name: "special-attack" },
-  { id: 10, name: "special-defense" },
+  { id: 1, name: "name", value: "name" },
+  { id: 3, name: "attack", value: "attack" },
+  { id: 4, name: "defense", value: "defense" },
+  { id: 5, name: "hp", value: "hp" },
+  { id: 6, name: "speed", value: "speed" },
+  { id: 7, name: "weight", value: "weight" },
+  { id: 8, name: "height", value: "height" },
+  { id: 9, name: "sp. atk", value: "special-attack" },
+  { id: 10, name: "sp. def", value: "special-defense" },
 ];
 
 let generationsItems = [
@@ -56,7 +56,7 @@ function Menu() {
 
   useEffect(() => {
     if (loaded && !loading) {
-      sort[0] && dispatch(sortBy(sort[0].name));
+      sort[0] && dispatch(sortBy(sort[0].value));
     }
     return () => {};
   }, [sort]);
@@ -83,7 +83,7 @@ function Menu() {
       <div className="menu">
         <SearchBar />
         <div className="filter-sort">
-          <div className="filter">
+          <div className="filter-container">
             {/* <HiOutlineAdjustments /> */}
             <Dropdown
               title="Type"
@@ -93,7 +93,7 @@ function Menu() {
               setSelection={setFilter}
             ></Dropdown>
           </div>
-          <div className="generation">
+          <div className="generation-container">
             <Dropdown
               title="Generation"
               items={generationsItems}
@@ -102,7 +102,7 @@ function Menu() {
               setSelection={setGeneration}
             ></Dropdown>
           </div>
-          <div className="sort">
+          <div className="sort-container">
             <Dropdown
               title="Sort"
               items={sortItems}

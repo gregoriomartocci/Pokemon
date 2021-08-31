@@ -9,15 +9,15 @@
   display: flex;
 }
 
-.toggle{
+.toggle {
   padding: 0 25px;
 }
 
 .view,
-.sort,
+.sort-container,
 .toggle,
-.generation,
-.filter {
+.generation-container,
+.filter-container {
   display: flex;
   justify-content: center;
   align-items: center;
