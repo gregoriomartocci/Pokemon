@@ -1,31 +1,45 @@
-import React, { useState } from "react";
-import "./Style.css";
+import React, { useEffect, useRef, useState } from "react";
+import "./Dropdown.css";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import {} from "react-icons/im";
 
+const useOutsideAlerter = (ref, header, header_title, setOpen) => {
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        ref.current &&
+        header.current !== e.target &&
+        header_title.current !== e.target &&
+        !ref.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+};
+
 function Dropdown({ title, items, multiselect, selection, setSelection }) {
   const [open, setOpen] = useState(false);
-
-  const toggle = () => setOpen(!open);
-
-  // recordemos que some, checkea que almenos haya 1 item en el arreglo
+  const ref = useRef(null);
+  const header = useRef(null);
+  const header_title = useRef(null);
+  useOutsideAlerter(ref, header, header_title, setOpen);
 
   const handleOnClick = (item) => {
-    //  cuando se clickea el item
     if (!selection.some((current) => current.id === item.id)) {
-      //  si el item que se clickeo no esta en selected.
       if (!multiselect) {
-        //  y si no es multiselect
-        setSelection([item]); //  en selected mete el item que se clickeo
+        setSelection([item]);
       } else if (multiselect) {
-        setSelection([...selection, item]); //  si es multiselect, a lo que ya tenia selected agregale el item que se clickeo.
+        setSelection([...selection, item]);
       }
     } else {
-      //  si el item que se clickeo esta en selected
       let selectionAfterRemoval = selection;
       selectionAfterRemoval = selectionAfterRemoval.filter(
-        //  a selection le voy a querer sacar el elemento que tiene adentro y conicide con el se clickeo
         (current) => current.id !== item.id
       );
       setSelection([...selectionAfterRemoval]);
@@ -41,25 +55,29 @@ function Dropdown({ title, items, multiselect, selection, setSelection }) {
 
   return (
     <div className="dropdown-wrapper">
-      {/* header del dropdown */}
       <div
         tabIndex={0}
         className="dropdown-header"
-        role="button"
-        onKeyPress={() => toggle(!open)}
-        onClick={() => toggle(!open)}
+        onClick={() => {
+          open ? setOpen(false) : setOpen(true);
+        }}
       >
-        <div className="dropdown-header">
-          <span className="dropdown-header-title">{title}</span>
+        <div className="dropdown-header" ref={header}>
+          <span className="dropdown-header-title" ref={header_title}>
+            {title}
+          </span>
           <div className="dropdown-header-icon">
             {open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
           </div>
         </div>
       </div>
       {open && (
-        <ul className="dropdown-list">
+        <ul className={`dropdown-list ${title.toLowerCase()}`} ref={ref}>
           {items.map((item) => (
-            <li className="dropdown-list-item" key={item.id}>
+            <li
+              className={`dropdown-list-item`}
+              key={item.id}
+            >
               <button
                 type="button"
                 className="dropdown-list-button"

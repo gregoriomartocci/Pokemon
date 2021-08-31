@@ -6,7 +6,8 @@ import { paginate } from "../../utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUp } from "../../redux/actions/index.js";
 import Loading from "../Loading/Loading";
-import Alert from "../Alert/Alert.js";
+// import Icons from "../Icons/Icons.js";
+
 
 function Section() {
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ function Section() {
   const data = useSelector((state) => state.rootReducer.pokemons.data);
   const loading = useSelector((state) => state.rootReducer.loading);
   const loaded = useSelector((state) => state.rootReducer.loaded);
-  const error = useSelector((state) => state.rootReducer.pokemons.error);
 
   var pokemons;
 
@@ -35,6 +35,7 @@ function Section() {
 
   return (
     <div>
+      {/* <Icons></Icons> */}
       {loading ? (
         <Loading></Loading>
       ) : (

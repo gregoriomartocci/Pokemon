@@ -21,19 +21,31 @@
 
 .dropdown-list {
   position: absolute;
+  flex-wrap: wrap;
   top: 4rem;
   left: 0;
   width: 100%;
   list-style: none;
   font-size: 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
-  padding: 1rem;
+  border-radius: 7.5px;
   background-color: #ffffff;
+  padding: 10px;
+}
+
+.type {
+  display: flex;
+  width: 240px;
+}
+
+.dropdown-list-item-custom {
+  padding: 10px;
+  width: 100%;
 }
 
 .dropdown-list-item {
-  padding: 0.5rem 0;
+  padding: 10px;
+  width: 50%;
 }
 
 .dropdown-list-button {
@@ -49,7 +61,7 @@
 }
 
 .dropdown-item-name {
-  margin: 0 1rem;
+  margin-left: 15px;
   font-size: 0.85rem;
   color: #616161;
 }

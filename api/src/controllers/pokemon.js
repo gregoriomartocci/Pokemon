@@ -43,7 +43,7 @@ function getAllPokemons(req, res, next) {
     offset = 1;
   }
   if (!limit) {
-    limit = 25;
+    limit = 10;
   }
 
   axios
@@ -84,7 +84,7 @@ function getAllPokemons(req, res, next) {
         return await getPokemonData(e);
       });
 
-      apiWithTimeout(Promise.all(promises), 15000)
+      apiWithTimeout(Promise.all(promises), 25000)
         .then((api) => {
           if (api_only) {
             return res.send([...api]);
