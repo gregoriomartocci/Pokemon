@@ -96,7 +96,7 @@ function Menu() {
       {error && <Alert req={lastRequest} />}
       <div className="menu">
         <SearchBar />
-        <div className="filter-sort">
+        <div className="menu-right">
           <div className="filter-container">
             {/* <HiOutlineAdjustments /> */}
             <Dropdown

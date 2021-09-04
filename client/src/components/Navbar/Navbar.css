@@ -1,16 +1,25 @@
-.Navbar {
+.navbar {
   width: 100%;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5rem;
+  padding: 1rem 5%;
+  height: 80px;
+}
+
+.navbar-mobile-btn {
+  display: none;
+  font-size: 31px;
+  cursor: pointer;
+  height: 35px;
+  margin: 0 15px;
 }
 
 .logo {
-  height: 3rem;
   display: flex;
   cursor: pointer;
+  margin: 0 15px;
 }
 
 .create {
@@ -21,4 +30,14 @@
   color: #ffffff;
   font-weight: 500;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  .create {
+    display: none;
+  }
+
+  .navbar-mobile-btn {
+    display: block;
+  }
 }

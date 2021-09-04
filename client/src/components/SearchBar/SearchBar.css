@@ -9,6 +9,8 @@
   background-color: #fff;
   padding: 10px;
   box-shadow: 0px 5px 0px rgb(0 0 0 / 2.25%);
+  margin: 0 15px;
+  transition: all 4s ease;
 }
 
 .search-icon {
@@ -34,4 +36,10 @@
 .search-input :focus {
   border: none;
   outline: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .search-bar {
+    width: 400px;
+  }
 }

@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  padding: 2rem 5rem;
+  padding: 2rem 5%;
 }
 
-.filter-sort {
+.menu-right {
   display: flex;
 }
 
@@ -34,4 +34,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  .menu-right {
+    display: none;
+  }
 }
