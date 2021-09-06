@@ -32,8 +32,7 @@
 .accordion-content-item {
   display: flex;
   justify-content: flex-start;
-  margin: 0 5px;
-  width: 80px;
+  width: 50%;
   height: 45px;
   font-size: 13px;
 }
@@ -41,6 +40,16 @@
 .accordion-content.accordion-show {
   height: auto;
   margin: 25px 0;
-  max-height: 9999px;
+  max-height: 100px;
+  overflow: auto;
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background: #e0e0e0;
 }

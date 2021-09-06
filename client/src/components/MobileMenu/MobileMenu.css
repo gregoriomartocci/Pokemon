@@ -23,6 +23,13 @@
   padding: 25px;
 }
 
+.mobile-menu-options > li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .mobile-menu-option {
   margin: 20px 0;
 }

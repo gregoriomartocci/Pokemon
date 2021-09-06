@@ -14,7 +14,7 @@ import {
 import Toggle from "../Toggle/Toggle";
 import Alert from "../Alert/Alert";
 
-const sortItems = [
+export const sortItems = [
   { id: 1, name: "a - z", value: "name" },
   { id: 2, name: "z - a", value: "name" },
   { id: 3, name: "attack", value: "attack" },
@@ -27,7 +27,7 @@ const sortItems = [
   { id: 10, name: "sp. def", value: "special-defense" },
 ];
 
-const generationsItems = [
+export const generationsItems = [
   { id: 1, name: "I", value: [1, 151], loaded: true },
   { id: 2, name: "II", value: [152, 251], loaded: false },
   { id: 3, name: "III", value: [252, 386], loaded: false },
