@@ -5,7 +5,7 @@
 
 .accordion-item {
   background-color: none;
-  padding: 0px 15px;
+  padding: 0px 10px;
 }
 
 .accordion-title {
@@ -26,7 +26,7 @@
   margin: 25px 0;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  transition: all 0.7s cubic-bezier(0, 1, 0, 1);
 }
 
 .accordion-content-item {
@@ -42,11 +42,10 @@
   margin: 25px 0;
   max-height: 100px;
   overflow: auto;
-  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {

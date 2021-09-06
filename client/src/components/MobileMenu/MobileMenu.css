@@ -38,6 +38,7 @@
   width: 350px;
   max-width: 85%;
   height: 100vh;
+  max-height: 100vh;
   background-color: #212121;
   z-index: 25;
 }
@@ -46,11 +47,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 125px;
-  height: 35px;
+  width: 100px;
+  height: 25px;
   border-radius: 40px;
   background-color: #424242;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .mobile-menu-option-toggle-item {
@@ -66,7 +67,7 @@
   justify-content: center;
   align-items: center;
   width: 60%;
-  height: 35px;
+  height: 25px;
   background-color: #757575;
   border-radius: 40px;
   color: #fff;

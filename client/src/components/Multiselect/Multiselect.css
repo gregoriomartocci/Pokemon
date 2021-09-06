@@ -1,0 +1,93 @@
+.multiselect-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.multiselect-header-title {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  font-size: 0.75rem;
+  color: #616161;
+}
+
+.multiselect-header-icon {
+  display: flex;
+  align-items: center;
+  margin: 0 0.5rem;
+}
+
+.multiselect-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  font-size: 1rem;
+}
+
+.type {
+  display: flex;
+  width: 475px;
+}
+
+.sort {
+  display: flex;
+  width: 230px;
+}
+
+.generation {
+  display: flex;
+  width: 170px;
+}
+
+.multiselect-list-item {
+  padding: 5px;
+  width: 50%;
+}
+
+.multiselect-list-item-type {
+  padding: 10px;
+  width: 25%;
+}
+
+.multiselect-list-item-generation {
+  padding: 10px;
+  width: 50%;
+}
+
+.multiselect-list-item-sort {
+  padding: 10px;
+  width: 100px;
+}
+
+.multiselect-list-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.multiselect-item-icon {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.multiselect-item-name {
+  margin-left: 15px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.multiselect-header {
+  display: flex;
+  font-size: 1rem;
+}
+
+.checked {
+  color: var(--primary-color);
+}
+
+.unchecked {
+  color: #e0e0e0;
+}
