@@ -7,6 +7,7 @@ import Modal from "../Modal/Modal";
 import { Link } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoCloseSharp } from "react-icons/io5";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 dotenv.config();
 
@@ -37,10 +38,15 @@ function Navbar() {
         className="navbar-mobile-btn"
         onClick={() => setActive((prev) => !prev)}
       >
-        <i className="navbar-mobile-icon">
-          {active ? <HiMenuAlt3 /> : <IoCloseSharp />}
+        <i
+          className={`navbar-mobile-icon ${
+            active && "navbar-mobile-icon-active"
+          }`}
+        >
+          {!active ? <HiMenuAlt3 /> : <IoCloseSharp />}
         </i>
       </div>
+      {active && <MobileMenu setActive={setActive} />}
       <Modal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );

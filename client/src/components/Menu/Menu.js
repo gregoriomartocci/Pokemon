@@ -27,7 +27,7 @@ const sortItems = [
   { id: 10, name: "sp. def", value: "special-defense" },
 ];
 
-let generationsItems = [
+const generationsItems = [
   { id: 1, name: "I", value: [1, 151], loaded: true },
   { id: 2, name: "II", value: [152, 251], loaded: false },
   { id: 3, name: "III", value: [252, 386], loaded: false },

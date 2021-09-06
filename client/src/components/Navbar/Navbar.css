@@ -16,6 +16,10 @@
   margin: 0 15px;
 }
 
+.navbar-mobile-icon-active {
+  color: #fff;
+}
+
 .logo {
   display: flex;
   cursor: pointer;
