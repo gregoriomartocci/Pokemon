@@ -4,7 +4,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 function Pagination({ pagination, setPage, page }) {
-  var pageCount, previous, actual, next;
+  let pageCount, previous, actual, next;
 
   if (pagination) {
     pageCount = pagination.pageCount;
@@ -28,34 +28,44 @@ function Pagination({ pagination, setPage, page }) {
           )}
 
           <ul className="pagination-list">
-            <li
-              className="pagination-item"
-              onClick={() => pagination.previous && handleClick(previous)}
-            >
-              {previous}
-            </li>
+            {previous && (
+              <li
+                className="pagination-item"
+                onClick={() => handleClick(previous)}
+              >
+                {previous}
+              </li>
+            )}
+
             <li
               className="pagination-item active"
               onClick={() => handleClick(actual)}
             >
               {actual}
             </li>
-            <li className="pagination-item" onClick={() => handleClick(next)}>
-              {page + 1 !== pageCount && next}
-            </li>
-            {pagination.pageCount && <span>...</span>}
-            <li
-              className="pagination-item"
-              onClick={() => handleClick(pageCount)}
-            >
-              {pageCount}
-            </li>
+
+            {page + 1 !== pageCount && (
+              <li className="pagination-item" onClick={() => handleClick(next)}>
+                {next}
+              </li>
+            )}
+
+            {actual + 1 !== pageCount && pageCount && <span>...</span>}
+
+            {actual !== pageCount && (
+              <li
+                className="pagination-item"
+                onClick={() => handleClick(pageCount)}
+              >
+                {pageCount}
+              </li>
+            )}
           </ul>
-          {pagination.next && page !== pagination.pageCount && (
+          {next && page !== pageCount ? (
             <button className="next" onClick={() => handleClick(next)}>
               <MdKeyboardArrowRight />
             </button>
-          )}
+          ) : null}
         </>
       ) : null}
     </div>

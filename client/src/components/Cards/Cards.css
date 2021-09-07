@@ -4,6 +4,7 @@
   flex-direction: column;
   border: none !important;
   padding: 0 5%;
+  background-color: #fafafa;
 }
 
 .cardsContainter {
@@ -16,5 +17,3 @@
 .titulo {
   width: 100%;
 }
-
-
