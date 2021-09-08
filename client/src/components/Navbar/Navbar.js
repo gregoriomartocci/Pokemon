@@ -38,15 +38,11 @@ function Navbar() {
         className="navbar-mobile-btn"
         onClick={() => setActive((prev) => !prev)}
       >
-        <i
-          className={`navbar-mobile-icon ${
-            active && "navbar-mobile-icon-active"
-          }`}
-        >
+        <i className={`navbar-mobile-icon`}>
           {!active ? <HiMenuAlt3 /> : <IoCloseSharp />}
         </i>
       </div>
-      {active && <MobileMenu setActive={setActive} />}
+      <MobileMenu setActive={setActive} active={active} />
       <Modal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );

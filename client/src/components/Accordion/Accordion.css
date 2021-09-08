@@ -1,6 +1,7 @@
 .accordion {
   width: 100%;
   background-color: none;
+  padding: 0 20px;
 }
 
 .accordion-item {

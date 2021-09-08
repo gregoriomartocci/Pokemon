@@ -33,7 +33,7 @@ function Multiselect({ items, multiselect, selection, setSelection }) {
       </div>
 
       <ul className={`multiselect-list`}>
-        {items?.map((item) => (
+        {items && items?.map((item) => (
           <li className={`multiselect-list-item`} key={item.id}>
             <button
               type="button"
