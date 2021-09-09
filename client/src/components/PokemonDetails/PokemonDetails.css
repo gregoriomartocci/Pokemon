@@ -16,7 +16,9 @@
   display: flex;
   position: relative;
   background-color: #fffffe;
-  max-width: 75%;
+  width: 900px;
+  min-height: 500px;
+  height: 550px;
   color: black;
   border-radius: 1rem;
 }
@@ -25,7 +27,6 @@
   display: flex;
   flex-direction: column;
   background-color: #fffffe;
-  padding: 1.5rem;
   height: 100%;
 }
 
@@ -34,7 +35,7 @@
   justify-content: center;
   flex-direction: column;
   border-radius: 1rem 0 0 1rem;
-  padding: 1rem;
+  padding: 25px;
   background-color: #fafafa;
 }
 
@@ -45,7 +46,7 @@
   justify-content: space-between;
   background-color: #ffffff;
   border-radius: 0 1rem 1rem 0;
-  padding: 1rem;
+  padding: 25px;
   height: 100%;
   width: 100%;
 }
@@ -79,15 +80,11 @@
   font-size: 0.75rem;
 }
 
-.modal-img {
-  padding: 3rem;
-}
-
 .img {
-  width: 17.5rem;
+  width: 250px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1100px) {
   .modal-container {
     align-items: center;
   }
@@ -95,9 +92,19 @@
   .pokemon-details {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    max-width: 90%;
-    max-height: 90%;
+    position: relative;
+    background-color: #fffffe;
+    width: 350px;
+    height: 480px;
+    max-height: 583px;
+    min-width: 35%;
+    max-width: 85%;
+    color: black;
+    border-radius: 1rem;
+  }
+
+  .pokemon-type {
+    font-size: 9px;
   }
 
   .evolution-name {
@@ -109,7 +116,7 @@
   }
 
   .img {
-    width: 200px;
+    width: 150px;
   }
 
   .modal-img {
@@ -122,12 +129,12 @@
 
   .left-content {
     border-radius: 1rem 1rem 0 0;
-    padding: 0;
+    padding: 25px;
   }
 
   .right-content {
     border-radius: 0 0 1rem 1rem;
-    padding: 30px;
+    padding: 15px;
   }
 
   .pokemon-stats {
@@ -163,12 +170,16 @@
     margin: 0 15px;
   }
 
+  .bloc-tabs {
+    font-size: 12px;
+  }
+
   .about-legend {
     margin: 5px 0;
   }
 
   .description {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .content {
@@ -181,14 +192,9 @@
 
   .content-tabs {
     height: 100%;
-    max-height: 200px;
-    overflow: auto;
-  }
-}
-
-@media screen and (max-width: 280px) {
-  .right-content {
-    border-radius: 0 0 1rem 1rem;
-    padding: 15px;
+    max-height: 130px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 5px;
   }
 }
