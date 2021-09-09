@@ -11,6 +11,7 @@ function About({ about }) {
       ) : (
         <div className="about-container">
           <div className="about-top">
+            <legend className="about-legend">Description</legend>
             <div className="description">{about.description}</div>
           </div>
 

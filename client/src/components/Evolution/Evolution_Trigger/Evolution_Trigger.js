@@ -13,7 +13,7 @@ function Evolution_Trigger({ trigger }) {
               : null}
           </span>
           <span className="evolution-trigger-name">
-            {trigger ? trigger?.trigger_name : <div></div>}
+            {trigger ? trigger?.trigger_name.replace('-', ' ') : <div></div>}
           </span>
         </div>
       )}
