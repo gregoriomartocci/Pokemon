@@ -66,6 +66,16 @@ code {
   font-weight: 500;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background: #e0e0e0;
+}
+
 /* .fire {
   background-color: #ff9800;
 }

@@ -1,9 +1,7 @@
-.container {
+.tabs-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 500px;
-  height: 100%;
   margin: 0.5rem 0;
   word-break: break-all;
 }

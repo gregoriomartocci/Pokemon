@@ -25,7 +25,7 @@ function Tabs({ pokemon }) {
   details && console.log("DETAILSSS =====> ", details);
 
   return (
-    <div className="container">
+    <div className="tabs-container">
       <div className="bloc-tabs">
         <button
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
