@@ -99,7 +99,7 @@
     width: 500px;
     max-height: 90%;
     min-width: 35%;
-    max-width: 85%;
+    max-width: 90%;
     color: black;
     border-radius: 1rem;
     transition: all 1s;
@@ -145,7 +145,7 @@
 
   .right-content {
     border-radius: 0 0 1rem 1rem;
-    padding: 15px;
+    padding: 25px;
   }
 
   .pokemon-stats {
@@ -204,7 +204,7 @@
 
   .content-tabs {
     height: 100%;
-    max-height: 200px;
+    max-height: 150px;
     overflow-y: auto;
     overflow-x: hidden;
   }

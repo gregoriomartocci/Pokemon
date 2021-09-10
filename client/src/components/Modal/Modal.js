@@ -136,16 +136,16 @@ function Modal({ showModal, setShowModal }) {
               </div>
               <button className="modal-button"></button>
               <form className="modal-form">
+                <Input
+                  name="name"
+                  title="Name"
+                  type="text"
+                  input={input}
+                  onChangeHandler={onChangeHandler}
+                  validate={validate}
+                  error="Must be between 6 to 15 characters"
+                ></Input>
                 <div className="row">
-                  <Input
-                    name="name"
-                    title="Name"
-                    type="text"
-                    input={input}
-                    onChangeHandler={onChangeHandler}
-                    validate={validate}
-                    error="Must be between 6 to 15 characters"
-                  ></Input>
                   <Input
                     name="attack"
                     title="Attack"
@@ -153,18 +153,7 @@ function Modal({ showModal, setShowModal }) {
                     input={input}
                     onChangeHandler={onChangeHandler}
                     validate={validate}
-                    error="Must be between 6 to 15 characters"
-                  ></Input>
-                </div>
-                <div className="row">
-                  <Input
-                    name="defense"
-                    title="Defense"
-                    type="number"
-                    input={input}
-                    onChangeHandler={onChangeHandler}
-                    validate={validate}
-                    error="Must be between 1 to 5 digits"
+                    error="Must be between 6 to 15 digits"
                   ></Input>
                   <Input
                     name="health"
