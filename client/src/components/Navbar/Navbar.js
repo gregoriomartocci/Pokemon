@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoCloseSharp } from "react-icons/io5";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import Icons from "../Icons/Icons";
 
 dotenv.config();
 

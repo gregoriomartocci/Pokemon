@@ -19,9 +19,8 @@
 
 .types-icons {
   padding: 15px;
-  background-color: #fff;
   border-radius: 15px;
-  width: 270px;
+  width: 100%;
 }
 
 .icon {
@@ -36,16 +35,19 @@
   margin: 0 10px;
 }
 
-.icon img {
+.icon-img {
   height: 30px;
   width: 30px;
   padding: 8px;
   border-radius: 25px;
+  pointer-events: none;
+  background-color: #e0e0e0;
 }
 
 .icon span {
   margin-left: 13px;
   font-size: 14px;
+  pointer-events: none;
 }
 
 .type-icon-bug {
