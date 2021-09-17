@@ -88,9 +88,11 @@ function getAllPokemons(req, res, next) {
       apiWithTimeout(Promise.all(promises), 10000)
         .then((api) => {
           if (api_only) {
+            console.log("se manda esto", [...api]);
             return res.send([...api]);
           }
           db.then((result) => {
+            console.log("se manda esto", [...result, ...api]);
             return res.send([...result, ...api]);
           }).catch((err) => res.send(err));
         })

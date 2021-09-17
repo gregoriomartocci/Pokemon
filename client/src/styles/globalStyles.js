@@ -2,8 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
-    *{
-        transition: all 1;
+    html{
+        background-color: ${({ theme }) => theme.background_primary};
     }
 
     .App{

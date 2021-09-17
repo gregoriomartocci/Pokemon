@@ -25,7 +25,7 @@ function App() {
           <div className="App">
             <Route exact path="/home" component={Landing}></Route>
             <Route
-              path="/"
+              exact path="/"
               component={() => (
                 <Navbar theme={theme} toggleTheme={toggleTheme} />
               )}

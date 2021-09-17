@@ -30,14 +30,14 @@ function Navbar({ theme, toggleTheme }) {
         <div onClick={openModal} className="create">
           Create
         </div>
-      </div>
-      <div
-        className="navbar-mobile-btn"
-        onClick={() => setActive((prev) => !prev)}
-      >
-        <i className={`navbar-mobile-icon`}>
-          {!active ? <HiMenuAlt3 /> : <IoCloseSharp />}
-        </i>
+        <div
+          className="navbar-mobile-btn"
+          onClick={() => setActive((prev) => !prev)}
+        >
+          <i className={`navbar-mobile-icon`}>
+            {!active ? <HiMenuAlt3 /> : <IoCloseSharp />}
+          </i>
+        </div>
       </div>
       <MobileMenu setActive={setActive} active={active} />
       <Modal showModal={showModal} setShowModal={setShowModal} />
