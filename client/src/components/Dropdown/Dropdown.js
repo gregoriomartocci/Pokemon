@@ -23,7 +23,14 @@ const useOutsideAlerter = (ref, header, header_title, setOpen) => {
   });
 };
 
-function Dropdown({ title, items, multiselect, selection, setSelection }) {
+function Dropdown({
+  title,
+  items,
+  multiselect,
+  selection,
+  setSelection,
+  type,
+}) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const header = useRef(null);
@@ -38,11 +45,21 @@ function Dropdown({ title, items, multiselect, selection, setSelection }) {
         setSelection([...selection, item]);
       }
     } else {
-      let selectionAfterRemoval = selection;
-      selectionAfterRemoval = selectionAfterRemoval.filter(
-        (current) => current.id !== item.id
-      );
-      setSelection([...selectionAfterRemoval]);
+      if (type === "generation") {
+        if (selection.length > 1) {
+          let selectionAfterRemoval = selection;
+          selectionAfterRemoval = selectionAfterRemoval.filter(
+            (current) => current.id !== item.id
+          );
+          setSelection([...selectionAfterRemoval]);
+        }
+      } else {
+        let selectionAfterRemoval = selection;
+        selectionAfterRemoval = selectionAfterRemoval.filter(
+          (current) => current.id !== item.id
+        );
+        setSelection([...selectionAfterRemoval]);
+      }
     }
   };
 

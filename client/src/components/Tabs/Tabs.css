@@ -4,6 +4,7 @@
   position: relative;
   margin: 0.5rem 0;
   word-break: break-all;
+  height: 100%;
 }
 
 .bloc-tabs {
@@ -69,4 +70,5 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }

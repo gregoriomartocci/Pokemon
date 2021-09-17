@@ -12,6 +12,8 @@ import {
   sortBy,
 } from "../../redux/actions";
 import Alert from "../Alert/Alert";
+import Toggle from "../Toggle/Toggle";
+import Modal from "../Modal/Modal";
 
 function MobileMenu({ setActive, active }) {
   // redux
@@ -21,6 +23,7 @@ function MobileMenu({ setActive, active }) {
   const loading = useSelector((state) => state.rootReducer.loading);
   const error = useSelector((state) => state.rootReducer.allPokemons.error);
   // state
+  const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
   const [lastRequest, setLastRequest] = useState([1, 151]);
@@ -69,6 +72,11 @@ function MobileMenu({ setActive, active }) {
     setFilter([]);
   };
 
+  const handleModal = () => {
+    setActive((prev) => !prev);
+    setShowModal((prev) => !prev);
+  };
+
   return (
     <>
       {error && <Alert req={lastRequest} />}
@@ -115,19 +123,22 @@ function MobileMenu({ setActive, active }) {
             />
           </li>
           <li className="mobile-menu-option">
-            <div className="mobile-menu-option-toggle">
-              <div className="mobile-menu-option-toggle-api">api</div>
-              <div className="mobile-menu-option-toggle-item">db</div>
-            </div>
+            <Toggle op1="API" op2="DB" mobile={true} />
           </li>
           <li className="mobile-menu-option" onClick={() => onClickHandler()}>
             Reset Filters
           </li>
           <li className="mobile-menu-option">
-            <div className="mobile-menu-option-create">Create</div>
+            <div
+              className="mobile-menu-option-create"
+              onClick={() => handleModal()}
+            >
+              Create
+            </div>
           </li>
         </ul>
       </div>
+      <Modal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 }

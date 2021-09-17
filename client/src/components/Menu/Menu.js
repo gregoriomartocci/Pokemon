@@ -71,7 +71,6 @@ function Menu() {
   useEffect(() => {
     if (loaded && !loading) {
       // si la app no esta cargando y ya se cargo todo
-
       generation.map((g) =>
         g.loaded === false
           ? pokemons &&
@@ -114,6 +113,7 @@ function Menu() {
               multiselect
               selection={generation}
               setSelection={setGeneration}
+              type="generation"
             ></Dropdown>
           </div>
           <div className="sort-container">
@@ -130,7 +130,7 @@ function Menu() {
             </p>
           </div>
           <div className="toggle">
-            <Toggle op1="API" op2="DB" />
+            <Toggle op1="API" op2="DB" mobile={false} />
           </div>
         </div>
       </div>

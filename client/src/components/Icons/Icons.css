@@ -15,6 +15,7 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  width: 360px;
 }
 
 .types-icons {
@@ -48,6 +49,16 @@
   margin-left: 13px;
   font-size: 14px;
   pointer-events: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .types-icons-table {
+    width: auto;
+  }
+
+  .types-icons {
+    padding: 15px 0;
+  }
 }
 
 .type-icon-bug {

@@ -8,7 +8,6 @@ import { setUp } from "../../redux/actions/index.js";
 import Loading from "../Loading/Loading";
 // import Icons from "../Icons/Icons.js";
 
-
 function Section() {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -34,8 +33,7 @@ function Section() {
   }, [data]);
 
   return (
-    <div>
-      {/* <Icons></Icons> */}
+    <>
       {loading ? (
         <Loading></Loading>
       ) : (
@@ -48,7 +46,7 @@ function Section() {
           />
         </div>
       )}
-    </div>
+    </>
   );
 }
 

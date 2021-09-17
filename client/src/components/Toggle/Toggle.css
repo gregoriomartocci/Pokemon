@@ -10,6 +10,12 @@
   font-weight: 500;
 }
 
+.toggle-span-mobile {
+  font-size: 11px;
+  color: #fff;
+  font-weight: 500;
+}
+
 .switch {
   position: relative;
   display: inline-block;

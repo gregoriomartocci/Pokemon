@@ -17,11 +17,12 @@
   position: relative;
   background-color: #fffffe;
   width: 900px;
+  max-width: 90%;
   min-height: 500px;
-  height: 550px;
+  height: 600px;
   color: black;
   border-radius: 1rem;
-  transition: all 1s;
+  transition: all 2s;
 }
 
 .pokemon-info {
@@ -63,7 +64,6 @@
 
 .top-info {
   display: flex;
-  padding: 0 0.5rem;
   width: 100%;
   justify-content: space-between;
 }

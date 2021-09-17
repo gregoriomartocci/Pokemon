@@ -5,7 +5,7 @@
   flex-direction: column;
   color: #bdbdbd;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   font-size: 15px;
   padding: 20px 0;
 }

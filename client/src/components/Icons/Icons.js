@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Icons.css";
 
-function Icons() {
+function Icons({ input, setInput, types }) {
   const [icons, setIcons] = useState([
     { id: 0, name: "bug", img: "/icons/bug.svg", active: false },
     { id: 1, name: "dark", img: "/icons/dark.svg", active: false },
@@ -17,18 +17,17 @@ function Icons() {
     { id: 11, name: "ice", img: "/icons/ice.svg", active: false },
     { id: 12, name: "normal", img: "/icons/normal.svg", active: false },
     { id: 13, name: "poison", img: "/icons/poison.svg", active: false },
-    { id: 14, name: "rock", img: "/icons/rock.svg", active: false },
-    { id: 15, name: "steel", img: "/icons/steel.svg", active: false },
-    { id: 16, name: "water", img: "/icons/water.svg", active: false },
+    { id: 14, name: "psychic", img: "/icons/psychic.svg", active: false },
+    { id: 15, name: "rock", img: "/icons/rock.svg", active: false },
+    { id: 16, name: "steel", img: "/icons/steel.svg", active: false },
+    { id: 17, name: "water", img: "/icons/water.svg", active: false },
   ]);
 
   const hoverIn = (e, color) => {
-    console.log("hola");
     e.target.firstChild.className = `icon-img type-icon-${color}`;
   };
 
   const hoverOut = (e, active) => {
-    console.log(e.target);
     if (!active) e.target.firstChild.className = "icon-img";
   };
 
@@ -36,7 +35,19 @@ function Icons() {
     let update = [...icons];
     update[id].active = !update[id].active;
     setIcons(update);
-    console.log(icons[id]);
+    let selectedTypes = icons.filter((t) => t.active === true);
+    let dispatchTypes = [];
+    (async () => {
+      await selectedTypes.map((st) =>
+        types.filter((t) => {
+          if (t.name === st.name) {
+            dispatchTypes = [...dispatchTypes, t];
+          }
+        })
+      );
+    })();
+    
+    setInput({ ...input, types: dispatchTypes });
   };
 
   return (

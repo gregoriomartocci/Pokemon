@@ -12,9 +12,8 @@ import Icons from "../Icons/Icons";
 
 function Modal({ showModal, setShowModal }) {
   const modalRef = useRef();
-  const [typesSelected, setTypesSelected] = useState([]);
   const [formValidation, setFormValidation] = useState(null);
-  const [step, setStep] = useState("types");
+  const [step, setStep] = useState("info");
   const dispatch = useDispatch();
   const types = useSelector((state) => state.rootReducer.types.data);
 
@@ -60,17 +59,6 @@ function Modal({ showModal, setShowModal }) {
   );
 
   useEffect(() => {
-    var array = [];
-
-    array = typesSelected.map((g) => g);
-
-    setInput({
-      ...input,
-      types: array,
-    });
-  }, [typesSelected]);
-
-  useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
@@ -111,18 +99,21 @@ function Modal({ showModal, setShowModal }) {
       ) {
         setStep("types");
         setFormValidation(null);
-        // dispatch(createPokemon(input));
       } else {
         setFormValidation(false);
       }
+    } else if (step === "types") {
+      // porque cada types selected voy a recorrer todo el types buscando que cada types.name coincide con typesSelected.name
+
+      dispatch(createPokemon(input));
     }
   };
 
   return (
     <>
       {showModal ? (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-wrapper" ref={modalRef}>
+        <div className="modal-wrapper" onClick={closeModal}>
+          <div className="modal" ref={modalRef}>
             <div className="modal-content">
               <div className="top-row">
                 <div className="title">
@@ -261,7 +252,7 @@ function Modal({ showModal, setShowModal }) {
                   )}
                 </form>
               ) : (
-                <Icons />
+                <Icons input={input} setInput={setInput} types={types} />
               )}
 
               <div className="bottom-row">

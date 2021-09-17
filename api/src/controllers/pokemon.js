@@ -25,7 +25,7 @@ function getAllPokemons(req, res, next) {
       .then((response) => {
         res.send(response.data);
       })
-      .catch((error) => res.send(error));
+      .catch((err) => res.status(500).send(err));
   }
 
   const db = Pokemon.findAll({
@@ -68,6 +68,7 @@ function getAllPokemons(req, res, next) {
           return pokemon;
         } catch (err) {
           console.log(err);
+          return res.status(500).send(err);
         }
       };
 
@@ -84,16 +85,16 @@ function getAllPokemons(req, res, next) {
         return await getPokemonData(e);
       });
 
-      apiWithTimeout(Promise.all(promises), 25000)
+      apiWithTimeout(Promise.all(promises), 10000)
         .then((api) => {
           if (api_only) {
             return res.send([...api]);
           }
           db.then((result) => {
             return res.send([...result, ...api]);
-          }).catch((err) => res.status(500).send(err));
+          }).catch((err) => res.send(err));
         })
-        .catch(() => res.status(500).send("Data fetch failed in 10 seconds"));
+        .catch((err) => res.send(err));
     })
     .catch((err) => res.status(500).send(err));
 }
