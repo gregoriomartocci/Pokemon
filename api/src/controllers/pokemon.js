@@ -43,7 +43,7 @@ function getAllPokemons(req, res, next) {
     offset = 1;
   }
   if (!limit) {
-    limit = 2;
+    limit = 151;
   }
 
   axios

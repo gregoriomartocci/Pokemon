@@ -204,7 +204,7 @@
 
   .content-tabs {
     height: 100%;
-    max-height: 150px;
+    max-height: 185px;
     overflow-y: auto;
     overflow-x: hidden;
   }

@@ -5,7 +5,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 5%;
-  height: 80px;
+  height: 100px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-mobile-btn {

@@ -1,7 +1,7 @@
 .cards {
   display: flex;
   width: 100%;
-  min-height: 650px;
+  min-height: 630px;
   flex-direction: column;
   border: none !important;
   padding: 0 5%;

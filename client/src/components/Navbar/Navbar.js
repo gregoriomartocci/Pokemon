@@ -1,29 +1,22 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import dotenv from "dotenv";
-// import { useDispatch } from "react-redux";
-// import { clearFilters } from "../../redux/actions";
 import Modal from "../Modal/Modal";
 import { Link } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoCloseSharp } from "react-icons/io5";
 import MobileMenu from "../MobileMenu/MobileMenu";
-import Icons from "../Icons/Icons";
+import Toggle from "../ToggleTheme/Toggle";
 
 dotenv.config();
 
-function Navbar() {
-  // const dispatch = useDispatch();
+function Navbar({ theme, toggleTheme }) {
   const [showModal, setShowModal] = useState(false);
   const [active, setActive] = useState(false);
 
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
-
-  // const onClickHandler = () => {
-  //   dispatch(clearFilters());
-  // };
 
   return (
     <div className="navbar">
@@ -32,8 +25,11 @@ function Navbar() {
           <img style={{ width: "100px" }} src="/img/logo.svg" alt="" />
         </div>
       </Link>
-      <div onClick={openModal} className="create">
-        Create
+      <div className="navbar-right">
+        <Toggle theme={theme} toggleTheme={toggleTheme} />
+        <div onClick={openModal} className="create">
+          Create
+        </div>
       </div>
       <div
         className="navbar-mobile-btn"
