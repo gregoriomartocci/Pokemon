@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./MobileMenu.css";
 import { IoCloseSharp } from "react-icons/io5";
