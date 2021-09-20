@@ -5,7 +5,7 @@ const ALL_POKEMONS = "?offset=1&limit=5/";
 const POKEMON_TOTAL = "1118";
 const SPECIES = "pokemon-species/";
 const CHARACTERISTIC = "characteristic/";
-const EVOLUTION_CHAIN = "evolution-chain/"
+const EVOLUTION_CHAIN = "evolution-chain/";
 
 module.exports = {
   BASE_URL,
@@ -15,8 +15,10 @@ module.exports = {
   POKEMON_TOTAL,
   SPECIES,
   CHARACTERISTIC,
-  EVOLUTION_CHAIN
+  EVOLUTION_CHAIN,
 };
+
+
 
 const config = {
   HOST: process.env.HOST || "localhost",
