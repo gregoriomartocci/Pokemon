@@ -10,15 +10,14 @@ console.log("puerto de la DB", NODE_ENV);
 const devConfig = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 const prodConfig = process.env.DATABASE_URL;
 
-const sequelize = new Sequelize(
-  NODE_ENV === "dev" ? devConfig : prodConfig,
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-    listen_addresses = '*',
-    rejectUnauthorized: false
-  }
-);
+const sequelize = new Sequelize(NODE_ENV === "dev" ? devConfig : prodConfig, {
+  logging: false, // set to console.log to see the raw SQL queries
+  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  dialect: "postgres",
+  dialectOptions: {
+    ssl: true,
+  },
+});
 
 const basename = path.basename(__filename);
 
