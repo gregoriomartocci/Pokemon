@@ -15,8 +15,10 @@ const sequelize = new Sequelize(NODE_ENV === "dev" ? devConfig : prodConfig, {
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   dialect: "postgres",
   dialectOptions: {
-    ssl: true,
-    rejectUnauthorized: false,
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
   },
 });
 
