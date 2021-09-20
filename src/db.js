@@ -16,6 +16,7 @@ const sequelize = new Sequelize(NODE_ENV === "dev" ? devConfig : prodConfig, {
   dialect: "postgres",
   dialectOptions: {
     ssl: true,
+    rejectUnauthorized: false,
   },
 });
 
